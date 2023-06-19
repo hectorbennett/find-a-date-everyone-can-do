@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { createContainer } from "unstated-next";
-import DUMMY_EVENT from "./dummy_event";
-import chroma from "chroma-js";
 import dayjs from "dayjs";
+import chroma from "chroma-js";
+import DUMMY_EVENT from "./dummy_event";
 
 export interface EventInterface {
   name: string;
