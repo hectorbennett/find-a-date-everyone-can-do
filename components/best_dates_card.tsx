@@ -14,7 +14,7 @@ function Demo() {
 
 export default function BestDatesCard() {
   const event = EventContext.useContainer();
-  const user_count = event.attendees.length;
+  const user_count = Object.keys(event.attendees).length;
 
   const dates = Object.entries(event.date_counts)
     .filter((entry) => entry[1] === user_count)
@@ -36,7 +36,11 @@ export default function BestDatesCard() {
     </tr>
   ));
 
-  const note = !dates.length
+  const note = !user_count
+    ? "No one has marked their availability yet."
+    : user_count < 2
+    ? "This will populate once 2 people have marked their availability."
+    : !dates.length
     ? "There are no dates everyone can make."
     : dates.length === 1
     ? "There is only 1 date that everyone who has so far selected their dates can make."
@@ -44,9 +48,11 @@ export default function BestDatesCard() {
 
   return (
     <Card title="Best dates" note={note}>
-      <Table>
-        <tbody>{rows}</tbody>
-      </Table>
+      {dates.length ? (
+        <Table>
+          <tbody>{rows}</tbody>
+        </Table>
+      ) : null}
     </Card>
   );
 }

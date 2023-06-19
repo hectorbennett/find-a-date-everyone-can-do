@@ -16,7 +16,7 @@ export default function OtherOkDatesCard() {
 
 function OtherOkDates() {
   const event = EventContext.useContainer();
-  const user_count = event.attendees.length;
+  const user_count = Object.keys(event.attendees).length;
 
   const dates = Object.entries(event.date_counts)
     .filter((entry) => entry[1] !== user_count)
@@ -30,7 +30,7 @@ function OtherOkDates() {
 
   return (
     <Spoiler maxHeight={180} showLabel="Show more" hideLabel="Hide">
-      <DateTable data={dates} />
+      {dates.length ? <DateTable data={dates} /> : null}
     </Spoiler>
   );
 }

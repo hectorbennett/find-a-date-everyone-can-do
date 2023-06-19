@@ -18,9 +18,11 @@ export default function Card({ title, note, children }: CardProps) {
           </Text>
         </Stack>
       </MantineCard.Section>
-      <MantineCard.Section inheritPadding py="xs">
-        {children}
-      </MantineCard.Section>
+      {children ? (
+        <MantineCard.Section inheritPadding py="xs">
+          {children}
+        </MantineCard.Section>
+      ) : null}
     </MantineCard>
   );
 }

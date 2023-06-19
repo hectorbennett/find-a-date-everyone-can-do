@@ -5,31 +5,36 @@ import { Avatar, Group, Table, Text } from "@mantine/core";
 export default function AttendeesListCard() {
   const event = EventContext.useContainer();
 
-  if (!event.attendees.length) {
-    return <Text>No one has marked their availability yet.</Text>;
-  }
+  const rows = Object.values(event.attendees)
+    .sort((a, b) => {
+      if (a.name > b.name) {
+        return 1;
+      }
+      return -1;
+    })
+    .map((user) => (
+      <tr key={user.uid}>
+        <td>
+          <Group>
+            <Avatar radius="xl" size="sm" /> {user.name}
+          </Group>
+        </td>
+      </tr>
+    ));
 
-  const rows = event.attendees.map((name) => (
-    <tr key={name}>
-      <td>
-        <Group>
-          <Avatar radius="xl" size="sm" /> {name}
-        </Group>
-      </td>
-    </tr>
-  ));
-
-  const note = !event.attendees.length
+  const note = !rows.length
     ? "No one has marked their availability yet."
-    : event.attendees.length === 1
+    : rows.length === 1
     ? "One person has so far marked their availability"
-    : `${event.attendees.length} people have so far marked their availability.`;
+    : `${rows.length} people have so far marked their availability.`;
 
   return (
     <Card title="Going" note={note}>
-      <Table>
-        <tbody>{rows}</tbody>
-      </Table>
+      {rows.length ? (
+        <Table>
+          <tbody>{rows}</tbody>
+        </Table>
+      ) : null}
     </Card>
   );
 }
