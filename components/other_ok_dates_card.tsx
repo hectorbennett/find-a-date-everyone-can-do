@@ -5,7 +5,10 @@ import EventContext from "@/app/event";
 
 export default function OtherOkDatesCard() {
   return (
-    <Card title="Other ok dates" note="The following dates">
+    <Card
+      title="Other ok dates"
+      note="The following dates could work too, though not everyone can make them."
+    >
       <OtherOkDates />
     </Card>
   );
@@ -44,7 +47,7 @@ function DateTable({ data }: { data: Array<{ date: string; count: number }> }) {
       <thead>
         <tr>
           <th>Date</th>
-          <th>Count</th>
+          <th>Who can't attend</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>

@@ -1,20 +1,18 @@
+import { Group, Table, Text, ThemeIcon } from "@mantine/core";
+import { IconPhoto, IconStarFilled } from "@tabler/icons-react";
+import dayjs from "dayjs";
 import EventContext from "@/app/event";
 import Card from "./card";
-import dayjs from "dayjs";
-import { Table, Text } from "@mantine/core";
 
-export default function BestDatesCard() {
+function Demo() {
   return (
-    <Card
-      title="Best dates"
-      note="Everyone who has marked their availability can make these dates"
-    >
-      <DatesEveryoneCanDo />
-    </Card>
+    <ThemeIcon variant="default">
+      <IconPhoto />
+    </ThemeIcon>
   );
 }
 
-function DatesEveryoneCanDo() {
+export default function BestDatesCard() {
   const event = EventContext.useContainer();
   const user_count = event.attendees.length;
 
@@ -25,18 +23,30 @@ function DatesEveryoneCanDo() {
     })
     .map((entry) => ({ date: entry[0], count: entry[1] }));
 
-  if (!dates.length) {
-    return <Text>There are no dates everyone can do :(</Text>;
-  }
-
   const rows = dates.map(({ date }) => (
     <tr key={date}>
-      <td>{dayjs(date).format("LL")}</td>
+      <td>
+        <Group>
+          <ThemeIcon variant="light" radius="xl" color="yellow" size="xs">
+            <IconStarFilled />
+          </ThemeIcon>{" "}
+          {dayjs(date).format("LL")}
+        </Group>
+      </td>
     </tr>
   ));
+
+  const note = !dates.length
+    ? "There are no dates everyone can do."
+    : dates.length === 1
+    ? "There is only 1 date that everyone who has so far selected their dates can make."
+    : `There are ${dates.length} dates that everyone who has so far selected their dates can do.`;
+
   return (
-    <Table>
-      <tbody>{rows}</tbody>
-    </Table>
+    <Card title="Best dates" note={note}>
+      <Table>
+        <tbody>{rows}</tbody>
+      </Table>
+    </Card>
   );
 }
