@@ -37,10 +37,10 @@ export default function BestDatesCard() {
   ));
 
   const note = !dates.length
-    ? "There are no dates everyone can do."
+    ? "There are no dates everyone can make."
     : dates.length === 1
     ? "There is only 1 date that everyone who has so far selected their dates can make."
-    : `There are ${dates.length} dates that everyone who has so far selected their dates can do.`;
+    : `There are ${dates.length} dates that everyone who has so far selected their dates can make.`;
 
   return (
     <Card title="Best dates" note={note}>
