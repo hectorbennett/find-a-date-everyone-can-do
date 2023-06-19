@@ -11,13 +11,12 @@ import {
   rem,
   Grid,
 } from "@mantine/core";
-import { Calendar as MantineCalendar } from "@mantine/dates";
 import { useRouter } from "next/router";
 import EventContext from "@/app/event";
-import styles from "./calendar.module.scss";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import Card from "@/components/card";
+import SelectionCalendar from "@/components/selection_calendar";
 dayjs.extend(localizedFormat);
 
 export default function Event() {
@@ -41,7 +40,9 @@ export default function Event() {
         >
           <Header />
           <Card title="Calendar" note="Select the dates you are available">
-            <Calendar />
+            <Group position="center">
+              <SelectionCalendar />
+            </Group>
           </Card>
 
           <Title order={2}>Results</Title>
@@ -99,64 +100,6 @@ function Name() {
       variant="filled"
       value={event.currentUser}
     />
-  );
-}
-
-function Calendar() {
-  const event = EventContext.useContainer();
-
-  const handleSelect = (date: Date) => {
-    const isSelected = event.dateIsSelected(date);
-    if (isSelected) {
-      event.deselectDate(date);
-    } else {
-      event.selectDate(date);
-    }
-  };
-
-  return (
-    <Group position="center">
-      <MantineCalendar
-        weekendDays={[]}
-        size="xs"
-        getDayProps={(date) => ({
-          selected: event.dateIsSelected(date),
-          onClick: () => handleSelect(date),
-        })}
-        renderDay={(date) => <CalendarDay date={date} />}
-        styles={(theme) => ({
-          day: {
-            overflow: "hidden",
-            display: "block",
-            "&:hover": {
-              background: "none",
-            },
-            "&[data-selected]": {
-              background: "none",
-              color: "black",
-              border: "none",
-              "&:hover": {
-                background: "none",
-              },
-            },
-          },
-        })}
-      />
-    </Group>
-  );
-}
-
-function CalendarDay({ date }: { date: Date }) {
-  const event = EventContext.useContainer();
-  const day = date.getDate();
-  const selection_count = event.getDateSelectionCount(date);
-  return (
-    <div
-      className={styles.day}
-      style={{ background: event.getEventHeatColour(date) }}
-    >
-      <div>{day}</div>
-    </div>
   );
 }
 
