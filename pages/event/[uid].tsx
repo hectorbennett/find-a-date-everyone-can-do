@@ -4,16 +4,12 @@ import {
   TextInput,
   Title,
   Text,
-  Center,
-  Box,
   Container,
   SimpleGrid,
   Skeleton,
   useMantineTheme,
   rem,
   Grid,
-  Card,
-  Stack,
 } from "@mantine/core";
 import { Calendar as MantineCalendar } from "@mantine/dates";
 import { useRouter } from "next/router";
@@ -21,6 +17,7 @@ import EventContext from "@/app/event";
 import styles from "./calendar.module.scss";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import Card from "@/components/card";
 dayjs.extend(localizedFormat);
 
 export default function Event() {
@@ -43,58 +40,27 @@ export default function Event() {
           breakpoints={[{ maxWidth: "sm", cols: 1 }]}
         >
           <Header />
-          <Card withBorder shadow="sm" radius="md">
-            <Card.Section inheritPadding withBorder py="sm">
-              <Stack spacing="xs">
-                <Text weight={500}>Calendar</Text>
-                <Text c="dimmed" fz="sm">
-                  Select the dates you are available
-                </Text>
-              </Stack>
-            </Card.Section>
-            <Card.Section inheritPadding pt="xs" pb="xl">
-              <Calendar />
-            </Card.Section>
+          <Card title="Calendar" note="Select the dates you are available">
+            <Calendar />
           </Card>
 
           <Title order={2}>Results</Title>
 
           <Grid gutter="md">
             <Grid.Col>
-              <Card withBorder shadow="sm" radius="md">
-                <Card.Section inheritPadding py="xs">
-                  <Stack>
-                    <Text weight={500}>Going</Text>
-                    <Text c="dimmed" fz="sm">
-                      The following people have marked their availability
-                    </Text>
-                  </Stack>
-                </Card.Section>
-
-                <Card.Section inheritPadding py="xs">
-                  <Group position="apart">
-                    <ListOfPeopleGoing />
-                  </Group>
-                </Card.Section>
+              <Card
+                title="Going"
+                note="The following people have marked their availability"
+              >
+                <ListOfPeopleGoing />
               </Card>
             </Grid.Col>
             <Grid.Col>
-              <Card withBorder shadow="sm" radius="md">
-                <Card.Section inheritPadding py="xs">
-                  <Stack>
-                    <Text weight={500}>Best dates</Text>
-                    <Text c="dimmed" fz="sm">
-                      Everyone who has marked their availability can make these
-                      dates
-                    </Text>
-                  </Stack>
-                </Card.Section>
-
-                <Card.Section inheritPadding py="xs">
-                  <Group position="apart">
-                    <DatesEveryoneCanDo />
-                  </Group>
-                </Card.Section>
+              <Card
+                title="Best dates"
+                note="Everyone who has marked their availability can make these dates"
+              >
+                <DatesEveryoneCanDo />
               </Card>
             </Grid.Col>
 
@@ -117,34 +83,11 @@ export default function Event() {
       </Container>
     </EventContext.Provider>
   );
-  return (
-    <EventContext.Provider initialState={{ uid: router.query.uid as string }}>
-      <Center>
-        <Box>
-          <Container>
-            <Header />
-          </Container>
-          <Container>
-            <Name />
-          </Container>
-          <Group position="center">
-            <Calendar />
-          </Group>
-          <BestDates />
-        </Box>
-      </Center>
-    </EventContext.Provider>
-  );
 }
 
 function Header() {
   const event = EventContext.useContainer();
-  return (
-    <div>
-      {/* <Title order={1}>Find a date everyone can do</Title> */}
-      <Title order={1}>{event.name}</Title>
-    </div>
-  );
+  return <Title order={1}>{event.name}</Title>;
 }
 
 function Name() {
@@ -213,7 +156,6 @@ function CalendarDay({ date }: { date: Date }) {
       style={{ background: event.getEventHeatColour(date) }}
     >
       <div>{day}</div>
-      {/* <div>{selection_count}</div> */}
     </div>
   );
 }
