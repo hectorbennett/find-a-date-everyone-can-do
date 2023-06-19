@@ -18,7 +18,7 @@ export default function Card({ title, note, children }: CardProps) {
           </Text>
         </Stack>
       </MantineCard.Section>
-      <MantineCard.Section inheritPadding pt="xs" pb="xl">
+      <MantineCard.Section inheritPadding py="xs">
         {children}
       </MantineCard.Section>
     </MantineCard>

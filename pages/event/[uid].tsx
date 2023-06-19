@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Title, Container, SimpleGrid, Grid } from "@mantine/core";
+import { Title, Container, SimpleGrid, Grid, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
@@ -24,8 +24,9 @@ export default function Event() {
           breakpoints={[{ maxWidth: "sm", cols: 1 }]}
         >
           <EventTitle />
+          <Greeting />
           <SelectionCalendarCard />
-          <ResultsTitle />
+          {/* <ResultsTitle /> */}
           <Grid gutter="md">
             <Grid.Col>
               <AttendeesListCard />
@@ -48,6 +49,12 @@ function EventTitle() {
   return <Title order={1}>{event.name}</Title>;
 }
 
-function ResultsTitle() {
-  return <Title order={2}>Results</Title>;
+function Greeting() {
+  const event = EventContext.useContainer();
+  return (
+    <Text>
+      Hi {event.currentUser}, this page is for planning the event, and was
+      created by `name here`.
+    </Text>
+  );
 }
