@@ -22,8 +22,8 @@ function CreateEventForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const openEvent = (uid: string) => {
-    router.push(`/event/${uid}`);
+  const openEvent = (id: string) => {
+    router.push(`/event/${id}`);
   };
 
   const form = useForm<FormValues>({
@@ -43,14 +43,19 @@ function CreateEventForm() {
 
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
-    const uid = await event.createEvent(values.eventName);
-    openEvent(uid);
+    try {
+      const e = await event.createEvent(values.eventName);
+      openEvent(e.id);
+    } catch {
+      console.log("Something went wrong");
+    }
   };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack spacing="sm">
         <TextInput
+          autoFocus
           placeholder="E.g. Camping Trip 2023"
           {...form.getInputProps("eventName")}
         />

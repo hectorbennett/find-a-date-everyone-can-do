@@ -1,11 +1,11 @@
 import EventContext from "@/app/event";
 import Card from "./card";
-import { Avatar, Group, Table, Text } from "@mantine/core";
+import { Avatar, Group, Table } from "@mantine/core";
 
-export default function AttendeesListCard() {
+export default function UserListCard() {
   const event = EventContext.useContainer();
 
-  const rows = Object.values(event.attendees)
+  const rows = Object.values(event.users)
     .sort((a, b) => {
       if (a.name > b.name) {
         return 1;
@@ -13,7 +13,7 @@ export default function AttendeesListCard() {
       return -1;
     })
     .map((user) => (
-      <tr key={user.uid}>
+      <tr key={user.id}>
         <td>
           <Group>
             <Avatar radius="xl" size="sm" /> {user.name}

@@ -8,7 +8,7 @@ export default function CreateNewUser() {
 
   // const handleLogin = () => {
   //   if (existingUser) {
-  //     event.login(existingUser.uid);
+  //     event.login(existingUser.id);
   //   } else {
   //     event.createNewUser(name);
   //   }
@@ -52,6 +52,7 @@ function CreateNewUserForm() {
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack spacing="sm">
         <TextInput
+          autoFocus
           placeholder="E.g. Bob Smith"
           {...form.getInputProps("userName")}
         />

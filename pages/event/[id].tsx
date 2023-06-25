@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
 import SelectionCalendarCard from "@/components/selection_calendar_card";
-import AttendeesListCard from "@/components/attendees_list_card";
+import UserListCard from "@/components/user_list_card";
 import BestDatesCard from "@/components/best_dates_card";
 import OtherOkDatesCard from "@/components/other_ok_dates_card";
 import CreateNewUser from "@/components/create_new_user";
@@ -21,8 +21,17 @@ dayjs.extend(localizedFormat);
 export default function Event() {
   const router = useRouter();
 
+  const id = router.query.id;
+
+  console.log(router);
+
+  console.log("id", id);
+  if (!id) {
+    return "Loading...";
+  }
+
   return (
-    <EventContext.Provider initialState={{ uid: router.query.uid as string }}>
+    <EventContext.Provider initialState={{ id: router.query.id as string }}>
       <EditEvent />
     </EventContext.Provider>
   );
@@ -45,10 +54,9 @@ function EditEvent() {
         <EventTitle />
         <Greeting />
         <SelectionCalendarCard />
-        {/* <ResultsTitle /> */}
         <Grid gutter="md">
           <Grid.Col>
-            <AttendeesListCard />
+            <UserListCard />
           </Grid.Col>
           <Grid.Col>
             <BestDatesCard />

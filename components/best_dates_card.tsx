@@ -14,7 +14,7 @@ function Demo() {
 
 export default function BestDatesCard() {
   const event = EventContext.useContainer();
-  const user_count = Object.keys(event.attendees).length;
+  const user_count = Object.keys(event.users).length;
 
   const dates = Object.entries(event.date_counts)
     .filter((entry) => entry[1] === user_count)
