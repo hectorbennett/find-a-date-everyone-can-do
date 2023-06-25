@@ -48,7 +48,7 @@ export default function BestDatesCard() {
 
   return (
     <Card title="Best dates" note={note}>
-      {dates.length ? (
+      {dates.length && user_count >= 2 ? (
         <Table>
           <tbody>{rows}</tbody>
         </Table>
