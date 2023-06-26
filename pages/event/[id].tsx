@@ -58,7 +58,9 @@ function EditEvent() {
       >
         <EventTitle />
         <Greeting />
-        <SelectionCalendarCard />
+        <Container>
+          <SelectionCalendarCard />
+        </Container>
         <Grid gutter="md">
           <Grid.Col>
             <SharePage />

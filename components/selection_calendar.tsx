@@ -1,9 +1,12 @@
 import { Calendar as MantineCalendar } from "@mantine/dates";
 import EventContext from "@/app/event";
 import styles from "./selection_calendar.module.scss";
+import { useViewportSize } from "@mantine/hooks";
 
 export default function SelectionCalendar() {
   const event = EventContext.useContainer();
+
+  const { width } = useViewportSize();
 
   const handleSelect = (date: Date) => {
     const isSelected = event.dateIsSelected(date);
@@ -17,8 +20,8 @@ export default function SelectionCalendar() {
   return (
     <MantineCalendar
       weekendDays={[]}
-      size="xs"
-      pb="lg"
+      size={width < 350 ? "xs" : "sm"}
+      pb={width < 350 ? "lg" : "xl"}
       pt="sm"
       getDayProps={(date) => ({
         selected: event.dateIsSelected(date),
