@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-import { Spoiler, Table, Text } from "@mantine/core";
+import { Group, Spoiler, Table, Text } from "@mantine/core";
 import Card from "./card";
 import EventContext from "@/app/event";
+import { IconCalendar } from "@tabler/icons-react";
 
 export default function OtherOkDatesCard() {
   const event = EventContext.useContainer();
@@ -15,13 +16,22 @@ export default function OtherOkDatesCard() {
     .sort((a, b) => {
       return b[1] - a[1];
     })
-    .map((entry) => ({ date: entry[0], count: entry[1] }));
+    .map((entry) => ({
+      date: entry[0],
+      count: entry[1],
+      who_cant_go: Object.values(event.users)
+        .filter((user) => !user.dates.includes(entry[0]))
+        .map((user) => user.name),
+    }));
+
+  const note = !user_count
+    ? "No one has marked their availability yet."
+    : user_count < 2
+    ? "This will populate once 2 people have marked their availability."
+    : "The following dates could work too, though not everyone can make them.";
 
   return (
-    <Card
-      title="Other ok dates"
-      note="The following dates could work too, though not everyone can make them."
-    >
+    <Card title="Other ok dates" note={note}>
       {dates.length > 4 ? (
         <Spoiler
           maxHeight={180}
@@ -45,11 +55,19 @@ export default function OtherOkDatesCard() {
   );
 }
 
-function DateTable({ data }: { data: Array<{ date: string; count: number }> }) {
-  const rows = data.map(({ date, count }) => (
+function DateTable({
+  data,
+}: {
+  data: Array<{ date: string; count: number; who_cant_go: Array<string> }>;
+}) {
+  const rows = data.map(({ date, count, who_cant_go }) => (
     <tr key={date}>
-      <td>{dayjs(date).format("LL")}</td>
-      <td>{count}</td>
+      <td>
+        <Group noWrap>
+          <IconCalendar size={14} /> {dayjs(date).format("LL")}
+        </Group>
+      </td>
+      <td>{who_cant_go.join(", ")}</td>
     </tr>
   ));
   return (
@@ -57,7 +75,7 @@ function DateTable({ data }: { data: Array<{ date: string; count: number }> }) {
       <thead>
         <tr>
           <th>Date</th>
-          <th>Who can't attend</th>
+          <th>Who can't go</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
