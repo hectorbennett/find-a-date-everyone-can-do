@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import EventContext from "@/app/event";
 import Card from "@/components/card";
+import * as api from "@/app/api";
 
 export default function CreateEvent() {
   return (
@@ -18,7 +18,6 @@ interface FormValues {
 }
 
 function CreateEventForm() {
-  const event = EventContext.useContainer();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -43,12 +42,12 @@ function CreateEventForm() {
 
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
-    try {
-      const e = await event.createEvent(values.eventName);
-      openEvent(e.id);
-    } catch {
-      console.log("Something went wrong");
+    const { json, response } = await api.create_event(values.eventName);
+    if (!response.ok) {
+      console.log("Something went wrong!");
+      return;
     }
+    openEvent(json.id);
   };
 
   return (

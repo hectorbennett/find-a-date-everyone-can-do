@@ -5,8 +5,8 @@ import {
   SimpleGrid,
   Grid,
   Text,
-  Button,
   Group,
+  Loader,
 } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
@@ -16,18 +16,15 @@ import UserListCard from "@/components/user_list_card";
 import BestDatesCard from "@/components/best_dates_card";
 import OtherOkDatesCard from "@/components/other_ok_dates_card";
 import CreateNewUser from "@/components/create_new_user";
+import EventNotFoundCard from "@/components/event_not_found";
+import SharePage from "@/components/share_page";
 dayjs.extend(localizedFormat);
 
 export default function Event() {
   const router = useRouter();
-
   const id = router.query.id;
-
-  console.log(router);
-
-  console.log("id", id);
   if (!id) {
-    return "Loading...";
+    return <Loader />;
   }
 
   return (
@@ -39,6 +36,14 @@ export default function Event() {
 
 function EditEvent() {
   const event = EventContext.useContainer();
+
+  if (event.isLoading) {
+    return <Loader />;
+  }
+
+  if (event.eventNotFound) {
+    return <EventNotFound />;
+  }
 
   if (!event.currentUser) {
     return <EnterName />;
@@ -56,6 +61,9 @@ function EditEvent() {
         <SelectionCalendarCard />
         <Grid gutter="md">
           <Grid.Col>
+            <SharePage />
+          </Grid.Col>
+          <Grid.Col>
             <UserListCard />
           </Grid.Col>
           <Grid.Col>
@@ -64,7 +72,6 @@ function EditEvent() {
           <Grid.Col>
             <OtherOkDatesCard />
           </Grid.Col>
-          <Grid.Col></Grid.Col>
         </Grid>
       </SimpleGrid>
     </Container>
@@ -80,11 +87,7 @@ function Greeting() {
   const event = EventContext.useContainer();
   return (
     <Group>
-      <Text>
-        Hi {event.currentUser?.name}, this page is for planning the event, and
-        was created by `name here`.
-      </Text>
-      <Button onClick={() => event.logout()}>Logout</Button>
+      <Text>Hi {event.currentUser?.name}!</Text>
     </Group>
   );
 }
@@ -95,6 +98,17 @@ function EnterName() {
       <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         <EventTitle />
         <CreateNewUser />
+      </SimpleGrid>
+    </Container>
+  );
+}
+
+function EventNotFound() {
+  return (
+    <Container my="md">
+      <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+        <Title order={1}>Find a date everyone can do</Title>
+        <EventNotFoundCard />
       </SimpleGrid>
     </Container>
   );

@@ -6,12 +6,17 @@ interface RequestOptions {
 
 const URL_BASE = "http://localhost:8080";
 
+interface FetchResult {
+  response: Response;
+  json: any;
+}
+
 const _fetch = async (
   url: string,
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
   options?: RequestOptions
-) => {
-  const response = await fetch(url, {
+): Promise<FetchResult> => {
+  const response: Response = await fetch(url, {
     method: method,
     headers: {
       "Content-Type": "application/json",
@@ -19,9 +24,18 @@ const _fetch = async (
     body: options?.json ? JSON.stringify(options.json) : undefined,
   });
   if (!response.ok) {
-    throw Error("Something went wrong");
+    return {
+      response,
+      json: null,
+    };
   }
-  return await response.json();
+
+  const json = await response.json();
+
+  return {
+    response: response,
+    json: json,
+  };
 };
 
 const request = {

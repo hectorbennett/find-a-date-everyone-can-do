@@ -28,7 +28,8 @@ function useEvent(initialState: { id: string } = { id: "" }) {
     defaultValue: null,
   });
 
-  // const [noEventFound, setNoEventFound] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [eventNotFound, setEventNotFound] = useState(false);
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
@@ -38,8 +39,17 @@ function useEvent(initialState: { id: string } = { id: "" }) {
       if (!id) {
         return;
       }
-      const data = await api.get_event(id);
-      setEventData(data);
+      setIsLoading(true);
+
+      const { response, json } = await api.get_event(id);
+
+      if (!response.ok) {
+        setEventNotFound(true);
+      } else {
+        setEventData(json);
+      }
+
+      setIsLoading(false);
     })();
   }, [id]);
 
@@ -119,13 +129,13 @@ function useEvent(initialState: { id: string } = { id: "" }) {
   };
 
   const createNewUser = async (name: string) => {
-    const user = await api.create_user(id, name);
+    const { json } = await api.create_user(id, name);
 
     setEventData((e) =>
-      e ? { ...e, users: { ...e.users, [user.id]: user } } : null
+      e ? { ...e, users: { ...e.users, [json.id]: json } } : null
     );
 
-    login(user.id);
+    login(json.id);
   };
 
   const login = (id: string) => {
@@ -158,6 +168,8 @@ function useEvent(initialState: { id: string } = { id: "" }) {
     createNewUser,
     login,
     logout,
+    eventNotFound,
+    isLoading,
   };
 }
 
