@@ -58,7 +58,7 @@ function EditEvent() {
       >
         <EventTitle />
         <Greeting />
-        <Container>
+        <Container m={0} p={0}>
           <SelectionCalendarCard />
         </Container>
         <Grid gutter="md">
