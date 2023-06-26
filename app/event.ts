@@ -17,7 +17,7 @@ interface Attendee {
   dates: AttendeeDates;
 }
 
-export type AttendeeDates = { [key: string]: boolean };
+export type AttendeeDates = Array<string>;
 
 function useEvent(initialState: { id: string } = { id: "" }) {
   const id = initialState.id;
@@ -28,7 +28,7 @@ function useEvent(initialState: { id: string } = { id: "" }) {
     defaultValue: null,
   });
 
-  const [noEventFound, setNoEventFound] = useState(false);
+  // const [noEventFound, setNoEventFound] = useState(false);
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
@@ -42,8 +42,6 @@ function useEvent(initialState: { id: string } = { id: "" }) {
       setEventData(data);
     })();
   }, [id]);
-
-
 
   const createEvent = async (eventName: string) => {
     return await api.create_event(eventName);
@@ -74,10 +72,10 @@ function useEvent(initialState: { id: string } = { id: "" }) {
         return null;
       }
 
-      const newDates = {
-        ...currentUser.dates,
-        [getDateString(date)]: selected,
-      };
+      /* Add or remove from array of dates */
+      const newDates = selected
+        ? [...currentUser.dates, getDateString(date)]
+        : currentUser.dates.filter((d) => d !== getDateString(date));
 
       return {
         ...d,
@@ -97,7 +95,7 @@ function useEvent(initialState: { id: string } = { id: "" }) {
       return false;
     }
     const date_string = getDateString(date);
-    return Boolean(eventData?.users[currentUserId].dates[date_string]);
+    return eventData?.users[currentUserId].dates.includes(date_string);
   };
 
   const date_counts = eventData ? getDateCounts(eventData) : {};
@@ -141,7 +139,7 @@ function useEvent(initialState: { id: string } = { id: "" }) {
   const users =
     Object.fromEntries(
       Object.entries(eventData?.users || {}).filter(
-        ([_id, user]) => Object.keys(user.dates).length > 0
+        ([_id, user]) => user.dates.length > 0
       )
     ) || {};
 
@@ -166,8 +164,8 @@ function useEvent(initialState: { id: string } = { id: "" }) {
 const getDateCounts = (eventData: EventInterface) => {
   const date_count: { [date: string]: number } = {};
   Object.keys(eventData.users).map((person: string) => {
-    Object.keys(eventData.users[person].dates).forEach((date) => {
-      if (eventData.users[person].dates[date]) {
+    eventData.users[person].dates.forEach((date) => {
+      if (eventData.users[person].dates.includes(date)) {
         if (date in date_count) {
           date_count[date] += 1;
         } else {
