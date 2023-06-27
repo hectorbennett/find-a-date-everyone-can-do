@@ -8,16 +8,16 @@ import { getDateString } from "./utils";
 export interface EventInterface {
   name: string;
   id: string;
-  users: { [key: string]: Attendee };
+  users: { [key: string]: User };
 }
 
-interface Attendee {
+interface User {
   id: string;
   name: string;
-  dates: AttendeeDates;
+  dates: UserDates;
 }
 
-export type AttendeeDates = Array<string>;
+export type UserDates = Array<string>;
 
 function useEvent(initialState: { id: string } = { id: "" }) {
   const id = initialState.id;
@@ -41,13 +41,30 @@ function useEvent(initialState: { id: string } = { id: "" }) {
       }
       setIsLoading(true);
 
-      const { response, json } = await api.get_event(id);
+      const event = await api.get_event(id);
 
-      if (!response.ok) {
+      if (!event.response.ok) {
         setEventNotFound(true);
-      } else {
-        setEventData(json);
+        return;
       }
+
+      const users = await api.get_users(id);
+
+      if (!users.response.ok) {
+        setEventNotFound(true);
+        return;
+      }
+
+      setEventData({
+        id: event.json.id,
+        name: event.json.name,
+        users: Object.fromEntries(
+          users.json.map((user: User) => [
+            user.id,
+            { id: user.id, name: user.name, dates: [] },
+          ])
+        ),
+      });
 
       setIsLoading(false);
     })();

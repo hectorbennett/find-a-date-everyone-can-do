@@ -43,11 +43,9 @@ function CreateEventForm() {
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
     const { json, response } = await api.create_event(values.eventName);
-    if (!response.ok) {
-      console.log("Something went wrong!");
-      return;
+    if (json?.id) {
+      openEvent(json.id);
     }
-    openEvent(json.id);
   };
 
   return (
