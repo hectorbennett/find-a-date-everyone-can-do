@@ -55,16 +55,31 @@ function useEvent(initialState: { id: string } = { id: "" }) {
         return;
       }
 
-      setEventData({
+      const dates = await api.get_dates(id);
+
+      if (!users.response.ok) {
+        setEventNotFound(true);
+        return;
+      }
+
+      const e = {
         id: event.json.id,
         name: event.json.name,
         users: Object.fromEntries(
           users.json.map((user: User) => [
             user.id,
-            { id: user.id, name: user.name, dates: [] },
+            {
+              id: user.id,
+              name: user.name,
+              dates: dates.json
+                .filter((date: any) => date.user_id === user.id)
+                .map((date: any) => date.date),
+            },
           ])
         ),
-      });
+      };
+
+      setEventData(e);
 
       setIsLoading(false);
     })();

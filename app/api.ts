@@ -64,6 +64,10 @@ export const get_users = async (id: string) => {
   return request.get(`${URL_BASE}/events/${id}/users`);
 };
 
+export const get_dates = async (id: string) => {
+  return request.get(`${URL_BASE}/events/${id}/dates`);
+};
+
 export const create_user = async (event_id: string, user_name: string) => {
   return request.post(`${URL_BASE}/events/${event_id}/users`, {
     json: { name: user_name },
