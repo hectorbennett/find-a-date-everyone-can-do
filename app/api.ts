@@ -4,7 +4,7 @@ interface RequestOptions {
   json: object;
 }
 
-const URL_BASE = "http://localhost:8080";
+const URL_BASE = "https://seahorse-app-2-53yve.ondigitalocean.app";
 
 interface FetchResult {
   response: Response;
