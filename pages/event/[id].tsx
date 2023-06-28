@@ -1,13 +1,5 @@
 import { useRouter } from "next/router";
-import {
-  Title,
-  Container,
-  SimpleGrid,
-  Grid,
-  Text,
-  Group,
-  Loader,
-} from "@mantine/core";
+import { Title, Container, SimpleGrid, Grid, Text, Group } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
@@ -18,13 +10,15 @@ import OtherOkDatesCard from "@/components/other_ok_dates_card";
 import CreateNewUser from "@/components/create_new_user";
 import EventNotFoundCard from "@/components/event_not_found";
 import SharePage from "@/components/share_page";
+import LoadingPage from "@/components/loading_page";
+import Head from "next/head";
 dayjs.extend(localizedFormat);
 
 export default function Event() {
   const router = useRouter();
   const id = router.query.id;
   if (!id) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (
@@ -38,7 +32,7 @@ function EditEvent() {
   const event = EventContext.useContainer();
 
   if (event.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   if (event.eventNotFound) {
@@ -50,33 +44,42 @@ function EditEvent() {
   }
 
   return (
-    <Container my="md">
-      <SimpleGrid
-        cols={2}
-        spacing="md"
-        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-      >
-        <EventTitle />
-        <Greeting />
-        <Container m={0} p={0}>
-          <SelectionCalendarCard />
-        </Container>
-        <Grid gutter="md">
-          <Grid.Col>
-            <SharePage />
-          </Grid.Col>
-          <Grid.Col>
-            <UserListCard />
-          </Grid.Col>
-          <Grid.Col>
-            <BestDatesCard />
-          </Grid.Col>
-          <Grid.Col>
-            <OtherOkDatesCard />
-          </Grid.Col>
-        </Grid>
-      </SimpleGrid>
-    </Container>
+    <>
+      <Head>
+        <title>{event.name} | Find a date everyone can do</title>
+        <meta
+          name="description"
+          content="Meta description for the About page"
+        />
+      </Head>
+      <Container my="md">
+        <SimpleGrid
+          cols={2}
+          spacing="md"
+          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        >
+          <EventTitle />
+          <Greeting />
+          <Container m={0} p={0}>
+            <SelectionCalendarCard />
+          </Container>
+          <Grid gutter="md">
+            <Grid.Col>
+              <SharePage />
+            </Grid.Col>
+            <Grid.Col>
+              <UserListCard />
+            </Grid.Col>
+            <Grid.Col>
+              <BestDatesCard />
+            </Grid.Col>
+            <Grid.Col>
+              <OtherOkDatesCard />
+            </Grid.Col>
+          </Grid>
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }
 
