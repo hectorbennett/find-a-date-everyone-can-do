@@ -15,6 +15,13 @@ function CopyButton() {
         <Input
           component="div"
           onClick={copy}
+          styles={{
+            input: {
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            },
+          }}
           rightSection={
             <Tooltip
               label={copied ? "Copied" : "Copy"}
