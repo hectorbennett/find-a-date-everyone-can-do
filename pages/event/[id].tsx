@@ -1,13 +1,5 @@
 import { useRouter } from "next/router";
-import {
-  Title,
-  Container,
-  SimpleGrid,
-  Grid,
-  Text,
-  Group,
-  Loader,
-} from "@mantine/core";
+import { Title, Container, SimpleGrid, Grid, Text, Group } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
@@ -18,13 +10,14 @@ import OtherOkDatesCard from "@/components/other_ok_dates_card";
 import CreateNewUser from "@/components/create_new_user";
 import EventNotFoundCard from "@/components/event_not_found";
 import SharePage from "@/components/share_page";
+import LoadingPage from "@/components/loading_page";
 dayjs.extend(localizedFormat);
 
 export default function Event() {
   const router = useRouter();
   const id = router.query.id;
   if (!id) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   return (
@@ -38,7 +31,7 @@ function EditEvent() {
   const event = EventContext.useContainer();
 
   if (event.isLoading) {
-    return <Loader />;
+    return <LoadingPage />;
   }
 
   if (event.eventNotFound) {
