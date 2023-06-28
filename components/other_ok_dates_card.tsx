@@ -75,7 +75,7 @@ function DateTable({
       <thead>
         <tr>
           <th>Date</th>
-          <th>Who can't go</th>
+          <th>Who can&apos;t go</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
