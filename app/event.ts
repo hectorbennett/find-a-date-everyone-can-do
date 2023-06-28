@@ -149,7 +149,9 @@ function useEvent(initialState: { id: string } = { id: "" }) {
 
   const getEventHeatColour = (date: Date) => {
     const date_string = getDateString(date);
-    const max = Object.keys(eventData?.users || {}).length;
+    const max = Object.values(eventData?.users || {}).filter(
+      (user) => user.dates.length
+    ).length;
     const count = date_counts[date_string] || 0;
     return getHeatMapColour(count / max);
   };
@@ -161,13 +163,24 @@ function useEvent(initialState: { id: string } = { id: "" }) {
   };
 
   const createNewUser = async (name: string) => {
-    const { json } = await api.create_user(id, name);
+    const user = await api.create_user(id, name);
 
     setEventData((e) =>
-      e ? { ...e, users: { ...e.users, [json.id]: json } } : null
+      e
+        ? {
+            ...e,
+            users: {
+              ...e.users,
+              [user.json.id]: {
+                ...user.json,
+                dates: [],
+              },
+            },
+          }
+        : null
     );
 
-    login(json.id);
+    login(user.json.id);
   };
 
   const login = (id: string) => {
@@ -207,9 +220,9 @@ function useEvent(initialState: { id: string } = { id: "" }) {
 
 const getDateCounts = (eventData: EventInterface) => {
   const date_count: { [date: string]: number } = {};
-  Object.keys(eventData.users).map((person: string) => {
-    eventData.users[person].dates.forEach((date) => {
-      if (eventData.users[person].dates.includes(date)) {
+  Object.values(eventData.users).map((user: User) => {
+    user.dates.forEach((date) => {
+      if (user.dates.includes(date)) {
         if (date in date_count) {
           date_count[date] += 1;
         } else {
