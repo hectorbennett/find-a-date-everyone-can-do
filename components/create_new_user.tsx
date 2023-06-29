@@ -34,9 +34,6 @@ function CreateNewUserForm() {
 
     validate: {
       userName: (value) => {
-        if (event.getUserByName(value)) {
-          return `${value} is already taken as a username`;
-        }
         if (!value.length) {
           return "Please enter a name";
         }
@@ -51,20 +48,33 @@ function CreateNewUserForm() {
     },
   });
 
+  const existingUser = event.getUserByName(form.values.userName);
+
   const handleSubmit = async (values: FormValues) => {
-    event.createNewUser(values.userName);
+    if (existingUser) {
+      event.login(existingUser.id);
+    } else {
+      event.createNewUser(values.userName);
+    }
   };
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack spacing="sm">
         <TextInput
+          list="users"
           autoFocus
           placeholder="E.g. Bob Smith"
           {...form.getInputProps("userName")}
         />
-
-        <Button type="submit">Continue</Button>
+        <datalist id="users">
+          {Object.values(event.users).map((user) => (
+            <option key={user.id}>{user.name}</option>
+          ))}
+        </datalist>
+        <Button type="submit">
+          {existingUser ? `Log back in as ${form.values.userName}` : "Continue"}
+        </Button>
       </Stack>
     </form>
   );
