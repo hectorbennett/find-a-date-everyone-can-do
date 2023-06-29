@@ -1,6 +1,7 @@
 import EventContext from "@/app/event";
 import Card from "./card";
-import { Avatar, Box, Group, Table, createStyles } from "@mantine/core";
+import { Table, createStyles } from "@mantine/core";
+import UserItem from "./user_item";
 
 const useStyles = createStyles((_theme) => ({
   td: {
@@ -22,18 +23,7 @@ export default function UserListCard() {
     .map((user) => (
       <tr key={user.id}>
         <td className={classes.td}>
-          <Group noWrap title={user.name}>
-            <Avatar radius="xl" size="sm" />{" "}
-            <Box
-              sx={{
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {user.name}
-            </Box>
-          </Group>
+          <UserItem name={user.name} />
         </td>
       </tr>
     ));
