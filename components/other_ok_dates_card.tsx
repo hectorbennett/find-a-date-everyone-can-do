@@ -1,8 +1,28 @@
 import dayjs from "dayjs";
-import { Group, Spoiler, Table, Text } from "@mantine/core";
-import Card from "./card";
-import EventContext from "@/app/event";
+import { Box, Group, Spoiler, Table, Text, createStyles } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
+import EventContext from "@/app/event";
+import Card from "./card";
+
+const useStyles = createStyles((_theme) => ({
+  dates_td: {
+    verticalAlign: "top",
+  },
+  names_td: {
+    maxWidth: 0,
+    width: "100%",
+  },
+  ul: {
+    margin: 0,
+    padding: 0,
+    paddingLeft: "1rem",
+  },
+  item: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+}));
 
 export default function OtherOkDatesCard() {
   const event = EventContext.useContainer();
@@ -55,23 +75,48 @@ export default function OtherOkDatesCard() {
   );
 }
 
+function NameList({ names }: { names: Array<string> }) {
+  const { classes } = useStyles();
+  return (
+    <ul className={classes.ul}>
+      {names.map((name) => (
+        <li className={classes.li} title={name}>
+          <div className={classes.item}>{name}</div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function DateTable({
   data,
 }: {
   data: Array<{ date: string; count: number; who_cant_go: Array<string> }>;
 }) {
+  const { classes } = useStyles();
   const rows = data.map(({ date, count, who_cant_go }) => (
     <tr key={date}>
-      <td>
-        <Group noWrap>
-          <IconCalendar size={14} /> {dayjs(date).format("LL")}
+      <td className={classes.dates_td}>
+        <Group noWrap py="0.2rem">
+          <IconCalendar size={14} />{" "}
+          <Box
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {dayjs(date).format("LL")}
+          </Box>
         </Group>
       </td>
-      <td>{who_cant_go.join(", ")}</td>
+      <td className={classes.names_td}>
+        <NameList names={who_cant_go} />
+      </td>
     </tr>
   ));
   return (
-    <Table>
+    <Table verticalSpacing="md">
       <thead>
         <tr>
           <th>Date</th>

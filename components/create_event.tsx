@@ -31,12 +31,18 @@ function CreateEventForm() {
     },
 
     validate: {
-      eventName: (value) =>
-        !value.length
-          ? "Please enter an event name"
-          : value.length > 2
-          ? null
-          : "Please enter a longer event name",
+      eventName: (value) => {
+        if (!value.length) {
+          return "Please enter an event name";
+        }
+        if (value.length <= 2) {
+          return "Please enter a longer event name";
+        }
+        if (value.length > 100) {
+          return "Please enter a shorter event name";
+        }
+        return null;
+      },
     },
   });
 
