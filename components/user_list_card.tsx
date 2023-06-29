@@ -1,9 +1,16 @@
 import EventContext from "@/app/event";
 import Card from "./card";
-import { Avatar, Group, Table } from "@mantine/core";
+import { Avatar, Box, Group, Table, createStyles } from "@mantine/core";
+
+const useStyles = createStyles((_theme) => ({
+  td: {
+    maxWidth: 0,
+  },
+}));
 
 export default function UserListCard() {
   const event = EventContext.useContainer();
+  const { classes } = useStyles();
 
   const rows = Object.values(event.users)
     .sort((a, b) => {
@@ -14,9 +21,18 @@ export default function UserListCard() {
     })
     .map((user) => (
       <tr key={user.id}>
-        <td>
-          <Group>
-            <Avatar radius="xl" size="sm" /> {user.name}
+        <td className={classes.td}>
+          <Group noWrap title={user.name}>
+            <Avatar radius="xl" size="sm" />{" "}
+            <Box
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {user.name}
+            </Box>
           </Group>
         </td>
       </tr>
