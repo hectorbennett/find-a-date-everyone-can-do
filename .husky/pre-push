@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# check typescript errors
+yarn run type:check
+
+# check js linting errors
+yarn run lint:check || (echo "run 'yarn run lint' to fix any auto-fixable linting errors"; false);
