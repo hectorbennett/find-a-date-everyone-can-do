@@ -80,7 +80,7 @@ function NameList({ names }: { names: Array<string> }) {
   return (
     <ul className={classes.ul}>
       {names.map((name) => (
-        <li className={classes.li} title={name}>
+        <li title={name}>
           <div className={classes.item}>{name}</div>
         </li>
       ))}
