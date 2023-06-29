@@ -63,6 +63,7 @@ function CreateNewUserForm() {
       <Stack spacing="sm">
         <TextInput
           list="users"
+          size="md"
           autoFocus
           placeholder="E.g. Bob Smith"
           {...form.getInputProps("userName")}

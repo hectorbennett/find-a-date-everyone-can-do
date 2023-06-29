@@ -59,6 +59,7 @@ function CreateEventForm() {
       <Stack spacing="sm">
         <TextInput
           autoFocus
+          size="md"
           placeholder="E.g. Camping Trip 2023"
           {...form.getInputProps("eventName")}
         />
