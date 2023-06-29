@@ -1,13 +1,5 @@
 import { useRouter } from "next/router";
-import {
-  Title,
-  Container,
-  SimpleGrid,
-  Grid,
-  Text,
-  Stack,
-  Box,
-} from "@mantine/core";
+import { Title, SimpleGrid, Grid, Text, Stack, Box } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
@@ -21,6 +13,7 @@ import SharePage from "@/components/share_page";
 import LoadingPage from "@/components/loading_page";
 import Head from "next/head";
 import LogoutButton from "@/components/logout_button";
+import Container from "@/components/container";
 
 dayjs.extend(localizedFormat);
 
@@ -62,8 +55,8 @@ function EditEvent() {
           content="Meta description for the About page"
         />
       </Head>
-      <Container my="md">
-        <Stack spacing="lg" my="xl">
+      <Container>
+        <Stack spacing="lg" mb="xl">
           <EventTitle />
           <Greeting />
         </Stack>
@@ -135,7 +128,7 @@ function Greeting() {
 
 function EnterName() {
   return (
-    <Container my="md">
+    <Container>
       <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         <EventTitle />
         <CreateNewUser />
@@ -146,7 +139,7 @@ function EnterName() {
 
 function EventNotFound() {
   return (
-    <Container my="md">
+    <Container>
       <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         <Title order={1}>Find a date everyone can do</Title>
         <EventNotFoundCard />
