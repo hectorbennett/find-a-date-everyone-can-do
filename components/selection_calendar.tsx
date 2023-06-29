@@ -20,8 +20,9 @@ export default function SelectionCalendar() {
   return (
     <MantineCalendar
       weekendDays={[]}
-      size={width < 350 ? "xs" : "sm"}
-      pb={width < 350 ? "lg" : "xl"}
+      size={width < 370 ? "sm" : "lg"}
+      // size=
+      pb={width < 380 ? "lg" : "xl"}
       pt="sm"
       getDayProps={(date) => ({
         selected: event.dateIsSelected(date),
