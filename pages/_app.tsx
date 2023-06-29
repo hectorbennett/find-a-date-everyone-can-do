@@ -21,6 +21,14 @@ export default function App(props: AppProps) {
         theme={{
           /** Put your mantine theme override here */
           colorScheme: "light",
+          headings: {
+            fontWeight: 400,
+            sizes: {
+              h4: {
+                fontWeight: 300,
+              },
+            },
+          },
         }}
       >
         <Component {...pageProps} />
