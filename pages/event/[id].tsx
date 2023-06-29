@@ -14,6 +14,7 @@ import LoadingPage from "@/components/loading_page";
 import Head from "next/head";
 import LogoutButton from "@/components/logout_button";
 import Container from "@/components/container";
+import { PageHeader } from "@/components/page_header";
 
 dayjs.extend(localizedFormat);
 
@@ -55,11 +56,9 @@ function EditEvent() {
           content="Meta description for the About page"
         />
       </Head>
+      <PageHeader />
       <Container>
-        <Stack spacing="lg" mb="xl">
-          <EventTitle />
-          <Greeting />
-        </Stack>
+        <EventTitle />
 
         <SimpleGrid
           cols={2}
@@ -69,7 +68,12 @@ function EditEvent() {
           <Container m={0} p={0}>
             <SelectionCalendarCard />
           </Container>
-          <Grid gutter="md">
+          <Grid
+            gutter="md"
+            sx={{
+              maxWidth: "100vw",
+            }}
+          >
             <Grid.Col>
               <SharePage />
             </Grid.Col>
@@ -98,9 +102,11 @@ function EventTitle() {
     return null;
   }
   return (
-    <Title order={1} lineClamp={2} title={event.name}>
-      {event.name}
-    </Title>
+    <Stack spacing="lg" m="sm" mb="lg">
+      <Title order={1} lineClamp={2} title={event.name}>
+        {event.name}
+      </Title>
+    </Stack>
   );
 }
 
@@ -128,22 +134,28 @@ function Greeting() {
 
 function EnterName() {
   return (
-    <Container>
-      <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        <EventTitle />
-        <CreateNewUser />
-      </SimpleGrid>
-    </Container>
+    <>
+      <PageHeader />
+      <Container>
+        <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+          <EventTitle />
+          <CreateNewUser />
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }
 
 function EventNotFound() {
   return (
-    <Container>
-      <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        <Title order={1}>Find a date everyone can do</Title>
-        <EventNotFoundCard />
-      </SimpleGrid>
-    </Container>
+    <>
+      <PageHeader />
+      <Container>
+        <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
+          <Title order={1}>Find a date everyone can do</Title>
+          <EventNotFoundCard />
+        </SimpleGrid>
+      </Container>
+    </>
   );
 }
