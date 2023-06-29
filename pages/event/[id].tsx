@@ -20,6 +20,7 @@ import EventNotFoundCard from "@/components/event_not_found";
 import SharePage from "@/components/share_page";
 import LoadingPage from "@/components/loading_page";
 import Head from "next/head";
+import LogoutButton from "@/components/logout_button";
 
 dayjs.extend(localizedFormat);
 
@@ -90,6 +91,9 @@ function EditEvent() {
             </Grid.Col>
           </Grid>
         </SimpleGrid>
+        <Stack spacing="lg" my="xl">
+          <LogoutButton />
+        </Stack>
       </Container>
     </>
   );
@@ -113,7 +117,13 @@ function Greeting() {
     return null;
   }
   return (
-    <Box>
+    <Box
+      sx={{
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+      }}
+    >
       <Text span>Hi</Text>{" "}
       <Text span fw="bold">
         {event.currentUser.name}
