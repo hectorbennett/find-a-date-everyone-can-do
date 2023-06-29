@@ -1,5 +1,13 @@
 import { useRouter } from "next/router";
-import { Title, Container, SimpleGrid, Grid, Text, Group } from "@mantine/core";
+import {
+  Title,
+  Container,
+  SimpleGrid,
+  Grid,
+  Text,
+  Stack,
+  Box,
+} from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import EventContext from "@/app/event";
@@ -12,6 +20,7 @@ import EventNotFoundCard from "@/components/event_not_found";
 import SharePage from "@/components/share_page";
 import LoadingPage from "@/components/loading_page";
 import Head from "next/head";
+
 dayjs.extend(localizedFormat);
 
 export default function Event() {
@@ -53,13 +62,16 @@ function EditEvent() {
         />
       </Head>
       <Container my="md">
+        <Stack spacing="lg" my="xl">
+          <EventTitle />
+          <Greeting />
+        </Stack>
+
         <SimpleGrid
           cols={2}
           spacing="md"
           breakpoints={[{ maxWidth: "sm", cols: 1 }]}
         >
-          <EventTitle />
-          <Greeting />
           <Container m={0} p={0}>
             <SelectionCalendarCard />
           </Container>
@@ -85,15 +97,29 @@ function EditEvent() {
 
 function EventTitle() {
   const event = EventContext.useContainer();
-  return <Title order={1}>{event.name}</Title>;
+  if (!event.name) {
+    return null;
+  }
+  return (
+    <Title order={1} lineClamp={2} title={event.name}>
+      {event.name}
+    </Title>
+  );
 }
 
 function Greeting() {
   const event = EventContext.useContainer();
+  if (!event.currentUser?.name) {
+    return null;
+  }
   return (
-    <Group>
-      <Text>Hi {event.currentUser?.name}!</Text>
-    </Group>
+    <Box>
+      <Text span>Hi</Text>{" "}
+      <Text span fw="bold">
+        {event.currentUser.name}
+      </Text>
+      <Text span>!</Text>
+    </Box>
   );
 }
 

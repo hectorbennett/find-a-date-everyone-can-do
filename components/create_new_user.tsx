@@ -33,14 +33,21 @@ function CreateNewUserForm() {
     },
 
     validate: {
-      userName: (value) =>
-        event.getUserByName(value)
-          ? `${value} is already taken as a username`
-          : !value.length
-          ? "Please enter a name"
-          : value.length > 2
-          ? null
-          : "Please enter a longer name",
+      userName: (value) => {
+        if (event.getUserByName(value)) {
+          return `${value} is already taken as a username`;
+        }
+        if (!value.length) {
+          return "Please enter a name";
+        }
+        if (value.length <= 2) {
+          return "Please enter a longer name";
+        }
+        if (value.length > 100) {
+          return "Please enter a shorter name";
+        }
+        return null;
+      },
     },
   });
 
