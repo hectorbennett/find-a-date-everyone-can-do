@@ -69,7 +69,7 @@ function CreateNewUserForm() {
         />
         <datalist id="users">
           {Object.values(event.users).map((user) => (
-            <option>{user.name}</option>
+            <option key={user.id}>{user.name}</option>
           ))}
         </datalist>
         <Button type="submit">
