@@ -10,7 +10,7 @@ interface CardProps {
 export default function Card({ title, note, children }: CardProps) {
   return (
     <MantineCard withBorder shadow="sm" radius="md">
-      <MantineCard.Section inheritPadding withBorder py="sm">
+      <MantineCard.Section inheritPadding withBorder p="md">
         <Stack spacing="xs">
           <Text weight={500}>{title}</Text>
           <Text c="dimmed" fz="sm">
@@ -19,7 +19,7 @@ export default function Card({ title, note, children }: CardProps) {
         </Stack>
       </MantineCard.Section>
       {children ? (
-        <MantineCard.Section inheritPadding py="xs">
+        <MantineCard.Section inheritPadding p="sm">
           {children}
         </MantineCard.Section>
       ) : null}
