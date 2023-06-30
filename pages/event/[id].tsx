@@ -34,7 +34,7 @@ function EditEvent() {
   return (
     <>
       <Head>
-        <title>{event.name} | Find a date everyone can do</title>
+        <title>{event.name} | Find a Date Everyone Can Do</title>
         <meta
           name="description"
           content="Meta description for the About page"
@@ -136,7 +136,7 @@ function EventNotFound() {
       <PageHeader />
       <Container>
         <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-          <Title order={1}>Find a date everyone can do</Title>
+          <Title order={1}>Find a Date Everyone Can Do</Title>
           <EventNotFoundCard />
         </SimpleGrid>
       </Container>
