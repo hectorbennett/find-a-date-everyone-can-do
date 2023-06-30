@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createContainer } from "unstated-next";
 import { useLocalStorage } from "@mantine/hooks";
 import chroma from "chroma-js";
@@ -11,7 +11,7 @@ export interface EventInterface {
   users: { [key: string]: User };
 }
 
-interface User {
+export interface User {
   id: string;
   name: string;
   dates: UserDates;
@@ -19,71 +19,25 @@ interface User {
 
 export type UserDates = Array<string>;
 
-function useEvent(initialState: { id: string } = { id: "" }) {
-  const id = initialState.id;
+const DEFAULT_EVENT: EventInterface = {
+  name: "",
+  id: "",
+  users: {},
+};
 
-  const [eventData, setEventData] = useState<null | EventInterface>(null);
+function useEvent(
+  initialState: { event: EventInterface } = { event: DEFAULT_EVENT }
+) {
+  const [eventData, setEventData] = useState<EventInterface>(
+    initialState.event
+  );
   const [currentUserId, setCurrentUserId] = useLocalStorage<string | null>({
     key: "id",
     defaultValue: null,
   });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [eventNotFound, setEventNotFound] = useState(false);
-
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
-
-  useEffect(() => {
-    (async () => {
-      if (!id) {
-        return;
-      }
-      setIsLoading(true);
-
-      const event = await api.get_event(id);
-
-      if (!event.response.ok) {
-        setEventNotFound(true);
-        return;
-      }
-
-      const users = await api.get_users(id);
-
-      if (!users.response.ok) {
-        setEventNotFound(true);
-        return;
-      }
-
-      const dates = await api.get_dates(id);
-
-      if (!users.response.ok) {
-        setEventNotFound(true);
-        return;
-      }
-
-      const e = {
-        id: event.json.id,
-        name: event.json.name,
-        users: Object.fromEntries(
-          users.json.map((user: User) => [
-            user.id,
-            {
-              id: user.id,
-              name: user.name,
-              dates: dates.json
-                .filter((date: any) => date.user_id === user.id)
-                .map((date: any) => date.date),
-            },
-          ])
-        ),
-      };
-
-      setEventData(e);
-
-      setIsLoading(false);
-    })();
-  }, [id]);
 
   const createEvent = async (eventName: string) => {
     return await api.create_event(eventName);
@@ -95,23 +49,19 @@ function useEvent(initialState: { id: string } = { id: "" }) {
     }
 
     if (selected) {
-      api.add_date(id, currentUserId, date);
+      api.add_date(eventData.id, currentUserId, date);
     } else {
-      api.remove_date(id, currentUserId, date);
+      api.remove_date(eventData.id, currentUserId, date);
     }
 
     setEventData((d) => {
-      if (d === null) {
-        return null;
-      }
-
       const currentUser =
         currentUserId && currentUserId in d.users
           ? d.users[currentUserId]
           : null;
 
       if (!currentUser) {
-        return null;
+        return d;
       }
 
       /* Add or remove from array of dates */
@@ -163,22 +113,18 @@ function useEvent(initialState: { id: string } = { id: "" }) {
   };
 
   const createNewUser = async (name: string) => {
-    const user = await api.create_user(id, name);
+    const user = await api.create_user(eventData.id, name);
 
-    setEventData((e) =>
-      e
-        ? {
-            ...e,
-            users: {
-              ...e.users,
-              [user.json.id]: {
-                ...user.json,
-                dates: [],
-              },
-            },
-          }
-        : null
-    );
+    setEventData((e) => ({
+      ...e,
+      users: {
+        ...e.users,
+        [user.json.id]: {
+          ...user.json,
+          dates: [],
+        },
+      },
+    }));
 
     login(user.json.id);
   };
@@ -213,8 +159,6 @@ function useEvent(initialState: { id: string } = { id: "" }) {
     createNewUser,
     login,
     logout,
-    eventNotFound,
-    isLoading,
   };
 }
 

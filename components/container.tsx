@@ -1,20 +1,27 @@
 import {
   ContainerProps,
   Container as MantineContainer,
-  em,
-  getBreakpointValue,
-  useMantineTheme,
+  createStyles,
 } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+
+const useStyles = createStyles((theme) => ({
+  container: {
+    padding: 5,
+    margin: 0,
+
+    // Simplify media query writing with theme functions
+    [theme.fn.largerThan("xs")]: {
+      padding: theme.spacing.xl,
+      margin: "auto",
+    },
+  },
+}));
 
 export default function Container(props: ContainerProps) {
-  const theme = useMantineTheme();
-  const breakpoint = em(getBreakpointValue(theme.breakpoints.xs));
-  const largeScreen = useMediaQuery(`(min-width: ${breakpoint})`);
+  const { classes } = useStyles();
   return (
     <MantineContainer
-      p={largeScreen ? "xl" : 5}
-      m={largeScreen ? undefined : 0}
+      className={"p" in props || "m" in props ? undefined : classes.container}
       {...props}
     />
   );

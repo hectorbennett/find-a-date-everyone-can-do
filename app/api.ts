@@ -1,3 +1,4 @@
+import { EventInterface, User } from "./event";
 import { getDateString } from "./utils";
 
 interface RequestOptions {
@@ -99,4 +100,26 @@ export const remove_date = async (
       },
     }
   );
+};
+
+export const fetchEvent = async (id: string): Promise<EventInterface> => {
+  const event = await get_event(id);
+  const users = await get_users(id);
+  const dates = await get_dates(id);
+  return {
+    id: event.json.id,
+    name: event.json.name,
+    users: Object.fromEntries(
+      users.json.map((user: User) => [
+        user.id,
+        {
+          id: user.id,
+          name: user.name,
+          dates: dates.json
+            .filter((date: any) => date.user_id === user.id)
+            .map((date: any) => date.date),
+        },
+      ])
+    ),
+  };
 };
