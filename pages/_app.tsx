@@ -35,7 +35,7 @@ export default function App(props: AppProps) {
         <Component {...pageProps} />
         <Script
           defer
-          data-domain="lobster-app-lveox.ondigitalocean.app"
+          data-domain="findadateeveryonecando.com"
           src="https://plausible.io/js/script.js"
         />
       </MantineProvider>
