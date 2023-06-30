@@ -103,9 +103,12 @@ export const remove_date = async (
 };
 
 export const fetchEvent = async (id: string): Promise<EventInterface> => {
-  const event = await get_event(id);
-  const users = await get_users(id);
-  const dates = await get_dates(id);
+  const [event, users, dates] = await Promise.all([
+    get_event(id),
+    get_users(id),
+    get_dates(id),
+  ]);
+
   return {
     id: event.json.id,
     name: event.json.name,
