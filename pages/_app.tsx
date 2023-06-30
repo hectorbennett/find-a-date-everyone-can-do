@@ -9,7 +9,18 @@ export default function App(props: AppProps) {
   return (
     <>
       <Head>
-        <title>Find a date everyone can do</title>
+        <title>
+          Find a Date Everyone Can Do | Schedule Coordination for group
+          Holidays, Events and Parties
+        </title>
+        <meta
+          name="description"
+          content="Plan group holidays, events and parties effortlessly! Discover common free days for everyone, say goodbye to scheduling conflicts and hello to seamless event planning. No sign-up required!"
+        />
+        <meta
+          name="keywords"
+          content="Find a Date,Everyone Can Do,Schedule Coordination,Event Planning,Holidays,Parties,Scheduling Conflicts,Common Free Days,Calendar Availability,Group Event Organizer,Group Date Finder,Group Calendar Planner"
+        />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
