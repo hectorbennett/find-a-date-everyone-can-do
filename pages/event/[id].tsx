@@ -1,8 +1,7 @@
-import { useRouter } from "next/router";
 import { Title, SimpleGrid, Grid, Text, Stack, Box } from "@mantine/core";
 import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import EventContext from "@/app/event";
+import EventContext, { EventInterface } from "@/app/event";
 import SelectionCalendarCard from "@/components/selection_calendar_card";
 import UserListCard from "@/components/user_list_card";
 import BestDatesCard from "@/components/best_dates_card";
@@ -10,23 +9,17 @@ import OtherOkDatesCard from "@/components/other_ok_dates_card";
 import CreateNewUser from "@/components/create_new_user";
 import EventNotFoundCard from "@/components/event_not_found";
 import SharePage from "@/components/share_page";
-import LoadingPage from "@/components/loading_page";
 import Head from "next/head";
 import LogoutButton from "@/components/logout_button";
 import Container from "@/components/container";
 import { PageHeader } from "@/components/page_header";
+import { fetchEvent } from "@/app/api";
 
 dayjs.extend(localizedFormat);
 
-export default function Event() {
-  const router = useRouter();
-  const id = router.query.id;
-  if (!id) {
-    return <LoadingPage />;
-  }
-
+export default function Event({ event }: { event: EventInterface }) {
   return (
-    <EventContext.Provider initialState={{ id: router.query.id as string }}>
+    <EventContext.Provider initialState={{ event: event }}>
       <EditEvent />
     </EventContext.Provider>
   );
@@ -34,15 +27,6 @@ export default function Event() {
 
 function EditEvent() {
   const event = EventContext.useContainer();
-
-  if (event.isLoading) {
-    return <LoadingPage />;
-  }
-
-  if (event.eventNotFound) {
-    return <EventNotFound />;
-  }
-
   if (!event.currentUser) {
     return <EnterName />;
   }
@@ -158,4 +142,19 @@ function EventNotFound() {
       </Container>
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  try {
+    const event = await fetchEvent(context.query.id);
+    return {
+      props: {
+        event: event,
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 }
