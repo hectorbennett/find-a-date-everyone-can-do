@@ -1,6 +1,7 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
+import Script from "next/script";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -32,6 +33,11 @@ export default function App(props: AppProps) {
         }}
       >
         <Component {...pageProps} />
+        <Script
+          defer
+          data-domain="findadateeveryonecando.com"
+          src="https://plausible.io/js/script.js"
+        />
       </MantineProvider>
     </>
   );
