@@ -1,12 +1,8 @@
-import { Calendar as MantineCalendar } from "@mantine/dates";
 import EventContext from "@/app/event";
-import styles from "./selection_calendar.module.scss";
-import { useViewportSize } from "@mantine/hooks";
+import StyledCalendar from "./styled_calendar";
 
 export default function SelectionCalendar() {
   const event = EventContext.useContainer();
-
-  const { width } = useViewportSize();
 
   const handleSelect = (date: Date) => {
     const isSelected = event.dateIsSelected(date);
@@ -18,47 +14,13 @@ export default function SelectionCalendar() {
   };
 
   return (
-    <MantineCalendar
-      weekendDays={[]}
-      size={width < 370 ? "sm" : "lg"}
-      // size=
-      pb={width < 380 ? "lg" : "xl"}
-      pt="sm"
+    <StyledCalendar
       getDayProps={(date) => ({
         selected: event.dateIsSelected(date),
         onClick: () => handleSelect(date),
-      })}
-      renderDay={(date) => <CalendarDay date={date} />}
-      styles={(theme) => ({
-        day: {
-          overflow: "hidden",
-          display: "block",
-          "&:hover": {
-            background: "none",
-          },
-          "&[data-selected]": {
-            background: "none",
-            color: "black",
-            border: "none",
-            "&:hover": {
-              background: "none",
-            },
-          },
-        },
+        selectionCount: event.getDateSelectionCount(date),
+        heat: event.getDateHeat(date),
       })}
     />
-  );
-}
-
-function CalendarDay({ date }: { date: Date }) {
-  const event = EventContext.useContainer();
-  const day = date.getDate();
-  return (
-    <div
-      className={styles.day}
-      style={{ background: event.getEventHeatColour(date) }}
-    >
-      <div>{day}</div>
-    </div>
   );
 }

@@ -41,14 +41,10 @@ function EditEvent() {
         />
       </Head>
       <PageHeader />
-      <Container>
+      <Container fluid>
         <EventTitle />
 
-        <SimpleGrid
-          cols={2}
-          spacing="md"
-          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-        >
+        <SimpleGrid cols={2} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
           <Container m={0} p={0}>
             <SelectionCalendarCard />
           </Container>
