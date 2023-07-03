@@ -60,14 +60,14 @@ export default function Calendar2(props: CalendarProps) {
             color: "unset",
           },
           "&[data-selected]": {
-            backgroundColor: CALENDAR_DAY_UNSELECTED_HOVER,
+            backgroundColor: "#7376ca",
             color: "white",
           },
           "&:hover": {
             backgroundColor: "#c2c2ea",
           },
           "&[data-selected]:hover": {
-            backgroundColor: "#7376ca",
+            backgroundColor: CALENDAR_DAY_UNSELECTED_HOVER,
             color: "white",
           },
         },
