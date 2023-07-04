@@ -92,6 +92,9 @@ function useEvent(
   const date_counts = eventData ? getDateCounts(eventData) : {};
 
   const getDateSelectionCount = (date: Date) => {
+    console.log("getDateSelectionCount", date);
+    console.log(date_counts);
+
     const date_string = getDateString(date);
     return date_counts[date_string] || 0;
   };

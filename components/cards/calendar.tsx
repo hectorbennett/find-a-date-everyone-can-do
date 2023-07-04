@@ -1,7 +1,8 @@
 import EventContext from "@/app/event";
-import StyledCalendar from "./styled_calendar";
+import StyledCalendar from "../styled_calendar";
+import Card from "../card";
 
-export default function SelectionCalendar() {
+function SelectionCalendar() {
   const event = EventContext.useContainer();
 
   const handleSelect = (date: Date) => {
@@ -22,5 +23,16 @@ export default function SelectionCalendar() {
         heat: event.getDateHeat(date),
       })}
     />
+  );
+}
+
+export default function SelectionCalendarCard() {
+  return (
+    <Card
+      title="Calendar"
+      note="Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better."
+    >
+      <SelectionCalendar />
+    </Card>
   );
 }
