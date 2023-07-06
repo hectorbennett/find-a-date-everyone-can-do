@@ -6,7 +6,7 @@ import {
 
 const useStyles = createStyles((theme) => ({
   container: {
-    padding: 5,
+    padding: 0,
     margin: 0,
 
     // Simplify media query writing with theme functions

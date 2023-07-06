@@ -1,7 +1,7 @@
 import EventContext from "@/app/event";
-import Card from "./card";
+import Card from "../card";
 import { Table, createStyles } from "@mantine/core";
-import UserItem from "./user_item";
+import UserItem from "../user_item";
 
 const useStyles = createStyles((_theme) => ({
   td: {
@@ -9,7 +9,7 @@ const useStyles = createStyles((_theme) => ({
   },
 }));
 
-export default function UserListCard() {
+export default function EventUsers() {
   const event = EventContext.useContainer();
   const { classes } = useStyles();
 

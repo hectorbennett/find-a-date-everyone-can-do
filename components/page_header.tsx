@@ -4,7 +4,14 @@ import Container from "./container";
 
 export function PageHeader() {
   return (
-    <Container>
+    <Container
+      fluid
+      p="xs"
+      sx={(theme) => ({
+        background: theme.colors.dark,
+        color: theme.colors.gray[0],
+      })}
+    >
       <Title order={4} m={0}>
         Find a Date Everyone Can Do
       </Title>

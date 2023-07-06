@@ -11,7 +11,9 @@
     "lint": "next lint --fix",
     "type:check": "tsc",
     "format:check": "prettier --check .",
-    "format": "prettier --write"
+    "format": "prettier --write",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -21,7 +23,7 @@
     "@mantine/form": "^6.0.14",
     "@mantine/hooks": "^6.0.15",
     "@mantine/next": "^6.0.15",
-    "@tabler/icons-react": "^2.22.0",
+    "@tabler/icons-react": "^2.23.0",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
@@ -38,9 +40,19 @@
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
+    "@storybook/addon-essentials": "^7.0.24",
+    "@storybook/addon-interactions": "^7.0.24",
+    "@storybook/addon-links": "^7.0.24",
+    "@storybook/blocks": "^7.0.24",
+    "@storybook/cli": "^7.0.24",
+    "@storybook/nextjs": "^7.0.24",
+    "@storybook/react": "^7.0.24",
+    "@storybook/testing-library": "^0.0.14-next.2",
     "@types/chroma-js": "^2.4.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.3",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "storybook": "^7.0.24"
   }
 }

@@ -1,18 +1,10 @@
-import { Group, Table, Text, ThemeIcon } from "@mantine/core";
-import { IconPhoto, IconStarFilled } from "@tabler/icons-react";
+import { Group, Table, ThemeIcon } from "@mantine/core";
+import { IconStarFilled } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import EventContext from "@/app/event";
-import Card from "./card";
+import Card from "../card";
 
-function Demo() {
-  return (
-    <ThemeIcon variant="default">
-      <IconPhoto />
-    </ThemeIcon>
-  );
-}
-
-export default function BestDatesCard() {
+export default function BestDates() {
   const event = EventContext.useContainer();
   const user_count = Object.keys(event.users).length;
 

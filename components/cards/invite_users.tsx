@@ -3,10 +3,11 @@ import {
   ActionIcon,
   Tooltip,
   Input,
+  Box,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 
-import Card from "./card";
+import Card from "../card";
 
 function CopyButton() {
   return (
@@ -42,13 +43,15 @@ function CopyButton() {
   );
 }
 
-export default function SharePage() {
+export default function InviteUsers() {
   return (
     <Card
       title="Invite others"
       note="Invite other guests to select their dates by sharing the current url."
     >
-      <CopyButton />
+      <Box p="xs">
+        <CopyButton />
+      </Box>
     </Card>
   );
 }
