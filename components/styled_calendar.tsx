@@ -183,7 +183,7 @@ function Day({
         background: heat > 0 ? getHeatColour(heat) : "none",
         display: "flex",
         flexDirection: "column",
-        border: selected ? "1px solid black" : undefined,
+        border: selected ? "1px solid black" : "1px solid transparent",
         [theme.fn.largerThan("xs")]: {
           borderWidth: "2px",
         },
