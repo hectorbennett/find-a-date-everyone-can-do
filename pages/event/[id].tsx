@@ -29,28 +29,29 @@ export default function Event({ event }: { event: EventInterface }) {
 
 function EditEvent() {
   const event = EventContext.useContainer();
-  if (!event.currentUser) {
-    return <CreateNewUser />;
-  }
 
   return (
     <>
       <Head>
         <title>{event.name} | Find a Date Everyone Can Do</title>
-        <meta
-          name="description"
-          content="Meta description for the About page"
-        />
       </Head>
       <Stack spacing={5}>
         <EventTitle />
-        <Calendar />
-        <InviteUsers />
-        <EventUsers />
-        <BestDates />
-        <OtherOkDates />
-        <Logout />
+        {!event.currentUser ? <CreateNewUser /> : <Thing />}
       </Stack>
+    </>
+  );
+}
+
+function Thing() {
+  return (
+    <>
+      <Calendar />
+      <InviteUsers />
+      <EventUsers />
+      <BestDates />
+      <OtherOkDates />
+      <Logout />
     </>
   );
 }

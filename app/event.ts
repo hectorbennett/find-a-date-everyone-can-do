@@ -8,6 +8,8 @@ export interface EventInterface {
   name: string;
   id: string;
   users: { [key: string]: User };
+  creationDate: Date;
+  modificationDate: Date;
 }
 
 export interface User {
@@ -22,6 +24,8 @@ const DEFAULT_EVENT: EventInterface = {
   name: "",
   id: "",
   users: {},
+  creationDate: new Date(),
+  modificationDate: new Date(),
 };
 
 function useEvent(
@@ -92,9 +96,6 @@ function useEvent(
   const date_counts = eventData ? getDateCounts(eventData) : {};
 
   const getDateSelectionCount = (date: Date) => {
-    console.log("getDateSelectionCount", date);
-    console.log(date_counts);
-
     const date_string = getDateString(date);
     return date_counts[date_string] || 0;
   };
@@ -155,6 +156,8 @@ function useEvent(
     date_counts: date_counts,
     currentUser: currentUser,
     users: users,
+    creationDate: eventData.creationDate,
+    modificationDate: eventData.modificationDate,
     selectDate,
     deselectDate,
     dateIsSelected,

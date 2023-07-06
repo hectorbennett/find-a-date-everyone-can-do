@@ -32,7 +32,11 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
+          globalStyles: (theme) => ({
+            "input::-webkit-calendar-picker-indicator": {
+              display: "none !important",
+            },
+          }),
           colorScheme: "light",
           headings: {
             fontWeight: 400,

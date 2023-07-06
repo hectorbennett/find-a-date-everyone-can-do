@@ -8,6 +8,7 @@ export const getHeatColour = (n: number) => {
     return "#fab005";
   }
   const f = chroma.scale([
+    "#EBECFD",
     "#dbdbff",
     "#DCF5BC",
     "#CAE9A3",

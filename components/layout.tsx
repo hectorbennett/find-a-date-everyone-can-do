@@ -1,43 +1,87 @@
-import { AppShell, Container, Header, Title } from "@mantine/core";
+import {
+  Anchor,
+  AppShell,
+  Container,
+  Header as MantineHeader,
+  Skeleton,
+  Title,
+  UnstyledButton,
+} from "@mantine/core";
 import type { ReactNode } from "react";
+
+const HEADER_HEIGHT = 100;
+
+function Logo() {
+  return <Skeleton height={50} circle mr="sm" animate={false} />;
+}
+
+function Header() {
+  return (
+    <MantineHeader height={HEADER_HEIGHT}>
+      <Container
+        fluid
+        sx={(theme) => ({
+          background: theme.colors.gray[0],
+          // color: theme.colors.gray[1],
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+        })}
+      >
+        <Anchor
+          href="/"
+          color="black"
+          underline={false}
+          sx={{ display: "flex", alignItems: "center" }}
+        >
+          <Logo />
+          <Title order={6} m={0}>
+            Find a Date
+            <br />
+            Everyone
+            <br />
+            Can Do
+          </Title>
+        </Anchor>
+      </Container>
+    </MantineHeader>
+  );
+}
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <AppShell
       p={0}
-      header={
-        <Header height={40}>
-          <Container
-            fluid
-            sx={(theme) => ({
-              background: theme.colors.dark,
-              color: theme.colors.gray[1],
-              height: "100%",
-              display: "flex",
-              alignItems: "center",
-            })}
-          >
-            <Title order={4} m={0}>
-              Find a Date Everyone Can Do
-            </Title>
-          </Container>
-        </Header>
-      }
+      header={<Header />}
       styles={(theme) => ({
         main: {
           paddingLeft: 0,
           paddingRight: 0,
-          paddingTop: 40,
+          paddingTop: HEADER_HEIGHT,
           paddingBottom: 0,
           backgroundColor:
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[2],
+          [theme.fn.largerThan("xs")]: {
+            // padding: theme.spacing.xl,
+            marginX: "auto",
+          },
         },
       })}
     >
-      {/* <PageHeader /> */}
-      {children}
+      <Container
+        sx={(theme) => ({
+          padding: 0,
+          [theme.fn.largerThan("xs")]: {
+            padding: theme.spacing.xl,
+            // margin: "auto",
+          },
+        })}
+      >
+        {/* <PageHeader /> */}
+        {children}
+      </Container>
     </AppShell>
   );
 }

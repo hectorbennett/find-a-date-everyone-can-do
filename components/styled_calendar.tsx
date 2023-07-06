@@ -32,7 +32,7 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         monthCell: {
           padding: 0,
           margin: 0,
-          // border: `1px solid ${theme.colors.gray[2]}`,
+          border: `1px solid ${theme.colors.gray[0]}`,
         },
         month: {
           width: "calc(100% + 5px)",
@@ -46,33 +46,35 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         },
         day: {
           display: "flex",
-          background: "none",
           alignItems: "flex-start",
           justifyContent: "flex-start",
-          // padding: 2.5,
           borderRadius: 0,
           fontSize: theme.fontSizes.sm,
           overflow: "hidden",
           width: "100%",
-          height: "4.5rem",
+          height: "auto",
+          background: "#EBECFD",
+          color: theme.colors.dark,
           "&[data-weekend]": {
             color: "unset",
           },
           "&[data-outside]": {
-            color: "unset",
+            background: theme.colors.gray[2],
+            color: theme.colors.gray[6],
+          },
+          "&[data-selected][data-outside]": {
+            background: "none",
+            color: theme.colors.gray[6],
           },
           "&[data-selected]": {
-            background: "none",
-            color: "white",
-            // outline: "1px solid black",
+            color: "unset",
+            outline: "1px solid black",
           },
           "&:hover": {
             background: "none",
-            filter: "brightness(85%) contrast(120%)",
           },
           "&[data-selected]:hover": {
             background: "none",
-            color: "white",
           },
         },
         calendarHeader: {
@@ -81,26 +83,16 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         calendarHeaderLevel: {
           justifyContent: "flex-start",
           paddingLeft: theme.spacing.sm,
-          // "&:hover": {
-          //   backgroundColor: CALENDAR_DAY_UNSELECTED_HOVER,
-          // },
         },
         calendarHeaderControl: {
           order: 1,
-          // "&:hover": {
-          //   backgroundColor: CALENDAR_DAY_UNSELECTED_HOVER,
-          // },
         },
         pickerControl: {
-          // backgroundColor: CALENDAR_DAY_UNSELECTED,
           alignItems: "flex-start",
           justifyContent: "flex-start",
           padding: theme.spacing.xs,
           margin: 5,
           fontSize: theme.fontSizes.sm,
-          // "&:hover": {
-          //   backgroundColor: CALENDAR_DAY_UNSELECTED_HOVER,
-          // },
         },
         weekday: {
           color: "black",
@@ -145,26 +137,32 @@ function Day({
       sx={(theme) => ({
         width: "100%",
         height: "100%",
+        position: "relative",
+        "&:before": {
+          content: "''",
+          display: "block",
+          paddingBottom: "100%",
+          top: 0,
+        },
         background: heat > 0 ? getHeatColour(heat) : "none",
-        // borderRadius: theme.radius.sm,
-        color: "#274803",
         display: "flex",
         flexDirection: "column",
-        // border: selected ? "1px solid black" : "2px solid transparent",
+        outline: selected ? "1px solid black" : undefined,
       })}
     >
-      <DayLabel day={day} selected={selected} />
-      <Box
-        sx={{
-          flex: 1,
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <SelectedCheckbox selected={selected} />
-      </Box>
-      <Box
+      <Box sx={{ position: "absolute" }}>
+        <DayLabel day={day} selected={selected} />
+        <Box
+          sx={{
+            flex: 1,
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {/* <SelectedCheckbox selected={selected} /> */}
+        </Box>
+        {/* <Box
         sx={{
           flex: 1,
           alignItems: "center",
@@ -173,6 +171,7 @@ function Day({
         }}
       >
         <UsersCountBadge heat={heat} selectionCount={selectionCount} />
+      </Box> */}
       </Box>
     </Box>
   );
@@ -183,12 +182,13 @@ function DayLabel({ selected, day }: { selected: boolean; day: number }) {
     <Box
       sx={(theme) => ({
         width: "100%",
-        paddingTop: "0.2rem",
+        padding: 8,
         // paddingBottom: 4,
         // margin: rem(0.1),
-        textAlign: "center",
+        // textAlign: "center",
         fontSize: theme.fontSizes.xs,
-        fontWeight: selected ? "bold" : undefined,
+        // fontWeight: selected ? "bold" : undefined,
+        fontWeight: "bold",
       })}
     >
       {day}

@@ -1,10 +1,10 @@
-import { Text, Card as MantineCard, Stack } from "@mantine/core";
+import { Text, Card as MantineCard, Stack, Title } from "@mantine/core";
 import type { ReactNode } from "react";
 
 interface CardProps {
   title?: string;
   note?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function Card({ title, note, children }: CardProps) {
@@ -27,7 +27,7 @@ export default function Card({ title, note, children }: CardProps) {
       {(title || note) && (
         <MantineCard.Section withBorder p="xs">
           <Stack spacing="xs">
-            <Text weight={500}>{title}</Text>
+            <Title order={3}>{title}</Title>
             <Text c="dimmed" fz="sm">
               {note}
             </Text>
