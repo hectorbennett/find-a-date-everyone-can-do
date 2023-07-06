@@ -2,6 +2,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
+import Layout from "@/components/layout";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -31,7 +32,11 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
+          globalStyles: (theme) => ({
+            "input::-webkit-calendar-picker-indicator": {
+              display: "none !important",
+            },
+          }),
           colorScheme: "light",
           headings: {
             fontWeight: 400,
@@ -43,7 +48,9 @@ export default function App(props: AppProps) {
           },
         }}
       >
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         <Script
           defer
           data-domain="findadateeveryonecando.com"

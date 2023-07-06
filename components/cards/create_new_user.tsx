@@ -1,19 +1,9 @@
 import { Button, TextInput, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import EventContext from "@/app/event";
-import Card from "./card";
+import Card from "../card";
 
 export default function CreateNewUser() {
-  // const existingUser = event.getUserByName(name);
-
-  // const handleLogin = () => {
-  //   if (existingUser) {
-  //     event.login(existingUser.id);
-  //   } else {
-  //     event.createNewUser(name);
-  //   }
-  // };
-
   return (
     <Card title="Enter your name" note="Enter the name you want to use.">
       <CreateNewUserForm />
@@ -60,7 +50,7 @@ function CreateNewUserForm() {
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack spacing="sm">
+      <Stack spacing="sm" p="xs">
         <TextInput
           list="users"
           size="md"

@@ -112,6 +112,8 @@ export const fetchEvent = async (id: string): Promise<EventInterface> => {
   return {
     id: event.json.id,
     name: event.json.name,
+    creationDate: event.json.creation_date,
+    modificationDate: event.json.modification_date,
     users: Object.fromEntries(
       users.json.map((user: User) => [
         user.id,

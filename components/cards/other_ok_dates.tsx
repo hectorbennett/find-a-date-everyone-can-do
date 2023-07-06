@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { Box, Group, Spoiler, Table, Text, createStyles } from "@mantine/core";
 import { IconCalendar } from "@tabler/icons-react";
 import EventContext from "@/app/event";
-import Card from "./card";
+import Card from "../card";
 
 const useStyles = createStyles((_theme) => ({
   dates_td: {

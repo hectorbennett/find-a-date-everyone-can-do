@@ -56,7 +56,7 @@ function CreateEventForm() {
 
   return (
     <form onSubmit={form.onSubmit(handleSubmit)}>
-      <Stack spacing="sm">
+      <Stack spacing="sm" p="xs">
         <TextInput
           autoFocus
           size="md"

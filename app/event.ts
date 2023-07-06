@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { createContainer } from "unstated-next";
 import { useLocalStorage } from "@mantine/hooks";
-import chroma from "chroma-js";
 import * as api from "./api";
-import { getDateString } from "./utils";
+import { getDateString, getHeatColour } from "./utils";
 
 export interface EventInterface {
   name: string;
   id: string;
   users: { [key: string]: User };
+  creationDate: Date;
+  modificationDate: Date;
 }
 
 export interface User {
@@ -23,6 +24,8 @@ const DEFAULT_EVENT: EventInterface = {
   name: "",
   id: "",
   users: {},
+  creationDate: new Date(),
+  modificationDate: new Date(),
 };
 
 function useEvent(
@@ -97,13 +100,17 @@ function useEvent(
     return date_counts[date_string] || 0;
   };
 
-  const getEventHeatColour = (date: Date) => {
+  const getDateHeat = (date: Date) => {
     const date_string = getDateString(date);
     const max = Object.values(eventData?.users || {}).filter(
       (user) => user.dates.length
     ).length;
     const count = date_counts[date_string] || 0;
-    return getHeatMapColour(count / max);
+    return count / max;
+  };
+
+  const getEventHeatColour = (date: Date) => {
+    return getHeatColour(getDateHeat(date));
   };
 
   const getUserByName = (name: string) => {
@@ -149,10 +156,13 @@ function useEvent(
     date_counts: date_counts,
     currentUser: currentUser,
     users: users,
+    creationDate: eventData.creationDate,
+    modificationDate: eventData.modificationDate,
     selectDate,
     deselectDate,
     dateIsSelected,
     getDateSelectionCount,
+    getDateHeat,
     getEventHeatColour,
     createEvent,
     getUserByName,
@@ -181,8 +191,3 @@ const getDateCounts = (eventData: EventInterface) => {
 const EventContext = createContainer(useEvent);
 
 export default EventContext;
-
-const getHeatMapColour = (n: number) => {
-  const f = chroma.scale(["white", "lightyellow", "lightgreen", "green"]);
-  return f(n).toString();
-};
