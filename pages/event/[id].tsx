@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import Head from "next/head";
-import { Stack } from "@mantine/core";
+import { Grid, Stack } from "@mantine/core";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
 import EventContext, { EventInterface } from "@/app/event";
@@ -37,22 +37,28 @@ function EditEvent() {
       </Head>
       <Stack spacing={5}>
         <EventTitle />
-        {!event.currentUser ? <CreateNewUser /> : <Thing />}
+        {!event.currentUser ? <CreateNewUser /> : <MainContent />}
       </Stack>
     </>
   );
 }
 
-function Thing() {
+function MainContent() {
   return (
-    <>
-      <Calendar />
-      <InviteUsers />
-      <EventUsers />
-      <BestDates />
-      <OtherOkDates />
-      <Logout />
-    </>
+    <Grid gutter={5}>
+      <Grid.Col md={7}>
+        <Calendar />
+      </Grid.Col>
+      <Grid.Col md={5}>
+        <Stack spacing={5}>
+          <InviteUsers />
+          <EventUsers />
+          <BestDates />
+          <OtherOkDates />
+          <Logout />
+        </Stack>
+      </Grid.Col>
+    </Grid>
   );
 }
 

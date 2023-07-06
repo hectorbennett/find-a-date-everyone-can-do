@@ -22,27 +22,43 @@ export default function StyledCalendar(props: StyledCalendarProps) {
       withCellSpacing={false}
       size="xl"
       styles={(theme) => ({
-        calendar: {
-          // backgroundColor: CALENDAR_BACKGROUND,
-          // padding: theme.spacing.md,
-        },
         monthLevel: {
           width: "100%",
         },
         monthCell: {
           padding: 0,
           margin: 0,
-          border: `1px solid ${theme.colors.gray[0]}`,
+          border: `1px solid white`,
+          [theme.fn.largerThan("xs")]: {
+            borderWidth: "2px",
+          },
         },
         month: {
-          width: "calc(100% + 5px)",
-          margin: -2.5,
+          width: "100%",
         },
         monthsList: {
-          margin: -2.5,
+          width: "100%",
+        },
+        monthsListCell: {
+          border: `1px solid white`,
+          [theme.fn.largerThan("xs")]: {
+            borderWidth: "2px",
+          },
+        },
+        yearLevel: {
+          width: "100%",
         },
         yearsList: {
-          margin: -5,
+          width: "100%",
+        },
+        yearsListCell: {
+          border: `1px solid white`,
+          [theme.fn.largerThan("xs")]: {
+            borderWidth: "2px",
+          },
+        },
+        decadeLevel: {
+          width: "100%",
         },
         day: {
           display: "flex",
@@ -68,7 +84,6 @@ export default function StyledCalendar(props: StyledCalendarProps) {
           },
           "&[data-selected]": {
             color: "unset",
-            outline: "1px solid black",
           },
           "&:hover": {
             background: "none",
@@ -86,13 +101,16 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         },
         calendarHeaderControl: {
           order: 1,
+          borderRadius: 0,
         },
         pickerControl: {
+          width: "100%",
           alignItems: "flex-start",
           justifyContent: "flex-start",
           padding: theme.spacing.xs,
-          margin: 5,
           fontSize: theme.fontSizes.sm,
+          background: "#EBECFD",
+          borderRadius: 0,
         },
         weekday: {
           color: "black",
@@ -147,7 +165,10 @@ function Day({
         background: heat > 0 ? getHeatColour(heat) : "none",
         display: "flex",
         flexDirection: "column",
-        outline: selected ? "1px solid black" : undefined,
+        border: selected ? "1px solid black" : undefined,
+        [theme.fn.largerThan("xs")]: {
+          borderWidth: "2px",
+        },
       })}
     >
       <Box sx={{ position: "absolute" }}>

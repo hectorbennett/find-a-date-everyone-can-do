@@ -4,9 +4,9 @@ import chroma from "chroma-js";
 export const getDateString = (date: Date) => dayjs(date).format("YYYY-MM-DD");
 
 export const getHeatColour = (n: number) => {
-  if (n === 1) {
-    return "#fab005";
-  }
+  // if (n === 1) {
+  //   return "#fab005";
+  // }
   const f = chroma.scale([
     "#EBECFD",
     "#dbdbff",

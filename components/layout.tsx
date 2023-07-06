@@ -63,16 +63,13 @@ export default function Layout({ children }: { children: ReactNode }) {
             theme.colorScheme === "dark"
               ? theme.colors.dark[8]
               : theme.colors.gray[2],
-          [theme.fn.largerThan("xs")]: {
-            // padding: theme.spacing.xl,
-            marginX: "auto",
-          },
         },
       })}
     >
       <Container
         sx={(theme) => ({
           padding: 0,
+          maxWidth: "70rem",
           [theme.fn.largerThan("xs")]: {
             padding: theme.spacing.xl,
             // margin: "auto",

@@ -11,7 +11,8 @@ export default function Card({ title, note, children }: CardProps) {
   return (
     <MantineCard
       shadow="none"
-      withBorder={false}
+      // withBorder={false}
+      // withBorder
       radius={0}
       sx={(theme) => ({
         padding: theme.spacing.xs,
