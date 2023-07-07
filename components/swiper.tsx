@@ -1,42 +1,91 @@
+import { ReactNode, useEffect, useState } from "react";
+import { Box } from "@mantine/core";
+import { useElementSize } from "@mantine/hooks";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-export default function Swiper() {
+interface SwiperProps {
+  getContent: (index: number) => ReactNode;
+}
+
+export default function Swiper({ getContent }: SwiperProps) {
+  const [index, setIndex] = useState(0);
+  const { ref, width } = useElementSize();
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
+
   const bind = useDrag(
-    ({ down, movement: [mx], direction, tap }) => {
+    ({ down, movement: [mx], tap }) => {
       if (tap) {
         // ignore tap events
         return;
       }
       if (down) {
         // if the pointer is currently down, keep dragging about
-        api.start({ x: mx });
+        api.start({ x: mx + -index * width });
         return;
       }
-      // otherwise, decide whether to stay on the same screen (if we haven't dragged far enough)
+
+      // otherwise, decide whether to stay on the same item (if we haven't dragged far enough)
       // or to move to the next one
-      if (mx > 100) {
-        console.log("drag right");
-        api.start({ x: 100 });
-      } else if (mx < -100) {
-        console.log("drag left");
-        api.start({ x: -100 });
+      if (mx > width / 4) {
+        dragRight();
+      } else if (mx < -width / 4) {
+        dragLeft();
       } else {
-        console.log("stay");
-        api.start({ x: 0 });
+        // stay
+        api.start({ x: -index * width });
       }
     },
     { filterTaps: true }
   );
 
-  // Bind it to a component
+  const dragLeft = () => {
+    setIndex((i) => i + 1);
+  };
+
+  const dragRight = () => {
+    setIndex((i) => i - 1);
+  };
+
+  useEffect(() => {
+    api.start({ x: -index * width, immediate: true });
+  }, [width]);
+
+  useEffect(() => {
+    api.start({ x: -index * width });
+  }, [index]);
+
   return (
-    <animated.div
-      {...bind()}
-      style={{ touchAction: "none", userSelect: "none", x, y }}
+    <Box
+      ref={ref}
+      sx={{
+        width: "100%",
+        overflow: "hidden",
+      }}
     >
-      Hello world
-    </animated.div>
+      <animated.div
+        {...bind()}
+        style={{
+          display: "flex",
+          touchAction: "none",
+          userSelect: "none",
+          x,
+          y,
+        }}
+      >
+        <Box
+          style={{
+            transform: `translateX(${width * (index - 1)}px)`,
+          }}
+          sx={{
+            display: "flex",
+          }}
+        >
+          {[index - 1, index, index + 1].map((i) => (
+            <Box style={{ width }}>{getContent(i)}</Box>
+          ))}
+        </Box>
+      </animated.div>
+    </Box>
   );
 }
