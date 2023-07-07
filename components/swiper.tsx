@@ -81,8 +81,10 @@ export default function Swiper({ getContent }: SwiperProps) {
             display: "flex",
           }}
         >
-          {[index - 1, index, index + 1].map((i) => (
-            <Box style={{ width }}>{getContent(i)}</Box>
+          {[index - 1, index, index + 1].map((i, j) => (
+            <Box style={{ width }} key={j}>
+              {getContent(i)}
+            </Box>
           ))}
         </Box>
       </animated.div>
