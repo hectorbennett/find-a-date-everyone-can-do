@@ -69,7 +69,7 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
         {...bind()}
         style={{
           display: "flex",
-          touchAction: "none",
+          // touchAction: "none",
           userSelect: "none",
           x,
           y,
