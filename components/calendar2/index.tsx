@@ -80,11 +80,12 @@ export function CalendarTable({
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       {weeks.map((week) => (
-        <Box sx={{ display: "flex", gap: 2 }}>
+        <Box key={week[0]} sx={{ display: "flex", gap: 2 }}>
           {week.map((d) => {
             const props = getDayProps(d);
             return (
               <Day
+                key={d}
                 date={d}
                 outside={!d.isSame(date, "month")}
                 selected={props.selected}
@@ -112,7 +113,7 @@ function DayHeadings() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       {Array.from(Array(7).keys()).map((i) => (
-        <Box sx={{ flex: 1, textAlign: "center" }} p="sm">
+        <Box key={i} sx={{ flex: 1, textAlign: "center" }} p="sm">
           <Text size="xs">
             {dayjs()
               .day(i + 1)
