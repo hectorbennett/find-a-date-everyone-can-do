@@ -1,8 +1,8 @@
 import { TouchEvent, useState } from "react";
-import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 import chroma from "chroma-js";
 
-export const getDateString = (date: Date) => dayjs(date).format("YYYY-MM-DD");
+export const getDateString = (date: Dayjs) => date.format("YYYY-MM-DD");
 
 export const getHeatColour = (n: number) => {
   // if (n === 1) {
@@ -20,7 +20,6 @@ export const getHeatColour = (n: number) => {
   ]);
   return f(n).toString();
 };
-
 
 interface SwipeInput {
   onSwipedLeft: () => void;

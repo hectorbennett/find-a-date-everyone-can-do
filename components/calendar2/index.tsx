@@ -52,7 +52,7 @@ function MonthHeader({
   onClickNext: () => void;
 }) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={{ display: "flex", alignItems: "center" }} p="xs">
       <Text size="xl" sx={{ flex: 1 }}>
         {date.format("MMMM YYYY")}
       </Text>

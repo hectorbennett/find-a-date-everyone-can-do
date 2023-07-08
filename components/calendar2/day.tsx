@@ -1,8 +1,16 @@
-// import { getHeatColour } from "@/app/utils";
 import { getHeatColour } from "../../app/utils";
 import { Badge, Box, Checkbox, Text, UnstyledButton } from "@mantine/core";
 import { IconUser, IconUsers } from "@tabler/icons-react";
 import type { Dayjs } from "dayjs";
+
+const getBackgroundColour = (heat: number, outside: boolean) => {
+  if (heat) {
+    return getHeatColour(heat);
+  } else if (outside) {
+    return "lightgrey";
+  }
+  return "#dbdef7";
+};
 
 export default function Day({
   date,
@@ -22,7 +30,7 @@ export default function Day({
   return (
     <UnstyledButton
       style={{
-        background: heat > 0 ? getHeatColour(heat) : "dbdef7",
+        background: getBackgroundColour(heat, outside),
       }}
       onClick={onClick}
       sx={(theme) => ({

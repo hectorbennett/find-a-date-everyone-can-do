@@ -1,11 +1,12 @@
 import EventContext from "@/app/event";
-import StyledCalendar from "../styled_calendar";
 import Card from "../card";
+import Calendar from "../calendar2";
+import type { Dayjs } from "dayjs";
 
 function SelectionCalendar() {
   const event = EventContext.useContainer();
 
-  const handleSelect = (date: Date) => {
+  const handleSelect = (date: Dayjs) => {
     const isSelected = event.dateIsSelected(date);
     if (isSelected) {
       event.deselectDate(date);
@@ -15,7 +16,7 @@ function SelectionCalendar() {
   };
 
   return (
-    <StyledCalendar
+    <Calendar
       getDayProps={(date) => ({
         selected: event.dateIsSelected(date),
         onClick: () => handleSelect(date),
