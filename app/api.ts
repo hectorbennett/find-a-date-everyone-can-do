@@ -1,5 +1,6 @@
 import { EventInterface, User } from "./event";
 import { getDateString } from "./utils";
+import type { Dayjs } from "dayjs";
 
 interface RequestOptions {
   json: object;
@@ -78,7 +79,7 @@ export const create_user = async (event_id: string, user_name: string) => {
 export const add_date = async (
   event_id: string,
   user_id: string,
-  date: Date
+  date: Dayjs
 ) => {
   return request.post(`${URL_BASE}/events/${event_id}/users/${user_id}/dates`, {
     json: {
@@ -90,7 +91,7 @@ export const add_date = async (
 export const remove_date = async (
   event_id: string,
   user_id: string,
-  date: Date
+  date: Dayjs
 ) => {
   return request.delete(
     `${URL_BASE}/events/${event_id}/users/${user_id}/dates`,

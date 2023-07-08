@@ -153,6 +153,17 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         );
       }}
       {...props}
+      getDayProps={
+        !props.getDayProps
+          ? undefined
+          : (date) => {
+              let dayProps = props.getDayProps ? props.getDayProps(date) : {};
+              return {
+                onClick: dayProps.onClick,
+                selected: dayProps.selected,
+              };
+            }
+      }
     />
   );
 }

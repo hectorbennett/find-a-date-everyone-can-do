@@ -35,12 +35,8 @@ function Header() {
           sx={{ display: "flex", alignItems: "center" }}
         >
           <Logo />
-          <Title order={6} m={0}>
-            Find a Date
-            <br />
-            Everyone
-            <br />
-            Can Do
+          <Title order={6} m={0} sx={{ maxWidth: 80 }}>
+            Find a Date Everyone Can Do
           </Title>
         </Anchor>
       </Container>
