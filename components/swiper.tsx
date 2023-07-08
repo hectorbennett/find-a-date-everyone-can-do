@@ -5,11 +5,13 @@ import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
 interface SwiperProps {
+  index: number;
+  setIndex: (index: number) => void;
   getContent: (index: number) => ReactNode;
 }
 
-export default function Swiper({ getContent }: SwiperProps) {
-  const [index, setIndex] = useState(0);
+export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
+  // const [index, setIndex] = useState(0);
   const { ref, width } = useElementSize();
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
 
@@ -40,11 +42,11 @@ export default function Swiper({ getContent }: SwiperProps) {
   );
 
   const dragLeft = () => {
-    setIndex((i) => i + 1);
+    setIndex(index + 1);
   };
 
   const dragRight = () => {
-    setIndex((i) => i - 1);
+    setIndex(index - 1);
   };
 
   useEffect(() => {
