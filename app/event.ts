@@ -3,13 +3,15 @@ import { createContainer } from "unstated-next";
 import { useLocalStorage } from "@mantine/hooks";
 import * as api from "./api";
 import { getDateString, getHeatColour } from "./utils";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 
 export interface EventInterface {
   name: string;
   id: string;
   users: { [key: string]: User };
-  creationDate: Date;
-  modificationDate: Date;
+  creationDate: Dayjs;
+  modificationDate: Dayjs;
 }
 
 export interface User {
@@ -24,8 +26,8 @@ const DEFAULT_EVENT: EventInterface = {
   name: "",
   id: "",
   users: {},
-  creationDate: new Date(),
-  modificationDate: new Date(),
+  creationDate: dayjs(),
+  modificationDate: dayjs(),
 };
 
 function useEvent(
@@ -46,7 +48,7 @@ function useEvent(
     return await api.create_event(eventName);
   };
 
-  const setDate = (date: Date, selected: boolean) => {
+  const setDate = (date: Dayjs, selected: boolean) => {
     if (!currentUserId) {
       return;
     }
@@ -82,10 +84,10 @@ function useEvent(
     });
   };
 
-  const selectDate = (date: Date) => setDate(date, true);
-  const deselectDate = (date: Date) => setDate(date, false);
+  const selectDate = (date: Dayjs) => setDate(date, true);
+  const deselectDate = (date: Dayjs) => setDate(date, false);
 
-  const dateIsSelected = (date: Date) => {
+  const dateIsSelected = (date: Dayjs) => {
     if (!currentUserId) {
       return false;
     }
@@ -95,12 +97,12 @@ function useEvent(
 
   const date_counts = eventData ? getDateCounts(eventData) : {};
 
-  const getDateSelectionCount = (date: Date) => {
+  const getDateSelectionCount = (date: Dayjs) => {
     const date_string = getDateString(date);
     return date_counts[date_string] || 0;
   };
 
-  const getDateHeat = (date: Date) => {
+  const getDateHeat = (date: Dayjs) => {
     const date_string = getDateString(date);
     const max = Object.values(eventData?.users || {}).filter(
       (user) => user.dates.length
@@ -109,7 +111,7 @@ function useEvent(
     return count / max;
   };
 
-  const getEventHeatColour = (date: Date) => {
+  const getEventHeatColour = (date: Dayjs) => {
     return getHeatColour(getDateHeat(date));
   };
 

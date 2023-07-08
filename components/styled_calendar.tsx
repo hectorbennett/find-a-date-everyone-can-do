@@ -1,11 +1,8 @@
-import { getHeatColour } from "../app/utils";
+import { useRef } from "react";
+import { getHeatColour, useSwipe } from "../app/utils";
 import { Badge, Box, Checkbox, rem } from "@mantine/core";
 import { CalendarProps, Calendar as MantineCalendar } from "@mantine/dates";
 import { IconStarFilled, IconUser, IconUsers } from "@tabler/icons-react";
-
-const CALENDAR_BACKGROUND = "#EEEEFB";
-const CALENDAR_DAY_UNSELECTED = "#dedef0";
-const CALENDAR_DAY_UNSELECTED_HOVER = "#c2c2ea";
 
 interface StyledCalendarProps extends CalendarProps {
   getDayProps?: (date: Date) => {
@@ -17,8 +14,29 @@ interface StyledCalendarProps extends CalendarProps {
 }
 
 export default function StyledCalendar(props: StyledCalendarProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () => {
+      const nextButton: HTMLButtonElement | null =
+        ref.current?.querySelector("button[data-next]") || null;
+      if (nextButton) {
+        nextButton.click();
+      }
+    },
+    onSwipedRight: () => {
+      const previousButton: HTMLButtonElement | null =
+        ref.current?.querySelector("button[data-previous]") || null;
+      if (previousButton) {
+        previousButton.click();
+      }
+    },
+  });
+
   return (
     <MantineCalendar
+      {...swipeHandlers}
+      ref={ref}
       withCellSpacing={false}
       size="xl"
       styles={(theme) => ({
@@ -135,6 +153,17 @@ export default function StyledCalendar(props: StyledCalendarProps) {
         );
       }}
       {...props}
+      getDayProps={
+        !props.getDayProps
+          ? undefined
+          : (date) => {
+              let dayProps = props.getDayProps ? props.getDayProps(date) : {};
+              return {
+                onClick: dayProps.onClick,
+                selected: dayProps.selected,
+              };
+            }
+      }
     />
   );
 }
@@ -165,7 +194,7 @@ function Day({
         background: heat > 0 ? getHeatColour(heat) : "none",
         display: "flex",
         flexDirection: "column",
-        border: selected ? "1px solid black" : undefined,
+        border: selected ? "1px solid black" : "1px solid transparent",
         [theme.fn.largerThan("xs")]: {
           borderWidth: "2px",
         },
