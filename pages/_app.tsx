@@ -36,8 +36,9 @@ export default function App(props: AppProps) {
             "input::-webkit-calendar-picker-indicator": {
               display: "none !important",
             },
-            "html, body": {
+            html: {
               overflowX: "hidden",
+              width: "auto!important",
             },
           }),
           colorScheme: "light",

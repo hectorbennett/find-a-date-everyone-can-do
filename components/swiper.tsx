@@ -29,9 +29,9 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
 
       // otherwise, decide whether to stay on the same item (if we haven't dragged far enough)
       // or to move to the next one
-      if (mx > width / 4) {
+      if (mx > 10) {
         dragRight();
-      } else if (mx < -width / 4) {
+      } else if (mx < -10) {
         dragLeft();
       } else {
         // stay
