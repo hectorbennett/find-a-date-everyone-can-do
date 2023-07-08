@@ -22,7 +22,11 @@ export default function Calendar({ getDayProps }: CalendarProps) {
 
   return (
     <Box>
-      <MonthHeader date={dayjs().add(monthIndex, "month")} />
+      <MonthHeader
+        date={dayjs().add(monthIndex, "month")}
+        onClickPrevious={() => setMonthIndex((i) => i - 1)}
+        onClickNext={() => setMonthIndex((i) => i + 1)}
+      />
       <DayHeadings />
       <Swiper
         index={monthIndex}
@@ -38,16 +42,24 @@ export default function Calendar({ getDayProps }: CalendarProps) {
   );
 }
 
-function MonthHeader({ date }: { date: Dayjs }) {
+function MonthHeader({
+  date,
+  onClickPrevious,
+  onClickNext,
+}: {
+  date: Dayjs;
+  onClickPrevious: () => void;
+  onClickNext: () => void;
+}) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Text size="xl" sx={{ flex: 1 }}>
         {date.format("MMMM YYYY")}
       </Text>
-      <ActionIcon size="xl">
+      <ActionIcon size="xl" onClick={onClickPrevious}>
         <IconChevronLeft size="1rem" />
       </ActionIcon>
-      <ActionIcon size="xl">
+      <ActionIcon size="xl" onClick={onClickNext}>
         <IconChevronRight size="1rem" />
       </ActionIcon>
     </Box>
