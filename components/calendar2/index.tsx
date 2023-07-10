@@ -7,10 +7,12 @@ import Day from "./day";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 type GetDayProps = (date: Dayjs) => {
-  selected: boolean;
+  isSelected: boolean;
   onClick: () => void;
   selectionCount: number;
   heat: number;
+  isToday: boolean;
+  isInPast: boolean;
 };
 
 interface CalendarProps {
@@ -99,8 +101,10 @@ export function CalendarTable({
               <Day
                 key={d}
                 date={d}
-                outside={!d.isSame(date, "month")}
-                selected={props.selected}
+                isOutside={!d.isSame(date, "month")}
+                isSelected={props.isSelected}
+                isInPast={props.isInPast}
+                isToday={props.isToday}
                 heat={props.heat}
                 selectionCount={props.selectionCount}
                 onClick={props.onClick}

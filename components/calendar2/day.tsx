@@ -1,6 +1,5 @@
 import { getHeatColour } from "../../app/utils";
-import { Badge, Box, Checkbox, Text, UnstyledButton } from "@mantine/core";
-import { IconUser, IconUsers } from "@tabler/icons-react";
+import { Box, Text, UnstyledButton } from "@mantine/core";
 import type { Dayjs } from "dayjs";
 
 const getBackgroundColour = (heat: number, outside: boolean) => {
@@ -12,25 +11,31 @@ const getBackgroundColour = (heat: number, outside: boolean) => {
   return "#dbdef7";
 };
 
-export default function Day({
-  date,
-  outside,
-  selected,
-  heat,
-  selectionCount,
-  onClick,
-}: {
+interface DayProps {
   date: Dayjs;
-  outside: boolean;
-  selected: boolean;
+  isOutside: boolean;
+  isSelected: boolean;
+  isInPast: boolean;
+  isToday: boolean;
   heat: number;
   selectionCount: number;
   onClick: () => void;
-}) {
+}
+
+export default function Day({
+  date,
+  isOutside,
+  isSelected,
+  isInPast,
+  isToday,
+  heat,
+  onClick,
+}: DayProps) {
   return (
     <UnstyledButton
       style={{
-        background: getBackgroundColour(heat, outside),
+        background: getBackgroundColour(heat, isOutside),
+        opacity: isInPast ? 0.2 : 1,
       }}
       onClick={onClick}
       sx={(theme) => ({
@@ -46,11 +51,17 @@ export default function Day({
         },
         display: "flex",
         flexDirection: "column",
-        border: selected ? "1px solid black" : "1px solid transparent",
+        border: isSelected ? "1px solid black" : "1px solid transparent",
+        // opacity: date 0.5,
       })}
     >
       <Box sx={{ position: "absolute" }}>
-        <DayLabel date={date} outside={outside} selected={selected} />
+        <DayLabel
+          date={date}
+          isOutside={isOutside}
+          isSelected={isSelected}
+          isToday={isToday}
+        />
         <Box
           sx={{
             flex: 1,
@@ -58,19 +69,7 @@ export default function Day({
             display: "flex",
             justifyContent: "center",
           }}
-        >
-          {/* <SelectedCheckbox selected={selected} /> */}
-        </Box>
-        {/* <Box
-          sx={{
-            flex: 1,
-            alignItems: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <UsersCountBadge heat={heat} selectionCount={selectionCount} />
-        </Box> */}
+        ></Box>
       </Box>
     </UnstyledButton>
   );
@@ -78,74 +77,39 @@ export default function Day({
 
 function DayLabel({
   date,
-  outside,
-  selected,
+  isOutside,
+  isSelected,
+  isToday,
 }: {
   date: Dayjs;
-  outside: boolean;
-  selected: boolean;
+  isOutside: boolean;
+  isSelected: boolean;
+  isToday: boolean;
 }) {
   return (
     <Box
       sx={(theme) => ({
         width: "100%",
         padding: 8,
-        // paddingBottom: 4,
-        // margin: rem(0.1),
-        // textAlign: "center",
         fontSize: theme.fontSizes.xs,
-        // fontWeight: selected ? "bold" : undefined,
         fontWeight: "bold",
-        color: outside ? "grey" : "black",
+        color: isOutside ? "grey" : "black",
       })}
-    >
-      <Text>
-        {date.date()} {outside}
-      </Text>
-    </Box>
-  );
-}
-
-function UsersCountBadge({
-  heat,
-  selectionCount,
-}: {
-  heat: number;
-  selectionCount: number;
-}) {
-  if (!selectionCount) {
-    return null;
-  }
-  return (
-    <Badge
-      color={heat === 1 ? "yellow" : "green"}
-      sx={{
-        paddingLeft: "0.4rem",
-        paddingRight: "0.4rem",
-      }}
     >
       <Box
         sx={{
+          background: isToday ? "green" : "none",
+          color: isToday ? "white" : "none",
+          borderRadius: "100%",
+          width: 20,
+          height: 20,
           display: "flex",
           alignItems: "center",
-          gap: 2,
-          flex: 1,
+          justifyContent: "center",
         }}
       >
-        {selectionCount === 1 ? (
-          <IconUser size={13} />
-        ) : (
-          <IconUsers size={13} />
-        )}{" "}
-        {selectionCount}
+        <Text>{date.date()}</Text>
       </Box>
-    </Badge>
+    </Box>
   );
-}
-
-function SelectedCheckbox({ selected }: { selected: boolean }) {
-  if (!selected) {
-    return null;
-  }
-  return <Checkbox color="green" size="xs" checked readOnly />;
 }

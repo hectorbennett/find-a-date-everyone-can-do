@@ -15,10 +15,12 @@ type Story = StoryObj<typeof Calendar>;
 export const Example: Story = {
   args: {
     getDayProps: (date) => ({
-      selected: Math.random() < 0.5,
-      heat: Math.random(),
+      isSelected: Math.random() < 0.5,
+      isToday: false,
+      isInPast: false,
       onClick: () => console.log("click", date),
-      selectionCount: 0,
+      selectionCount: 3,
+      heat: Math.random(),
     }),
   },
 };
