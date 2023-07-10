@@ -1,9 +1,10 @@
 import EventContext from "@/app/event";
 import Card from "../card";
-import { Box, Title, Text } from "@mantine/core";
+import { Title, Text, Group, Stack } from "@mantine/core";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
+import ShareButton from "../share_button";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
@@ -13,10 +14,19 @@ export default function EventTitle() {
     return null;
   }
 
+  const note = `Created ${dayjs.utc(event.creationDate).fromNow()}`;
+
   return (
-    <Card
-      title={event.name}
-      note={`Created ${dayjs.utc(event.creationDate).fromNow()}`}
-    />
+    <Card>
+      <Group p="xs">
+        <Stack sx={{ flex: 1 }}>
+          <Title order={3}>{event.name}</Title>
+          <Text c="dimmed" fz="sm">
+            {note}
+          </Text>
+        </Stack>
+        <ShareButton />
+      </Group>
+    </Card>
   );
 }
