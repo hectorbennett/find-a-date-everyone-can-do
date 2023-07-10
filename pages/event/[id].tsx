@@ -45,7 +45,7 @@ function EditEvent() {
 
 function MainContent() {
   return (
-    <Grid gutter={5}>
+    <Grid gutter={5} m={0}>
       <Grid.Col md={7}>
         <Calendar />
       </Grid.Col>
