@@ -13,8 +13,6 @@ import {
   EventTitle,
   EventUsers,
   InviteUsers,
-  Logout,
-  OtherOkDates,
 } from "@/components/cards";
 
 dayjs.extend(localizedFormat);
@@ -45,17 +43,36 @@ function EditEvent() {
 
 function MainContent() {
   return (
-    <Grid gutter={5} m={0}>
-      <Grid.Col md={7}>
+    <Grid
+      gutter={5}
+      sx={(theme) => ({
+        [theme.fn.smallerThan("md")]: {
+          margin: 0,
+        },
+      })}
+    >
+      <Grid.Col
+        md={7}
+        sx={(theme) => ({
+          [theme.fn.smallerThan("md")]: {
+            padding: 0,
+          },
+        })}
+      >
         <Calendar />
       </Grid.Col>
-      <Grid.Col md={5}>
+      <Grid.Col
+        md={5}
+        sx={(theme) => ({
+          [theme.fn.smallerThan("md")]: {
+            padding: 0,
+          },
+        })}
+      >
         <Stack spacing={5}>
           <InviteUsers />
           <EventUsers />
           <BestDates />
-          <OtherOkDates />
-          <Logout />
         </Stack>
       </Grid.Col>
     </Grid>
