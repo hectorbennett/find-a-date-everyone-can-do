@@ -163,6 +163,9 @@ function useEvent(
 
   return {
     name: eventData?.name || null,
+    shareTitle: `${
+      eventData?.name ? `${eventData.name} | ` : ""
+    }Find a Date Everyone Can Do`,
     calendarDates,
     getCalendarDate,
     currentUser: currentUser,

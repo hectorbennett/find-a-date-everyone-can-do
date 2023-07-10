@@ -31,7 +31,7 @@ function EditEvent() {
   return (
     <>
       <Head>
-        <title>{event.name} | Find a Date Everyone Can Do</title>
+        <title>{event.shareTitle}</title>
       </Head>
       <Stack spacing={5}>
         <EventTitle />
