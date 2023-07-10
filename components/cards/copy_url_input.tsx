@@ -8,6 +8,7 @@ import {
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 
 import Card from "../card";
+import { useNavigatorShare } from "@/app/utils";
 
 function CopyButton() {
   return (
@@ -43,7 +44,12 @@ function CopyButton() {
   );
 }
 
-export default function InviteUsers() {
+export default function CopyUrlInputCard() {
+  const { isLoading, canShare } = useNavigatorShare();
+  if (isLoading || canShare) {
+    return null;
+  }
+
   return (
     <Card
       title="Invite others"

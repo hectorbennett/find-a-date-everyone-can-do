@@ -1,6 +1,7 @@
-import { TouchEvent, useState } from "react";
+import { TouchEvent, useEffect, useMemo, useState } from "react";
 import type { Dayjs } from "dayjs";
 import chroma from "chroma-js";
+import EventContext from "./event";
 
 export const getDateString = (date: Dayjs) => date.format("YYYY-MM-DD");
 
@@ -63,5 +64,37 @@ export const useSwipe = (input: SwipeInput): SwipeOutput => {
     onTouchStart,
     onTouchMove,
     onTouchEnd,
+  };
+};
+
+export const useNavigatorShare = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [canShare, setCanShare] = useState(false);
+  const [shareData, setShareData] = useState({});
+  const event = EventContext.useContainer();
+
+  useEffect(() => {
+    setShareData({
+      title: event.shareTitle,
+      text: "Enter your availability to find a date everyone can do!",
+      url: window.location.href,
+    });
+  }, [event.shareTitle]);
+
+  useEffect(() => {
+    if (!navigator.canShare) {
+      setCanShare(false);
+    } else if (navigator.canShare(shareData)) {
+      setCanShare(true);
+    } else {
+      setCanShare(false);
+    }
+    setIsLoading(false);
+  }, [shareData]);
+
+  return {
+    isLoading,
+    canShare,
+    shareData,
   };
 };

@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev": "next dev",
+    "dev": "npm-run-all -p dev:*",
+    "dev:app": "next dev",
+    "dev:ssl": "local-ssl-proxy --source 3001 --target 3000",
     "build": "next build",
     "start": "next start",
     "lint:check": "next lint",
@@ -13,7 +15,8 @@
     "format:check": "prettier --check .",
     "format": "prettier --write",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "echo-local-ip": "echo 'local ip:' $(ifconfig $(route -n get default | awk '/interface: / {print $2}') | awk '/inet / {print $2}')"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -54,6 +57,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.3",
+    "local-ssl-proxy": "^2.0.5",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "storybook": "^7.0.24"
   }

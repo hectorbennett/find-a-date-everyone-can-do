@@ -1,28 +1,31 @@
-import EventContext from "@/app/event";
+import EventContext, { CalendarDate } from "@/app/event";
 import Card from "../card";
 import Calendar from "../calendar2";
-import type { Dayjs } from "dayjs";
 
 function SelectionCalendar() {
   const event = EventContext.useContainer();
 
-  const handleSelect = (date: Dayjs) => {
-    const isSelected = event.dateIsSelected(date);
-    if (isSelected) {
-      event.deselectDate(date);
+  const handleSelect = (date: CalendarDate) => {
+    if (date.isSelected) {
+      event.deselectDate(date.date);
     } else {
-      event.selectDate(date);
+      event.selectDate(date.date);
     }
   };
 
   return (
     <Calendar
-      getDayProps={(date) => ({
-        selected: event.dateIsSelected(date),
-        onClick: () => handleSelect(date),
-        selectionCount: event.getDateSelectionCount(date),
-        heat: event.getDateHeat(date),
-      })}
+      getDayProps={(d) => {
+        const calendarDate = event.getCalendarDate(d);
+        return {
+          isSelected: calendarDate.isSelected,
+          isToday: calendarDate.isToday,
+          isInPast: calendarDate.isInPast,
+          onClick: () => handleSelect(calendarDate),
+          selectionCount: calendarDate.users.length,
+          heat: calendarDate.heat,
+        };
+      }}
     />
   );
 }

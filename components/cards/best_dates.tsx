@@ -1,6 +1,9 @@
 import { Box, Button, Group, Table, ThemeIcon } from "@mantine/core";
 import { IconCalendar, IconStarFilled } from "@tabler/icons-react";
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+dayjs.extend(isSameOrAfter);
+
 import EventContext from "@/app/event";
 import Card from "../card";
 import { useState } from "react";
@@ -12,25 +15,32 @@ export default function BestDates() {
   const event = EventContext.useContainer();
   const user_count = Object.keys(event.users).length;
 
-  const dates = Object.entries(event.date_counts)
-    .filter((entry) => entry[1] > user_count / 2)
+  const today = dayjs();
+
+  const dates = event.calendarDates
+    .filter(
+      ({ date, users }) =>
+        users.length > user_count / 2 && date.isSameOrAfter(today, "day")
+    )
     .sort((a, b) => {
-      if (a[1] < b[1]) {
+      if (a.users.length < b.users.length) {
         return 1;
-      } else if (a[1] > b[1]) {
+      } else if (a.users.length > b.users.length) {
+        return -1;
+      } else if (a.date.isSameOrAfter(b.date, "day")) {
+        return 1;
+      } else if (b.date.isSameOrAfter(a.date, "day")) {
         return -1;
       }
-      return new Date(a[0]).valueOf() - new Date(b[0]).valueOf();
-    })
+      return 0;
+    });
 
-    .map((entry) => ({ date: entry[0], count: entry[1] }));
-
-  const rows = dates.slice(0, numberToShow).map(({ date, count }) => (
-    <tr key={date}>
+  const rows = dates.slice(0, numberToShow).map(({ date, users }) => (
+    <tr key={date.toString()}>
       <td>
         <Group>
           <Group sx={{ flex: 1 }}>
-            {count === user_count ? (
+            {users.length === user_count ? (
               <ThemeIcon variant="light" radius="xl" color="yellow" size="xs">
                 <IconStarFilled />
               </ThemeIcon>
@@ -43,13 +53,13 @@ export default function BestDates() {
           </Group>
           <Group spacing="xs">
             <UserCountBadge
-              count={count}
-              color={count === user_count ? "green" : "gray"}
+              count={users.length}
+              color={users.length === user_count ? "green" : "gray"}
             />
-            {count !== user_count ? (
+            {users.length !== user_count ? (
               <UserCountBadge
                 inverse={true}
-                count={user_count - count}
+                count={user_count - users.length}
                 color="red"
               />
             ) : null}
@@ -64,7 +74,7 @@ export default function BestDates() {
     : user_count < 2
     ? "This will populate once 2 people have marked their availability."
     : !dates.length
-    ? "There are no dates everyone can make."
+    ? "There are no good upcoming dates :("
     : undefined;
 
   return (

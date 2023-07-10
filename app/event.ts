@@ -2,25 +2,41 @@ import { useState } from "react";
 import { createContainer } from "unstated-next";
 import { useLocalStorage } from "@mantine/hooks";
 import * as api from "./api";
-import { getDateString, getHeatColour } from "./utils";
+import { getDateString } from "./utils";
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+dayjs.extend(isSameOrAfter);
 import type { Dayjs } from "dayjs";
+
+type UserId = string;
+
+const TODAY = dayjs();
 
 export interface EventInterface {
   name: string;
   id: string;
-  users: { [key: string]: User };
+  users: { [key: UserId]: User };
   creationDate: Dayjs;
   modificationDate: Dayjs;
 }
 
 export interface User {
-  id: string;
+  id: UserId;
   name: string;
   dates: UserDates;
 }
-
 export type UserDates = Array<string>;
+
+export interface CalendarDate {
+  date: Dayjs;
+  users: Array<UserId>;
+  isSelected: boolean;
+  isInPast: boolean;
+  isToday: boolean;
+  heat: number;
+}
+
+export type CalendarDates = Array<CalendarDate>;
 
 const DEFAULT_EVENT: EventInterface = {
   name: "",
@@ -95,26 +111,6 @@ function useEvent(
     return eventData?.users[currentUserId].dates.includes(date_string);
   };
 
-  const date_counts = eventData ? getDateCounts(eventData) : {};
-
-  const getDateSelectionCount = (date: Dayjs) => {
-    const date_string = getDateString(date);
-    return date_counts[date_string] || 0;
-  };
-
-  const getDateHeat = (date: Dayjs) => {
-    const date_string = getDateString(date);
-    const max = Object.values(eventData?.users || {}).filter(
-      (user) => user.dates.length
-    ).length;
-    const count = date_counts[date_string] || 0;
-    return count / max;
-  };
-
-  const getEventHeatColour = (date: Dayjs) => {
-    return getHeatColour(getDateHeat(date));
-  };
-
   const getUserByName = (name: string) => {
     return Object.values(eventData?.users || {}).find((user) => {
       return user.name.toLowerCase() === name.toLowerCase();
@@ -153,9 +149,25 @@ function useEvent(
       )
     ) || {};
 
+  const calendarDates = getCalendarDates(eventData, currentUserId);
+
+  const getCalendarDate = (date: Dayjs): CalendarDate =>
+    calendarDates.find((d) => d.date.isSame(date, "day")) || {
+      date: date,
+      users: [],
+      isSelected: false,
+      isInPast: !date.isSameOrAfter(TODAY, "day"),
+      isToday: date.isSame(TODAY, "day"),
+      heat: 0,
+    };
+
   return {
     name: eventData?.name || null,
-    date_counts: date_counts,
+    shareTitle: `${
+      eventData?.name ? `${eventData.name} | ` : ""
+    }Find a Date Everyone Can Do`,
+    calendarDates,
+    getCalendarDate,
     currentUser: currentUser,
     users: users,
     creationDate: eventData.creationDate,
@@ -163,9 +175,6 @@ function useEvent(
     selectDate,
     deselectDate,
     dateIsSelected,
-    getDateSelectionCount,
-    getDateHeat,
-    getEventHeatColour,
     createEvent,
     getUserByName,
     createNewUser,
@@ -174,20 +183,43 @@ function useEvent(
   };
 }
 
-const getDateCounts = (eventData: EventInterface) => {
-  const date_count: { [date: string]: number } = {};
+const getCalendarDates = (
+  eventData: EventInterface,
+  currentUserId: UserId | null
+): CalendarDates => {
+  const dates: { [date: string]: CalendarDate } = {};
   Object.values(eventData.users).map((user: User) => {
     user.dates.forEach((date) => {
+      const dayjs_date = dayjs(date);
       if (user.dates.includes(date)) {
-        if (date in date_count) {
-          date_count[date] += 1;
+        if (date in dates) {
+          dates[date] = {
+            ...dates[date],
+            users: [...dates[date].users, user.id],
+            isSelected: user.id === currentUserId || dates[date].isSelected,
+          };
         } else {
-          date_count[date] = 1;
+          dates[date] = {
+            date: dayjs_date,
+            users: [user.id],
+            isSelected: user.id === currentUserId,
+            isInPast: !dayjs_date.isSameOrAfter(TODAY, "day"),
+            isToday: dayjs_date.isSame(TODAY, "day"),
+            heat: 0,
+          };
         }
       }
     });
   });
-  return date_count;
+
+  const max = Object.values(eventData?.users || {}).filter(
+    (user) => user.dates.length
+  ).length;
+
+  return Object.values(dates).map((date) => ({
+    ...date,
+    heat: date.users.length / max,
+  }));
 };
 
 const EventContext = createContainer(useEvent);
