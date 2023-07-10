@@ -24,7 +24,7 @@ export default function App(props: AppProps) {
         />
         <meta
           name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
+          content="maximum-scale=1, minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
       </Head>
 
@@ -36,7 +36,7 @@ export default function App(props: AppProps) {
             "input::-webkit-calendar-picker-indicator": {
               display: "none !important",
             },
-            html: {
+            "html, body": {
               overflowX: "hidden",
               width: "auto!important",
             },

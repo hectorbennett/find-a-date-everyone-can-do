@@ -27,7 +27,6 @@ export default function Calendar({ getDayProps }: CalendarProps) {
         onClickPrevious={() => setMonthIndex((i) => i - 1)}
         onClickNext={() => setMonthIndex((i) => i + 1)}
       />
-      <DayHeadings />
       <Swiper
         index={monthIndex}
         setIndex={setMonthIndex}
@@ -90,9 +89,10 @@ export function CalendarTable({
   const weeks = chunks(dates, 7);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <DayHeadings />
       {weeks.map((week) => (
-        <Box key={week[0]} sx={{ display: "flex", gap: 2 }}>
+        <Box key={week[0]} sx={{ display: "flex", gap: 1 }}>
           {week.map((d) => {
             const props = getDayProps(d);
             return (
@@ -125,7 +125,7 @@ function DayHeadings() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>
       {Array.from(Array(7).keys()).map((i) => (
-        <Box key={i} sx={{ flex: 1, textAlign: "center" }} p="sm">
+        <Box key={i} sx={{ flex: 1, textAlign: "center" }} pb="xs">
           <Text size="xs">
             {dayjs()
               .day(i + 1)
