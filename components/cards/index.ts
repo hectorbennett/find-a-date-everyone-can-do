@@ -5,4 +5,3 @@ export { default as EventTitle } from "./event_title";
 export { default as EventUsers } from "./event_users";
 export { default as InviteUsers } from "./invite_users";
 export { default as Logout } from "./logout";
-export { default as OtherOkDates } from "./other_ok_dates";
