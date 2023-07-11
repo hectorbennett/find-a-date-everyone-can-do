@@ -4,5 +4,8 @@
 # check typescript errors
 yarn run type:check
 
+# Run tests
+yarn run test run
+
 # check js linting errors
 yarn run lint:check || (echo "run 'yarn run lint' to fix any auto-fixable linting errors"; false);
