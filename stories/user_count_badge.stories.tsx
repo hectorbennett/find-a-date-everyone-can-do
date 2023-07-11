@@ -15,5 +15,7 @@ type Story = StoryObj<typeof UserCountBadge>;
 export const Example: Story = {
   args: {
     count: 1,
+    color: "green",
+    inverse: false,
   },
 };
