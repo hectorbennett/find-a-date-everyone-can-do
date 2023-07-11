@@ -4,6 +4,7 @@ import { Button, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Card from "@/components/card";
 import * as api from "@/app/api";
+import { to_base_64 } from "@/utils/parse_uuids";
 
 export default function CreateEvent() {
   return (
@@ -22,7 +23,7 @@ function CreateEventForm() {
   const [isLoading, setIsLoading] = useState(false);
 
   const openEvent = (id: string) => {
-    router.push(`/event/${id}`);
+    router.push(`/event/${to_base_64(id)}`);
   };
 
   const form = useForm<FormValues>({
