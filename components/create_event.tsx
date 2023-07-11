@@ -5,6 +5,7 @@ import { useForm } from "@mantine/form";
 import Card from "@/components/card";
 import * as api from "@/app/api";
 import { to_base_64 } from "@/utils/parse_uuids";
+import { slugify } from "@/utils/slugify";
 
 export default function CreateEvent() {
   return (
@@ -22,8 +23,8 @@ function CreateEventForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const openEvent = (id: string) => {
-    router.push(`/event/${to_base_64(id)}`);
+  const openEvent = ({ id, name }: { id: string; name: string }) => {
+    router.push(`/event/${slugify(name)}/${to_base_64(id)}`);
   };
 
   const form = useForm<FormValues>({
@@ -49,9 +50,9 @@ function CreateEventForm() {
 
   const handleSubmit = async (values: FormValues) => {
     setIsLoading(true);
-    const { json, response } = await api.create_event(values.eventName);
+    const { json } = await api.create_event(values.eventName);
     if (json?.id) {
-      openEvent(json.id);
+      openEvent(json);
     }
   };
 
