@@ -15,6 +15,8 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
   const prevWidth = useRef(0);
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
 
+  const roundedWidth = Math.ceil(width);
+
   const bind = useDrag(
     ({ down, movement: [mx], tap, velocity: [vx] }) => {
       if (tap) {
@@ -23,13 +25,13 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
       }
       if (down) {
         // if the pointer is currently down, keep dragging about
-        api.start({ x: mx + -index * width });
+        api.start({ x: mx + -index * roundedWidth });
         return;
       }
-      if (Math.abs(mx) < width / 2 && vx < 0.2) {
+      if (Math.abs(mx) < roundedWidth / 2 && vx < 0.2) {
         // if we've only moved a little bit and velocity is low, cancel and stay on the same
         // item
-        api.start({ x: -index * width });
+        api.start({ x: -index * roundedWidth });
         return;
       }
 
@@ -39,7 +41,7 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
       } else if (mx < -20) {
         dragLeft();
       } else {
-        api.start({ x: -index * width });
+        api.start({ x: -index * roundedWidth });
       }
     },
     { filterTaps: true, axis: "x" }
@@ -54,14 +56,14 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
   };
 
   useEffect(() => {
-    if (width !== prevWidth.current) {
+    if (roundedWidth !== prevWidth.current) {
       /* if we've resized the window, do not animate */
-      api.start({ x: -index * width, immediate: true });
-      prevWidth.current = width;
+      api.start({ x: -index * roundedWidth, immediate: true });
+      prevWidth.current = roundedWidth;
     } else {
-      api.start({ x: -index * width });
+      api.start({ x: -index * roundedWidth });
     }
-  }, [api, index, width]);
+  }, [api, index, roundedWidth]);
 
   return (
     <Box
@@ -83,14 +85,20 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
       >
         <Box
           style={{
-            transform: `translateX(${width * (index - 1)}px)`,
+            transform: `translateX(${roundedWidth * (index - 1)}px)`,
           }}
           sx={{
             display: "flex",
           }}
         >
           {[index - 1, index, index + 1].map((i, j) => (
-            <Box style={{ width, height: i !== index ? 0 : undefined }} key={j}>
+            <Box
+              style={{
+                width: roundedWidth,
+                height: i !== index ? 0 : undefined,
+              }}
+              key={j}
+            >
               {getContent(i)}
             </Box>
           ))}
