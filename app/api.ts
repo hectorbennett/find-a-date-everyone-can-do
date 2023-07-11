@@ -25,10 +25,7 @@ const _fetch = async <C>(
     body: options?.json ? JSON.stringify(options.json) : undefined,
   });
   if (!response.ok) {
-    return {
-      response,
-      json: {} as C,
-    };
+    throw new Error("Error making request");
   }
 
   const json: C = await response.json();
