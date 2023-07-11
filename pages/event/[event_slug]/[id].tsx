@@ -87,7 +87,6 @@ function MainContent() {
 }
 
 export async function getServerSideProps(context: any) {
-  console.log("query", context.query);
   let id = context.query.id;
 
   if (is_uuid_v4(id)) {
