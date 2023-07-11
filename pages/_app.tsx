@@ -3,6 +3,7 @@ import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
 import Layout from "@/components/layout";
+import AppContext from "@/app/app";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -53,7 +54,9 @@ export default function App(props: AppProps) {
         }}
       >
         <Layout>
-          <Component {...pageProps} />
+          <AppContext.Provider>
+            <Component {...pageProps} />
+          </AppContext.Provider>
         </Layout>
         <Script
           defer
