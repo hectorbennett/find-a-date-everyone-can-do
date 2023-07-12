@@ -54,7 +54,6 @@ function MainContent() {
 
   useShallowEffect(() => {
     if (currentUser?.id) {
-      console.log("login");
       login(currentUser.id);
     }
   }, [currentUser?.id, login]);
