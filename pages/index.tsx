@@ -1,6 +1,7 @@
 import { Stack, Title } from "@mantine/core";
 import Card from "@/components/card";
 import CreateEvent from "@/components/create_event";
+import RecentEvents from "@/components/cards/recent_events";
 
 function TitleAndInfo() {
   return (
@@ -17,6 +18,7 @@ export default function Index() {
     <Stack spacing={5}>
       <TitleAndInfo />
       <CreateEvent />
+      <RecentEvents />
     </Stack>
   );
 }
