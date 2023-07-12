@@ -54,10 +54,8 @@ function useEvent(
   const [eventData, setEventData] = useState<EventInterface>(
     initialState.event
   );
-  const [currentUserId, setCurrentUserId] = useLocalStorage<string | null>({
-    key: "id",
-    defaultValue: null,
-  });
+
+  const currentUserId: string | null = app.recentEvents[eventData.id]?.userId;
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
@@ -137,12 +135,15 @@ function useEvent(
   };
 
   const login = (id: string) => {
-    setCurrentUserId(id);
-    app.logRecentEvent({ id: eventData.id, name: eventData.name });
+    app.logRecentEvent({
+      eventId: eventData.id,
+      eventName: eventData.name,
+      userId: id,
+    });
   };
 
   const logout = () => {
-    setCurrentUserId(null);
+    // setCurrentUserId(null);
   };
 
   const users =

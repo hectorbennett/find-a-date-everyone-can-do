@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import Head from "next/head";
 import { Grid, Stack } from "@mantine/core";
+import { useShallowEffect } from "@mantine/hooks";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
 import EventContext, { EventInterface } from "@/app/event";
@@ -49,6 +50,15 @@ function EditEvent() {
 }
 
 function MainContent() {
+  const { login, currentUser } = EventContext.useContainer();
+
+  useShallowEffect(() => {
+    if (currentUser?.id) {
+      console.log("login");
+      login(currentUser.id);
+    }
+  }, [currentUser?.id, login]);
+
   return (
     <Grid
       gutter={5}
