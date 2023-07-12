@@ -7,14 +7,15 @@ import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 dayjs.extend(isSameOrAfter);
 import type { Dayjs } from "dayjs";
+import AppContext from "./app";
 
 type UserId = string;
 
 const TODAY = dayjs();
 
 export interface EventInterface {
-  name: string;
   id: string;
+  name: string;
   users: { [key: UserId]: User };
   creationDate: Dayjs;
   modificationDate: Dayjs;
@@ -49,13 +50,12 @@ const DEFAULT_EVENT: EventInterface = {
 function useEvent(
   initialState: { event: EventInterface } = { event: DEFAULT_EVENT }
 ) {
+  const app = AppContext.useContainer();
   const [eventData, setEventData] = useState<EventInterface>(
     initialState.event
   );
-  const [currentUserId, setCurrentUserId] = useLocalStorage<string | null>({
-    key: "id",
-    defaultValue: null,
-  });
+
+  const currentUserId: string | null = app.recentEvents[eventData.id]?.userId;
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
@@ -135,11 +135,15 @@ function useEvent(
   };
 
   const login = (id: string) => {
-    setCurrentUserId(id);
+    app.logRecentEvent({
+      eventId: eventData.id,
+      eventName: eventData.name,
+      userId: id,
+    });
   };
 
   const logout = () => {
-    setCurrentUserId(null);
+    // setCurrentUserId(null);
   };
 
   const users =
