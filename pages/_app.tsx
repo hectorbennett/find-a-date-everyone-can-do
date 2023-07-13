@@ -53,11 +53,11 @@ export default function App(props: AppProps) {
           },
         }}
       >
-        <Layout>
-          <AppContext.Provider>
+        <AppContext.Provider>
+          <Layout>
             <Component {...pageProps} />
-          </AppContext.Provider>
-        </Layout>
+          </Layout>
+        </AppContext.Provider>
         <Script
           defer
           data-domain="findadateeveryonecando.com"
