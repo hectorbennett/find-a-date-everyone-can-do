@@ -31,10 +31,11 @@ function SelectionCalendar() {
 }
 
 export default function SelectionCalendarCard() {
+  const event = EventContext.useContainer();
   return (
     <Card
       title="Calendar"
-      note="Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better."
+      note={`Hi ${event.currentUser?.name}! Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better.`}
     >
       <SelectionCalendar />
     </Card>

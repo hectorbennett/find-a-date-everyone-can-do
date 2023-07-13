@@ -1,6 +1,12 @@
-import { Avatar, Box, Group } from "@mantine/core";
+import { Avatar, Badge, Box, Group } from "@mantine/core";
 
-export default function UserItem({ name }: { name: string }) {
+export default function UserItem({
+  name,
+  you,
+}: {
+  name: string;
+  you: boolean;
+}) {
   return (
     <Group noWrap title={name}>
       <Avatar radius="xl" size="sm" />{" "}
@@ -13,6 +19,11 @@ export default function UserItem({ name }: { name: string }) {
       >
         {name}
       </Box>
+      {you ? (
+        <Badge color="violet" variant="light">
+          You
+        </Badge>
+      ) : null}
     </Group>
   );
 }
