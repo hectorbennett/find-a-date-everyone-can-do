@@ -36,7 +36,7 @@ export default function SelectionCalendarCard() {
   return (
     <Card
       title="Calendar"
-      note={`Hi ${event.currentUser?.name}! Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better.`}
+      note={`Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better.`}
     >
       <SelectionCalendar />
       <SavingStatus />
