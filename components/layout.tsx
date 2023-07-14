@@ -1,5 +1,3 @@
-import AppContext from "@/app/app";
-
 import {
   Anchor,
   AppShell,
@@ -7,10 +5,8 @@ import {
   Header as MantineHeader,
   Skeleton,
   Title,
-  Text,
-  Loader,
 } from "@mantine/core";
-import { useEffect, type ReactNode, useState, useRef } from "react";
+import { type ReactNode } from "react";
 
 const HEADER_HEIGHT = 100;
 
@@ -43,51 +39,9 @@ function Header() {
             Find a Date Everyone Can Do
           </Title>
         </Anchor>
-        <SavingStatus />
       </Container>
     </MantineHeader>
   );
-}
-
-function SavingStatus() {
-  const { isSaving, isSaved, isError } = AppContext.useContainer();
-
-  let savingTimeoutHandle = useRef(setTimeout(() => {}, 0));
-  let savedTimeoutHandle = useRef(setTimeout(() => {}, 0));
-
-  const [showSavingSpinner, setShowSavingSpinner] = useState(false);
-  const [showIsSavedNote, setShowIsSavedNote] = useState(false);
-
-  useEffect(() => {
-    if (!isSaving) {
-      return;
-    }
-    clearTimeout(savingTimeoutHandle.current);
-    setShowSavingSpinner(true);
-    savingTimeoutHandle.current = setTimeout(() => {
-      setShowSavingSpinner(false);
-    }, 1000);
-  }, [isSaving]);
-
-  useEffect(() => {
-    clearTimeout(savedTimeoutHandle.current);
-    if (isSaved && !showSavingSpinner) {
-      setShowIsSavedNote(true);
-      savingTimeoutHandle.current = setTimeout(() => {
-        setShowIsSavedNote(false);
-      }, 3000);
-    }
-  }, [isSaved, showIsSavedNote, showSavingSpinner]);
-
-  if (!showSavingSpinner) {
-    return (
-      <Text c="dimmed" fz="sm">
-        All changes saved
-      </Text>
-    );
-  }
-
-  return null;
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
