@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef } from "react";
-import { Box } from "@mantine/core";
+import { Box, Skeleton } from "@mantine/core";
 import { useElementSize } from "@mantine/hooks";
 import { useSpring, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
@@ -83,27 +83,48 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
           y,
         }}
       >
-        <Box
-          style={{
-            transform: `translateX(${roundedWidth * (index - 1)}px)`,
-          }}
-          sx={{
-            display: "flex",
-          }}
-        >
-          {[index - 1, index, index + 1].map((i, j) => (
-            <Box
-              style={{
-                width: roundedWidth,
-                height: i !== index ? 0 : undefined,
-              }}
-              key={j}
-            >
-              {getContent(i)}
-            </Box>
-          ))}
-        </Box>
+        {!width ? (
+          <Placeholder />
+        ) : (
+          <Box
+            style={{
+              transform: `translateX(${roundedWidth * (index - 1)}px)`,
+            }}
+            sx={{
+              display: "flex",
+            }}
+          >
+            {[index - 1, index, index + 1].map((i, j) => (
+              <Box
+                style={{
+                  width: roundedWidth,
+                  height: i !== index ? 0 : undefined,
+                }}
+                key={j}
+              >
+                {getContent(i)}
+              </Box>
+            ))}
+          </Box>
+        )}
       </animated.div>
+    </Box>
+  );
+}
+
+function Placeholder() {
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        "&:after": {
+          content: '""',
+          display: "block",
+          paddingBottom: "100%",
+        },
+      }}
+    >
+      <Skeleton width="100%" height="100%" />
     </Box>
   );
 }

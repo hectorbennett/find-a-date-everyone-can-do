@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Head from "next/head";
-import { Grid, Stack } from "@mantine/core";
-import { useShallowEffect } from "@mantine/hooks";
+import { Grid, Modal, Stack } from "@mantine/core";
+import { useDisclosure, useMediaQuery, useShallowEffect } from "@mantine/hooks";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
 import EventContext, { EventInterface } from "@/app/event";
@@ -10,18 +10,13 @@ import { fetchEvent } from "@/app/api";
 import {
   BestDates,
   Calendar,
-  CreateNewUser,
   EventTitle,
   EventUsers,
   InviteUsers,
 } from "@/components/cards";
-import {
-  from_base_64,
-  is_base_64,
-  is_uuid_v4,
-  to_base_64,
-} from "@/utils/parse_uuids";
+import { from_base_64, is_uuid_v4, to_base_64 } from "@/utils/parse_uuids";
 import { slugify } from "@/utils/slugify";
+import LoginModal from "@/components/login_modal";
 
 dayjs.extend(localizedFormat);
 
@@ -41,9 +36,10 @@ function EditEvent() {
       <Head>
         <title>{event.shareTitle}</title>
       </Head>
+      <LoginModal />
       <Stack spacing={5}>
         <EventTitle />
-        {!event.currentUser ? <CreateNewUser /> : <MainContent />}
+        <MainContent />
       </Stack>
     </>
   );

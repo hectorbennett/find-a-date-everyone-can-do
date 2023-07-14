@@ -26,7 +26,7 @@ export default function RecentEvents() {
   }
 
   return (
-    <Card title="Recent events" note="Revist previous events">
+    <Card title="Recent events" note="Revisit previous events">
       {events.map((event) => (
         <NavLink
           component="a"
