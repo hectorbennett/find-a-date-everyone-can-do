@@ -65,14 +65,20 @@ function useEvent(
   };
 
   const setDate = (date: Dayjs, selected: boolean) => {
+    app.setSavingState({ isSaving: true, isSaved: false, isError: false });
+
     if (!currentUserId) {
       return;
     }
 
     if (selected) {
-      api.add_date(eventData.id, currentUserId, date);
+      api.add_date(eventData.id, currentUserId, date).then(() => {
+        app.setSavingState({ isSaving: false, isSaved: true, isError: false });
+      });
     } else {
-      api.remove_date(eventData.id, currentUserId, date);
+      api.remove_date(eventData.id, currentUserId, date).then(() => {
+        app.setSavingState({ isSaving: false, isSaved: true, isError: false });
+      });
     }
 
     setEventData((d) => {

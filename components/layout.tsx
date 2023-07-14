@@ -5,9 +5,8 @@ import {
   Header as MantineHeader,
   Skeleton,
   Title,
-  UnstyledButton,
 } from "@mantine/core";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const HEADER_HEIGHT = 100;
 
@@ -26,6 +25,7 @@ function Header() {
           height: "100%",
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
         })}
       >
         <Anchor
