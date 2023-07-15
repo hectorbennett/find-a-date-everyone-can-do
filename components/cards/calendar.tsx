@@ -1,6 +1,7 @@
 import EventContext, { CalendarDate } from "@/app/event";
 import Card from "../card";
 import Calendar from "../calendar2";
+import SavingStatus from "../saving_status";
 
 function SelectionCalendar() {
   const event = EventContext.useContainer();
@@ -31,12 +32,14 @@ function SelectionCalendar() {
 }
 
 export default function SelectionCalendarCard() {
+  const event = EventContext.useContainer();
   return (
     <Card
       title="Calendar"
-      note="Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better."
+      note={`Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better.`}
     >
       <SelectionCalendar />
+      <SavingStatus />
     </Card>
   );
 }

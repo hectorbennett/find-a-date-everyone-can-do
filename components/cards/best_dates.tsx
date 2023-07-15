@@ -18,10 +18,10 @@ export default function BestDates() {
   const today = dayjs();
 
   const dates = event.calendarDates
-    .filter(
-      ({ date, users }) =>
-        users.length > user_count / 2 && date.isSameOrAfter(today, "day")
-    )
+    // .filter(
+    //   ({ date, users }) =>
+    //     users.length > user_count / 2 && date.isSameOrAfter(today, "day")
+    // )
     .sort((a, b) => {
       if (a.users.length < b.users.length) {
         return 1;
@@ -85,7 +85,7 @@ export default function BestDates() {
         </Table>
       ) : null}
       {dates.length > rows.length ? (
-        <ShowMoreButton onClick={() => setNumberToShow((n) => n + 3)} />
+        <ShowMoreButton onClick={() => setNumberToShow((n) => n + 5)} />
       ) : null}
     </Card>
   );

@@ -23,7 +23,7 @@ export default function EventUsers() {
     .map((user) => (
       <tr key={user.id}>
         <td className={classes.td}>
-          <UserItem name={user.name} />
+          <UserItem name={user.name} you={user.id === event.currentUser?.id} />
         </td>
       </tr>
     ));
