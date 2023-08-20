@@ -4,6 +4,7 @@ import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
 import Layout from "@/components/layout";
 import AppContext from "@/app/app";
+import { belanosima, open_sans } from "../app/fonts";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -42,20 +43,21 @@ export default function App(props: AppProps) {
               width: "auto!important",
             },
           }),
+          fontFamily: open_sans.style.fontFamily,
           colorScheme: "light",
           headings: {
+            fontFamily: belanosima.style.fontFamily,
             fontWeight: 400,
-            sizes: {
-              h4: {
-                fontWeight: 300,
-              },
-            },
           },
         }}
       >
         <AppContext.Provider>
           <Layout>
-            <Component {...pageProps} />
+            <main
+              className={[belanosima.className, open_sans.className].join(" ")}
+            >
+              <Component {...pageProps} />
+            </main>
           </Layout>
         </AppContext.Provider>
         <Script
