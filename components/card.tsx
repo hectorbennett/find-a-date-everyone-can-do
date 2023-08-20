@@ -14,13 +14,18 @@ export default function Card({ title, note, children }: CardProps) {
       radius={0}
       sx={(theme) => ({
         padding: theme.spacing.xs,
+        background: "none",
       })}
       padding={0}
     >
       {(title || note) && (
         <MantineCard.Section withBorder p="xs">
           <Stack spacing="xs">
-            {title && <Title order={3}>{title}</Title>}
+            {title && (
+              <Title order={3} color="green.2">
+                {title}
+              </Title>
+            )}
             {note && (
               <Text c="dimmed" fz="sm">
                 {note}
