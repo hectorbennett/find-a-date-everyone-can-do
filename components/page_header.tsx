@@ -8,8 +8,8 @@ export function PageHeader() {
       fluid
       p="xs"
       sx={(theme) => ({
-        background: theme.colors.dark,
-        color: theme.colors.gray[0],
+        // background: theme.colors.dark,
+        // color: theme.colors.gray[0],
       })}
     >
       <Title order={4} m={0}>

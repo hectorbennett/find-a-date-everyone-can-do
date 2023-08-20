@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActionIcon, Box, Text } from "@mantine/core";
+import { ActionIcon, Box, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import Swiper from "../swiper";
@@ -54,9 +54,9 @@ function MonthHeader({
 }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }} p="xs">
-      <Text size="xl" sx={{ flex: 1 }}>
+      <Title order={3} weight={300} sx={{ flex: 1 }}>
         {date.format("MMMM YYYY")}
-      </Text>
+      </Title>
       <ActionIcon size="xl" onClick={onClickPrevious}>
         <IconChevronLeft size="1rem" />
       </ActionIcon>
