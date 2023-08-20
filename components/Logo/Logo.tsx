@@ -1,5 +1,4 @@
-import { league_gothic } from "@/app/fonts";
-import { Text, Title } from "@mantine/core";
+import { Title } from "@mantine/core";
 
 export default function Logo() {
   return (
