@@ -2,6 +2,9 @@
   "name": "find-a-date-everyone-can-do",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.5.1"
+  },
   "scripts": {
     "prepare": "husky install",
     "dev": "npm-run-all -p dev:*",
