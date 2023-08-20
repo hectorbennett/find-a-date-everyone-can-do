@@ -8,6 +8,7 @@ export function PageHeader() {
       fluid
       p="xs"
       sx={(theme) => ({
+        backgroundColor: theme.colors.purple[8],
         // background: theme.colors.dark,
         // color: theme.colors.gray[0],
       })}

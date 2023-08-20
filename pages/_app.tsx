@@ -34,6 +34,7 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
+          // col
           globalStyles: (theme) => ({
             "input::-webkit-calendar-picker-indicator": {
               display: "none !important",
@@ -44,20 +45,47 @@ export default function App(props: AppProps) {
             },
           }),
           fontFamily: open_sans.style.fontFamily,
-          colorScheme: "light",
+          colorScheme: "dark",
           headings: {
             fontFamily: belanosima.style.fontFamily,
             fontWeight: 400,
+          },
+          primaryColor: "purple",
+          primaryShade: 6,
+          colors: {
+            // Add your color
+            deepBlue: ["#E9EDFC", "#C1CCF6", "#99ABF0" /* ... */],
+            // or replace default theme color
+            green: [
+              "#F6FAEB",
+              "#E5F0C6",
+              "#D5E7A2",
+              "#C5DD7E",
+              "#B4D459",
+              "#A4CA35",
+              "#83A22A",
+              "#627920",
+              "#425115",
+              "#21280B",
+            ],
+            purple: [
+              "#EEECF9",
+              "#D0C9EE",
+              "#B1A6E3",
+              "#9283D8",
+              "#7460CC",
+              "#553EC1",
+              "#44319B",
+              "#332574",
+              "#22194D",
+              "#110C27",
+            ],
           },
         }}
       >
         <AppContext.Provider>
           <Layout>
-            <main
-              className={[belanosima.className, open_sans.className].join(" ")}
-            >
-              <Component {...pageProps} />
-            </main>
+            <Component {...pageProps} />
           </Layout>
         </AppContext.Provider>
         <Script
