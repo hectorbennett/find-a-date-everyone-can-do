@@ -17,10 +17,17 @@ type GetDayProps = (date: Dayjs) => {
 
 interface CalendarProps {
   getDayProps: GetDayProps;
+  /** The date to open the calendar to. */
+  initialFocusedDate: Dayjs;
 }
 
-export default function Calendar({ getDayProps }: CalendarProps) {
-  const [monthIndex, setMonthIndex] = useState(0);
+export default function Calendar({
+  getDayProps,
+  initialFocusedDate,
+}: CalendarProps) {
+  const [monthIndex, setMonthIndex] = useState(
+    Math.ceil(initialFocusedDate.diff(dayjs(), "month")) + 1
+  );
 
   return (
     <Box>
