@@ -61,14 +61,14 @@ function MonthHeader({
 }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }} p="xs">
-      <Title order={3} weight={300} sx={{ flex: 1 }}>
+      <Title color="green.2" order={3} weight={300} sx={{ flex: 1 }}>
         {date.format("MMMM YYYY")}
       </Title>
-      <ActionIcon size="xl" onClick={onClickPrevious}>
-        <IconChevronLeft size="1rem" />
+      <ActionIcon size="xl" onClick={onClickPrevious} color="green.2">
+        <IconChevronLeft size="1rem" stroke={4} />
       </ActionIcon>
-      <ActionIcon size="xl" onClick={onClickNext}>
-        <IconChevronRight size="1rem" />
+      <ActionIcon size="xl" onClick={onClickNext} color="green.2">
+        <IconChevronRight size="1rem" stroke={4} />
       </ActionIcon>
     </Box>
   );
