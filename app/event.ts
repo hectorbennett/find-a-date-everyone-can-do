@@ -226,10 +226,12 @@ const getCalendarDates = (
     (user) => user.dates.length
   ).length;
 
-  return Object.values(dates).map((date) => ({
-    ...date,
-    heat: date.users.length / max,
-  }));
+  return Object.values(dates)
+    .map((date) => ({
+      ...date,
+      heat: date.users.length / max,
+    }))
+    .sort((a, b) => (a.date.isAfter(b.date) ? 1 : -1));
 };
 
 const EventContext = createContainer(useEvent);
