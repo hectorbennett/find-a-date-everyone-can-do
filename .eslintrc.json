@@ -4,6 +4,8 @@
     "prettier",
     "plugin:storybook/recommended",
     "plugin:storybook/recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:jsdoc/recommended-typescript"
+    // "plugin:jsdoc/recommended-typescript-error" TODO: enable once all errors are fixed.
   ]
 }
