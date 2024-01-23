@@ -7,6 +7,13 @@ interface CardProps {
   children?: ReactNode;
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.title
+ * @param root0.note
+ * @param root0.children
+ */
 export default function Card({ title, note, children }: CardProps) {
   return (
     <MantineCard

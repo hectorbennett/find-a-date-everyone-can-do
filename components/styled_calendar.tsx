@@ -13,6 +13,10 @@ interface StyledCalendarProps extends CalendarProps {
   };
 }
 
+/**
+ *
+ * @param props
+ */
 export default function StyledCalendar(props: StyledCalendarProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -36,6 +40,7 @@ export default function StyledCalendar(props: StyledCalendarProps) {
   return (
     <MantineCalendar
       {...swipeHandlers}
+      placeholder={null}
       ref={ref}
       withCellSpacing={false}
       size="xl"
@@ -168,6 +173,14 @@ export default function StyledCalendar(props: StyledCalendarProps) {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.day
+ * @param root0.selected
+ * @param root0.heat
+ * @param root0.selectionCount
+ */
 function Day({
   day,
   selected,
@@ -227,6 +240,12 @@ function Day({
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.selected
+ * @param root0.day
+ */
 function DayLabel({ selected, day }: { selected: boolean; day: number }) {
   return (
     <Box
@@ -246,6 +265,12 @@ function DayLabel({ selected, day }: { selected: boolean; day: number }) {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.heat
+ * @param root0.selectionCount
+ */
 function UsersCountBadge({
   heat,
   selectionCount,
@@ -283,6 +308,11 @@ function UsersCountBadge({
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.selected
+ */
 function SelectedCheckbox({ selected }: { selected: boolean }) {
   if (!selected) {
     return null;

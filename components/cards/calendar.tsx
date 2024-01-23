@@ -2,7 +2,13 @@ import EventContext, { CalendarDate } from "@/app/event";
 import Card from "../card";
 import Calendar from "../calendar2";
 import SavingStatus from "../saving_status";
+import dayjs from "dayjs";
+import minMax from "dayjs/plugin/minMax";
+dayjs.extend(minMax);
 
+/**
+ *
+ */
 function SelectionCalendar() {
   const event = EventContext.useContainer();
 
@@ -14,8 +20,15 @@ function SelectionCalendar() {
     }
   };
 
+  const initialFocusedDate =
+    dayjs.max(
+      dayjs(),
+      event.calendarDates[event.calendarDates.length - 1].date,
+    ) || dayjs();
+
   return (
     <Calendar
+      initialFocusedDate={initialFocusedDate}
       getDayProps={(d) => {
         const calendarDate = event.getCalendarDate(d);
         return {
@@ -31,6 +44,9 @@ function SelectionCalendar() {
   );
 }
 
+/**
+ *
+ */
 export default function SelectionCalendarCard() {
   const event = EventContext.useContainer();
   return (

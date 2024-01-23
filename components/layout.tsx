@@ -7,13 +7,17 @@ import {
   Title,
 } from "@mantine/core";
 import { type ReactNode } from "react";
+import Logo from "./Logo";
 
 const HEADER_HEIGHT = 100;
 
-function Logo() {
-  return <Skeleton height={50} circle mr="sm" animate={false} />;
-}
+// function Logo() {
+//   return <Skeleton height={50} circle mr="sm" animate={false} />;
+// }
 
+/**
+ *
+ */
 function Header() {
   return (
     <MantineHeader height={HEADER_HEIGHT}>
@@ -34,16 +38,22 @@ function Header() {
           underline={false}
           sx={{ display: "flex", alignItems: "center" }}
         >
-          <Logo />
-          <Title order={6} m={0} sx={{ maxWidth: 80 }}>
+          {/* <Logo /> */}
+          {/* <Title order={6} m={0} sx={{ maxWidth: 80 }}>
             Find a Date Everyone Can Do
-          </Title>
+          </Title> */}
+          <Logo />
         </Anchor>
       </Container>
     </MantineHeader>
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.children
+ */
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <AppShell

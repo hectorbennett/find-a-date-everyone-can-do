@@ -2,6 +2,9 @@ import Container from "@/components/container";
 import { PageHeader } from "@/components/page_header";
 import { SimpleGrid, Title } from "@mantine/core";
 
+/**
+ *
+ */
 export default function NotFoundPage() {
   return (
     <>

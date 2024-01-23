@@ -9,6 +9,9 @@ import Card from "../card";
 import { useState } from "react";
 import UserCountBadge from "../user_count_badge";
 
+/**
+ *
+ */
 export default function BestDates() {
   const [numberToShow, setNumberToShow] = useState(3);
 
@@ -72,10 +75,10 @@ export default function BestDates() {
   const note = !user_count
     ? "No one has marked their availability yet."
     : user_count < 2
-    ? "This will populate once 2 people have marked their availability."
-    : !dates.length
-    ? "There are no good upcoming dates :("
-    : undefined;
+      ? "This will populate once 2 people have marked their availability."
+      : !dates.length
+        ? "There are no good upcoming dates :("
+        : undefined;
 
   return (
     <Card title="Best dates" note={note}>
@@ -91,6 +94,11 @@ export default function BestDates() {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.onClick
+ */
 function ShowMoreButton({ onClick }: { onClick: () => void }) {
   return (
     <Button m="xs" onClick={onClick}>

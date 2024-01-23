@@ -8,6 +8,9 @@ import ShareButton from "../share_button";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
+/**
+ *
+ */
 export default function EventTitle() {
   const event = EventContext.useContainer();
   if (!event.name) {
@@ -20,7 +23,9 @@ export default function EventTitle() {
     <Card>
       <Group p="xs">
         <Stack sx={{ flex: 1 }}>
-          <Title order={3}>{event.name}</Title>
+          <Title order={2} weight={400}>
+            {event.name}
+          </Title>
           <Text c="dimmed" fz="sm">
             {note}
           </Text>

@@ -10,6 +10,9 @@ import { IconCopy, IconCheck } from "@tabler/icons-react";
 import Card from "../card";
 import { useNavigatorShare } from "@/app/utils";
 
+/**
+ *
+ */
 function CopyButton() {
   return (
     <MantineCopyButton value={window.location.href} timeout={2000}>
@@ -44,6 +47,9 @@ function CopyButton() {
   );
 }
 
+/**
+ *
+ */
 export default function CopyUrlInputCard() {
   const { isLoading, canShare } = useNavigatorShare();
   if (isLoading || canShare) {
