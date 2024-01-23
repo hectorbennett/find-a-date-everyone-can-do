@@ -23,7 +23,7 @@ function SelectionCalendar() {
   const initialFocusedDate =
     dayjs.max(
       dayjs(),
-      event.calendarDates[event.calendarDates.length - 1].date
+      event.calendarDates[event.calendarDates.length - 1].date,
     ) || dayjs();
 
   return (
