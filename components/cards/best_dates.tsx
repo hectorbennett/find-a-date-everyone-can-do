@@ -9,6 +9,9 @@ import Card from "../card";
 import { useState } from "react";
 import UserCountBadge from "../user_count_badge";
 
+/**
+ *
+ */
 export default function BestDates() {
   const [numberToShow, setNumberToShow] = useState(3);
 
@@ -91,6 +94,11 @@ export default function BestDates() {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.onClick
+ */
 function ShowMoreButton({ onClick }: { onClick: () => void }) {
   return (
     <Button m="xs" onClick={onClick}>

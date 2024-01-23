@@ -9,6 +9,9 @@ const useStyles = createStyles((_theme) => ({
   },
 }));
 
+/**
+ *
+ */
 export default function EventUsers() {
   const event = EventContext.useContainer();
   const { classes } = useStyles();

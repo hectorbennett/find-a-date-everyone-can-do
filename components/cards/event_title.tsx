@@ -8,6 +8,9 @@ import ShareButton from "../share_button";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
+/**
+ *
+ */
 export default function EventTitle() {
   const event = EventContext.useContainer();
   if (!event.name) {

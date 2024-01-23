@@ -47,6 +47,11 @@ const DEFAULT_EVENT: EventInterface = {
   modificationDate: dayjs(),
 };
 
+/**
+ *
+ * @param initialState
+ * @param initialState.event
+ */
 function useEvent(
   initialState: { event: EventInterface } = { event: DEFAULT_EVENT }
 ) {

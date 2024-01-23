@@ -6,6 +6,10 @@ import Layout from "@/components/layout";
 import AppContext from "@/app/app";
 import { belanosima, open_sans } from "../app/fonts";
 
+/**
+ *
+ * @param props
+ */
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
 

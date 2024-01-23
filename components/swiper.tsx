@@ -10,6 +10,13 @@ interface SwiperProps {
   getContent: (index: number) => ReactNode;
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.index
+ * @param root0.setIndex
+ * @param root0.getContent
+ */
 export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
   const { ref, width } = useElementSize();
   const prevWidth = useRef(0);
@@ -112,6 +119,9 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
   );
 }
 
+/**
+ *
+ */
 function Placeholder() {
   return (
     <Box

@@ -7,6 +7,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { get_event_url } from "@/utils/get_event_url";
 dayjs.extend(relativeTime);
 
+/**
+ *
+ */
 export default function RecentEvents() {
   const app = AppContext.useContainer();
 
