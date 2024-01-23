@@ -51,7 +51,7 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
         api.start({ x: -index * roundedWidth });
       }
     },
-    { filterTaps: true, axis: "x" }
+    { filterTaps: true, axis: "x" },
   );
 
   const dragLeft = () => {

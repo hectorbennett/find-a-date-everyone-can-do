@@ -75,10 +75,10 @@ export default function BestDates() {
   const note = !user_count
     ? "No one has marked their availability yet."
     : user_count < 2
-    ? "This will populate once 2 people have marked their availability."
-    : !dates.length
-    ? "There are no good upcoming dates :("
-    : undefined;
+      ? "This will populate once 2 people have marked their availability."
+      : !dates.length
+        ? "There are no good upcoming dates :("
+        : undefined;
 
   return (
     <Card title="Best dates" note={note}>

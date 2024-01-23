@@ -8,13 +8,13 @@ import {
 
 test("parses '27b990c5-96e0-4331-b4a1-d9d136aac952' to get 'J7mQxZbgQzG0odnRNqrJUg=='", () => {
   expect(to_base_64("27b990c5-96e0-4331-b4a1-d9d136aac952")).toBe(
-    "J7mQxZbgQzG0odnRNqrJUg=="
+    "J7mQxZbgQzG0odnRNqrJUg==",
   );
 });
 
 test("parses 'J7mQxZbgQzG0odnRNqrJUg==' to get '27b990c5-96e0-4331-b4a1-d9d136aac952'", () => {
   expect(from_base_64("J7mQxZbgQzG0odnRNqrJUg==")).toBe(
-    "27b990c5-96e0-4331-b4a1-d9d136aac952"
+    "27b990c5-96e0-4331-b4a1-d9d136aac952",
   );
 });
 
@@ -28,13 +28,13 @@ test("checks that '27b990c5-96e0-4331-b4a1-d9d136aac952' is not base 64", () => 
 
 test("parses 'dc6813f1-f266-4676-911b-881ffacc7f72' to get '3GgT8fJmRnaRG4gf-sx_cg=='", () => {
   expect(to_base_64("dc6813f1-f266-4676-911b-881ffacc7f72")).toBe(
-    "3GgT8fJmRnaRG4gf-sx_cg=="
+    "3GgT8fJmRnaRG4gf-sx_cg==",
   );
 });
 
 test("parses '3GgT8fJmRnaRG4gf-sx_cg=='  to get 'dc6813f1-f266-4676-911b-881ffacc7f72'", () => {
   expect(from_base_64("3GgT8fJmRnaRG4gf-sx_cg==")).toBe(
-    "dc6813f1-f266-4676-911b-881ffacc7f72"
+    "dc6813f1-f266-4676-911b-881ffacc7f72",
   );
 });
 

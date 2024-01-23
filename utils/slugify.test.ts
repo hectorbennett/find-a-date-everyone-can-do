@@ -7,6 +7,6 @@ test("slugifies 'Hello World' to get 'hello-world'", () => {
 
 test("slugifies long strings to a sensible length'", () => {
   expect(
-    slugify("A really really really long slug that is frankly far too long")
+    slugify("A really really really long slug that is frankly far too long"),
   ).toBe("a-really-really-really-long-slug");
 });

@@ -34,8 +34,8 @@ export default function EventUsers() {
   const note = !rows.length
     ? "No one has marked their availability yet."
     : rows.length === 1
-    ? "One person has so far marked their availability."
-    : `${rows.length} people have so far marked their availability.`;
+      ? "One person has so far marked their availability."
+      : `${rows.length} people have so far marked their availability.`;
 
   return (
     <Card title="Going" note={note}>
