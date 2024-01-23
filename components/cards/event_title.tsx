@@ -20,7 +20,9 @@ export default function EventTitle() {
     <Card>
       <Group p="xs">
         <Stack sx={{ flex: 1 }}>
-          <Title order={2} weight={400}>{event.name}</Title>
+          <Title order={2} weight={400}>
+            {event.name}
+          </Title>
           <Text c="dimmed" fz="sm">
             {note}
           </Text>

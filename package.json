@@ -16,7 +16,7 @@
     "lint": "next lint --fix",
     "type:check": "tsc",
     "format:check": "prettier --check .",
-    "format": "prettier --write",
+    "format": "prettier --write .",
     "test": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
