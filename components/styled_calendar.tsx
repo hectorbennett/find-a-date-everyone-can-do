@@ -40,6 +40,7 @@ export default function StyledCalendar(props: StyledCalendarProps) {
   return (
     <MantineCalendar
       {...swipeHandlers}
+      placeholder={null}
       ref={ref}
       withCellSpacing={false}
       size="xl"
