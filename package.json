@@ -57,6 +57,7 @@
     "eslint": "^8.44.0",
     "eslint-config-next": "^13.4.9",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jsdoc": "^48.0.2",
     "eslint-plugin-storybook": "^0.6.12",
     "husky": "^8.0.3",
     "local-ssl-proxy": "^2.0.5",
