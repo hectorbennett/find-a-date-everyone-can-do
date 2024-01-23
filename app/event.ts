@@ -51,6 +51,7 @@ function useEvent(
   initialState: { event: EventInterface } = { event: DEFAULT_EVENT }
 ) {
   const app = AppContext.useContainer();
+
   const [eventData, setEventData] = useState<EventInterface>(
     initialState.event
   );
@@ -59,6 +60,10 @@ function useEvent(
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
+
+  const calendarDates = getCalendarDates(eventData, currentUserId);
+
+  const [focusedMonth, setFocusedMonth] = useState(calendarDates);
 
   const createEvent = async (eventName: string) => {
     return await api.create_event(eventName);
@@ -158,8 +163,6 @@ function useEvent(
         ([_id, user]) => user.dates.length > 0
       )
     ) || {};
-
-  const calendarDates = getCalendarDates(eventData, currentUserId);
 
   const getCalendarDate = (date: Dayjs): CalendarDate =>
     calendarDates.find((d) => d.date.isSame(date, "day")) || {
