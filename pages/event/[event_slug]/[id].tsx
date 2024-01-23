@@ -20,6 +20,11 @@ import LoginModal from "@/components/login_modal";
 
 dayjs.extend(localizedFormat);
 
+/**
+ *
+ * @param root0
+ * @param root0.event
+ */
 export default function Event({ event }: { event: EventInterface }) {
   return (
     <EventContext.Provider initialState={{ event: event }}>
@@ -28,6 +33,9 @@ export default function Event({ event }: { event: EventInterface }) {
   );
 }
 
+/**
+ *
+ */
 function EditEvent() {
   const event = EventContext.useContainer();
 
@@ -45,6 +53,9 @@ function EditEvent() {
   );
 }
 
+/**
+ *
+ */
 function MainContent() {
   const { login, currentUser } = EventContext.useContainer();
 
@@ -91,6 +102,10 @@ function MainContent() {
   );
 }
 
+/**
+ *
+ * @param context
+ */
 export async function getServerSideProps(context: any) {
   let id = context.query.id;
 

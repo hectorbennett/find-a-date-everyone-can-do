@@ -15,7 +15,7 @@ interface FetchResult<C> {
 const _fetch = async <C>(
   url: string,
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
-  options?: RequestOptions
+  options?: RequestOptions,
 ): Promise<FetchResult<C>> => {
   const response: Response = await fetch(url, {
     method: method,
@@ -49,7 +49,7 @@ const request = {
 };
 
 export const create_event = async (
-  name: string
+  name: string,
 ): Promise<FetchResult<EventResponse>> => {
   return request.post(`${URL_BASE}/events`, {
     json: { name },
@@ -64,7 +64,7 @@ interface EventResponse {
 }
 
 export const get_event = async (
-  id: string
+  id: string,
 ): Promise<FetchResult<EventResponse>> => {
   return request.get(`${URL_BASE}/events/${id}`);
 };
@@ -77,7 +77,7 @@ interface UserResponse {
 type UsersResponse = Array<UserResponse>;
 
 export const get_users = async (
-  id: string
+  id: string,
 ): Promise<FetchResult<UsersResponse>> => {
   return request.get(`${URL_BASE}/events/${id}/users`);
 };
@@ -89,14 +89,14 @@ interface DateResponse {
 type DatesResponse = Array<DateResponse>;
 
 export const get_dates = async (
-  id: string
+  id: string,
 ): Promise<FetchResult<DatesResponse>> => {
   return request.get(`${URL_BASE}/events/${id}/dates`);
 };
 
 export const create_user = async (
   event_id: string,
-  user_name: string
+  user_name: string,
 ): Promise<FetchResult<UserResponse>> => {
   return request.post(`${URL_BASE}/events/${event_id}/users`, {
     json: { name: user_name },
@@ -106,7 +106,7 @@ export const create_user = async (
 export const add_date = async (
   event_id: string,
   user_id: string,
-  date: Dayjs
+  date: Dayjs,
 ) => {
   return request.post(`${URL_BASE}/events/${event_id}/users/${user_id}/dates`, {
     json: {
@@ -118,7 +118,7 @@ export const add_date = async (
 export const remove_date = async (
   event_id: string,
   user_id: string,
-  date: Dayjs
+  date: Dayjs,
 ) => {
   return request.delete(
     `${URL_BASE}/events/${event_id}/users/${user_id}/dates`,
@@ -126,7 +126,7 @@ export const remove_date = async (
       json: {
         date: getDateString(date),
       },
-    }
+    },
   );
 };
 
@@ -160,7 +160,7 @@ export const fetchEvent = async (id: string): Promise<FullEventResponse> => {
             .filter((date: any) => date.user_id === user.id)
             .map((date: any) => date.date),
         },
-      ])
+      ]),
     ),
   };
 };

@@ -21,12 +21,18 @@ interface CalendarProps {
   initialFocusedDate: Dayjs;
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.getDayProps
+ * @param root0.initialFocusedDate
+ */
 export default function Calendar({
   getDayProps,
   initialFocusedDate,
 }: CalendarProps) {
   const [monthIndex, setMonthIndex] = useState(
-    Math.ceil(initialFocusedDate.diff(dayjs(), "month")) + 1
+    Math.ceil(initialFocusedDate.diff(dayjs(), "month")) + 1,
   );
 
   return (
@@ -50,6 +56,13 @@ export default function Calendar({
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.date
+ * @param root0.onClickPrevious
+ * @param root0.onClickNext
+ */
 function MonthHeader({
   date,
   onClickPrevious,
@@ -74,6 +87,12 @@ function MonthHeader({
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.date
+ * @param root0.getDayProps
+ */
 export function CalendarTable({
   date,
   getDayProps,
@@ -85,7 +104,7 @@ export function CalendarTable({
   const dayOfWeekofFirstDayofMonth = firstDayOfMonth.day();
   const firstDateOnCalendar = firstDayOfMonth.subtract(
     dayOfWeekofFirstDayofMonth - 1,
-    "day"
+    "day",
   );
   const daysBeforeMonth = dayOfWeekofFirstDayofMonth - 1;
   const daysInMonth = date.daysInMonth();
@@ -124,6 +143,11 @@ export function CalendarTable({
   );
 }
 
+/**
+ *
+ * @param arr
+ * @param n
+ */
 function chunks(arr: Array<any>, n: number) {
   const result = [];
   for (let i = 0; i < arr.length; i += n) {
@@ -132,6 +156,9 @@ function chunks(arr: Array<any>, n: number) {
   return result;
 }
 
+/**
+ *
+ */
 function DayHeadings() {
   return (
     <Box sx={{ display: "flex", gap: 2 }}>

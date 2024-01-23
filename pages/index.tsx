@@ -17,6 +17,9 @@ function TitleAndInfo() {
   );
 }
 
+/**
+ *
+ */
 export default function Index() {
   return (
     <Stack spacing={5}>

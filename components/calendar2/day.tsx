@@ -22,6 +22,17 @@ interface DayProps {
   onClick: () => void;
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.date
+ * @param root0.isOutside
+ * @param root0.isSelected
+ * @param root0.isInPast
+ * @param root0.isToday
+ * @param root0.heat
+ * @param root0.onClick
+ */
 export default function Day({
   date,
   isOutside,
@@ -75,6 +86,14 @@ export default function Day({
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.date
+ * @param root0.isOutside
+ * @param root0.isSelected
+ * @param root0.isToday
+ */
 function DayLabel({
   date,
   isOutside,

@@ -15,6 +15,9 @@ const HEADER_HEIGHT = 100;
 //   return <Skeleton height={50} circle mr="sm" animate={false} />;
 // }
 
+/**
+ *
+ */
 function Header() {
   return (
     <MantineHeader height={HEADER_HEIGHT}>
@@ -46,6 +49,11 @@ function Header() {
   );
 }
 
+/**
+ *
+ * @param root0
+ * @param root0.children
+ */
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <AppShell

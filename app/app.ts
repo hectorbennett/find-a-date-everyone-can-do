@@ -20,6 +20,9 @@ export interface SavingState {
   isError: boolean;
 }
 
+/**
+ *
+ */
 function useApp() {
   const [recentEvents, setRecentEvents] = useLocalStorage<RecentEvents>({
     key: "recentEvents",

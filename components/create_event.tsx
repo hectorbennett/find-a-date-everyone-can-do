@@ -7,6 +7,9 @@ import * as api from "@/app/api";
 import { to_base_64 } from "@/utils/parse_uuids";
 import { slugify } from "@/utils/slugify";
 
+/**
+ *
+ */
 export default function CreateEvent() {
   return (
     <Card title="Event name" note="Enter a name for your event">
@@ -19,6 +22,9 @@ interface FormValues {
   eventName: string;
 }
 
+/**
+ *
+ */
 function CreateEventForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);

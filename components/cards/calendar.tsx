@@ -6,6 +6,9 @@ import dayjs from "dayjs";
 import minMax from "dayjs/plugin/minMax";
 dayjs.extend(minMax);
 
+/**
+ *
+ */
 function SelectionCalendar() {
   const event = EventContext.useContainer();
 
@@ -17,10 +20,11 @@ function SelectionCalendar() {
     }
   };
 
-  const initialFocusedDate = dayjs.max(
-    dayjs(),
-    event.calendarDates[event.calendarDates.length - 1].date
-  );
+  const initialFocusedDate =
+    dayjs.max(
+      dayjs(),
+      event.calendarDates[event.calendarDates.length - 1].date,
+    ) || dayjs();
 
   return (
     <Calendar
@@ -40,6 +44,9 @@ function SelectionCalendar() {
   );
 }
 
+/**
+ *
+ */
 export default function SelectionCalendarCard() {
   const event = EventContext.useContainer();
   return (

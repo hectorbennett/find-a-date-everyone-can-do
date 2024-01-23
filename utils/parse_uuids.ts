@@ -12,7 +12,7 @@ export const from_base_64 = (s: string) => {
   s = Buffer.from(s, "base64").toString("hex");
   s = `${s.slice(0, 8)}-${s.slice(8, 12)}-${s.slice(12, 16)}-${s.slice(
     16,
-    20
+    20,
   )}-${s.slice(20, 32)}`;
   return s;
 };

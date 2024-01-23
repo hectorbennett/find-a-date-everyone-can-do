@@ -2,6 +2,9 @@ import { Title } from "@mantine/core";
 
 import Container from "./container";
 
+/**
+ *
+ */
 export function PageHeader() {
   return (
     <Container

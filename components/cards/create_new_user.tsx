@@ -3,6 +3,9 @@ import { useForm } from "@mantine/form";
 import EventContext from "@/app/event";
 import Card from "../card";
 
+/**
+ *
+ */
 export default function CreateNewUser() {
   return (
     <Card title="Enter your name" note="Enter the name you want to use.">
@@ -15,6 +18,9 @@ interface FormValues {
   userName: string;
 }
 
+/**
+ *
+ */
 function CreateNewUserForm() {
   const event = EventContext.useContainer();
   const form = useForm<FormValues>({

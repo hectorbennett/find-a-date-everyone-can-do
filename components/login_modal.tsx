@@ -8,6 +8,9 @@ interface FormValues {
   userName: string;
 }
 
+/**
+ *
+ */
 function CreateNewUserForm() {
   const event = EventContext.useContainer();
   const form = useForm<FormValues>({
@@ -64,6 +67,9 @@ function CreateNewUserForm() {
   );
 }
 
+/**
+ *
+ */
 export default function LoginModal() {
   const event = EventContext.useContainer();
   // const [opened, { open, close }] = useDisclosure(!event.currentUser);
