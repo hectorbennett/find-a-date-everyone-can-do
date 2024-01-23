@@ -32,7 +32,7 @@ export default function Calendar({
   initialFocusedDate,
 }: CalendarProps) {
   const [monthIndex, setMonthIndex] = useState(
-    Math.ceil(initialFocusedDate.diff(dayjs(), "month")) + 1,
+    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
   );
 
   return (
