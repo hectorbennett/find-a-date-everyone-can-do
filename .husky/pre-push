@@ -2,10 +2,13 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # check typescript errors
-yarn run type:check
+npm run type:check
 
 # Run tests
-yarn run test run
+npm run test run
 
 # check js linting errors
-yarn run lint:check || (echo "run 'yarn run lint' to fix any auto-fixable linting errors"; false);
+npm run lint:check || (echo "run 'npm run lint' to fix any auto-fixable linting errors"; false);
+
+# check formatting
+npm run format:check || (echo "run 'npm run format' to fix any auto-fixable linting errors"; false);
