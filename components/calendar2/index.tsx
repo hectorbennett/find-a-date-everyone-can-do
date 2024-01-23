@@ -32,7 +32,7 @@ export default function Calendar({
   initialFocusedDate,
 }: CalendarProps) {
   const [monthIndex, setMonthIndex] = useState(
-    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month"))
+    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
   );
 
   return (
@@ -104,7 +104,7 @@ export function CalendarTable({
   const dayOfWeekofFirstDayofMonth = firstDayOfMonth.day();
   const firstDateOnCalendar = firstDayOfMonth.subtract(
     dayOfWeekofFirstDayofMonth - 1,
-    "day"
+    "day",
   );
   const daysBeforeMonth = dayOfWeekofFirstDayofMonth - 1;
   const daysInMonth = date.daysInMonth();
