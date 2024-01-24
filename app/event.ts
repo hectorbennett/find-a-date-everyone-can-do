@@ -61,7 +61,8 @@ function useEvent(
     initialState.event,
   );
 
-  const currentUserId: string | null = app.recentEvents[eventData.id]?.userId;
+  const currentUserId: string | null =
+    app.recentEvents[eventData.id]?.userId || null;
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
@@ -123,8 +124,12 @@ function useEvent(
     if (!currentUserId) {
       return false;
     }
+    const currentUser = eventData?.users[currentUserId];
+    if (currentUser === undefined) {
+      return false;
+    }
     const date_string = getDateString(date);
-    return eventData?.users[currentUserId].dates.includes(date_string);
+    return currentUser.dates.includes(date_string);
   };
 
   const getUserByName = (name: string) => {
@@ -211,11 +216,14 @@ const getCalendarDates = (
       const dayjs_date = dayjs(date);
       if (user.dates.includes(date)) {
         if (date in dates) {
-          dates[date] = {
-            ...dates[date],
-            users: [...dates[date].users, user.id],
-            isSelected: user.id === currentUserId || dates[date].isSelected,
-          };
+          let currentDate = dates[date];
+          if (currentDate !== undefined) {
+            dates[date] = {
+              ...currentDate,
+              users: [...currentDate.users, user.id],
+              isSelected: user.id === currentUserId || currentDate.isSelected,
+            };
+          }
         } else {
           dates[date] = {
             date: dayjs_date,
