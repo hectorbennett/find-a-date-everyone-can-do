@@ -41,11 +41,18 @@ export const useSwipe = (input: SwipeInput): SwipeOutput => {
 
   const onTouchStart = (e: TouchEvent) => {
     setTouchEnd(0); // otherwise the swipe is fired even with usual touch events
-    setTouchStart(e.targetTouches[0].clientX);
+    let targetTouches = e.targetTouches[0];
+    if (targetTouches) {
+      setTouchStart(targetTouches.clientX);
+    }
   };
 
-  const onTouchMove = (e: TouchEvent) =>
-    setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchMove = (e: TouchEvent) => {
+    let targetTouches = e.targetTouches[0];
+    if (targetTouches) {
+      setTouchEnd(targetTouches.clientX);
+    }
+  }
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
