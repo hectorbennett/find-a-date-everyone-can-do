@@ -21,12 +21,17 @@ function SelectionCalendar() {
   };
 
   const thisMonth = dayjs().startOf("month");
-  const firstSelectedMonth =
-    event.calendarDates.length > 0
-      ? event.calendarDates[0].date.startOf("month")
-      : thisMonth;
+
+  const firstSelectedMonth = (() => {
+    const firstCalendarDate = event.calendarDates[0];
+    if (firstCalendarDate === undefined) {
+      return null;
+    }
+    return firstCalendarDate.date.startOf("month");
+  })();
+
   const initialFocusedDate =
-    dayjs.max(thisMonth, firstSelectedMonth) || thisMonth;
+    dayjs.max(thisMonth, firstSelectedMonth || thisMonth) || thisMonth;
 
   return (
     <Calendar
