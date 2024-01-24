@@ -1,8 +1,8 @@
 import EventContext, { CalendarDate } from "@/app/event";
 import Card from "../card";
-import Calendar from "../calendar2";
+import Calendar from "../atoms/Calendar";
 import SavingStatus from "../saving_status";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import minMax from "dayjs/plugin/minMax";
 dayjs.extend(minMax);
 
@@ -28,7 +28,7 @@ function SelectionCalendar() {
   return (
     <Calendar
       initialFocusedDate={initialFocusedDate}
-      getDayProps={(d) => {
+      getDayProps={(d: Dayjs) => {
         const calendarDate = event.getCalendarDate(d);
         return {
           isSelected: calendarDate.isSelected,

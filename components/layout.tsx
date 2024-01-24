@@ -3,17 +3,11 @@ import {
   AppShell,
   Container,
   Header as MantineHeader,
-  Skeleton,
-  Title,
 } from "@mantine/core";
 import { type ReactNode } from "react";
-import Logo from "./Logo";
+import Logo from "./atoms/Logo";
 
 const HEADER_HEIGHT = 100;
-
-// function Logo() {
-//   return <Skeleton height={50} circle mr="sm" animate={false} />;
-// }
 
 /**
  *

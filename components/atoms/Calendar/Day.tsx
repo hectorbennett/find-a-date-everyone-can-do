@@ -1,4 +1,4 @@
-import { getHeatColour } from "../../app/utils";
+import { getHeatColour } from "../../../app/utils";
 import { Box, Text, UnstyledButton } from "@mantine/core";
 import type { Dayjs } from "dayjs";
 

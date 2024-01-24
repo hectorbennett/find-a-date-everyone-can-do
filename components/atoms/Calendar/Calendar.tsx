@@ -2,59 +2,9 @@ import { useState } from "react";
 import { ActionIcon, Box, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import Swiper from "../swiper";
-import Day from "./day";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
-
-type GetDayProps = (date: Dayjs) => {
-  isSelected: boolean;
-  onClick: () => void;
-  selectionCount: number;
-  heat: number;
-  isToday: boolean;
-  isInPast: boolean;
-};
-
-interface CalendarProps {
-  getDayProps: GetDayProps;
-  /** The date to open the calendar to. */
-  initialFocusedDate: Dayjs;
-}
-
-/**
- *
- * @param root0
- * @param root0.getDayProps
- * @param root0.initialFocusedDate
- */
-export default function Calendar({
-  getDayProps,
-  initialFocusedDate,
-}: CalendarProps) {
-  const [monthIndex, setMonthIndex] = useState(
-    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
-  );
-
-  return (
-    <Box>
-      <MonthHeader
-        date={dayjs().add(monthIndex, "month")}
-        onClickPrevious={() => setMonthIndex((i) => i - 1)}
-        onClickNext={() => setMonthIndex((i) => i + 1)}
-      />
-      <Swiper
-        index={monthIndex}
-        setIndex={setMonthIndex}
-        getContent={(i) => (
-          <CalendarTable
-            date={dayjs().add(i, "month")}
-            getDayProps={getDayProps}
-          />
-        )}
-      />
-    </Box>
-  );
-}
+import { Swiper } from "../Swiper";
+import Day from "./Day";
 
 /**
  *
@@ -144,7 +94,7 @@ export function CalendarTable({
 }
 
 /**
- *
+ * TODO: move to utils?;
  * @param arr
  * @param n
  */
@@ -174,3 +124,52 @@ function DayHeadings() {
     </Box>
   );
 }
+
+type GetDayProps = (date: Dayjs) => {
+  isSelected: boolean;
+  onClick: () => void;
+  selectionCount: number;
+  heat: number;
+  isToday: boolean;
+  isInPast: boolean;
+};
+
+interface CalendarProps {
+  getDayProps: GetDayProps;
+  /** The date to open the calendar to. */
+  initialFocusedDate: Dayjs;
+}
+
+/**
+ *
+ * @param root0
+ * @param root0.getDayProps
+ * @param root0.initialFocusedDate
+ */
+export function Calendar({ getDayProps, initialFocusedDate }: CalendarProps) {
+  const [monthIndex, setMonthIndex] = useState(
+    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
+  );
+
+  return (
+    <Box>
+      <MonthHeader
+        date={dayjs().add(monthIndex, "month")}
+        onClickPrevious={() => setMonthIndex((i) => i - 1)}
+        onClickNext={() => setMonthIndex((i) => i + 1)}
+      />
+      <Swiper
+        index={monthIndex}
+        setIndex={setMonthIndex}
+        getContent={(i) => (
+          <CalendarTable
+            date={dayjs().add(i, "month")}
+            getDayProps={getDayProps}
+          />
+        )}
+      />
+    </Box>
+  );
+}
+
+export default Calendar;

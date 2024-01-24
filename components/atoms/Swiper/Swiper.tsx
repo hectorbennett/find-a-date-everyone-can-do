@@ -17,7 +17,7 @@ interface SwiperProps {
  * @param root0.setIndex
  * @param root0.getContent
  */
-export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
+export function Swiper({ index, setIndex, getContent }: SwiperProps) {
   const { ref, width } = useElementSize();
   const prevWidth = useRef(0);
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
@@ -118,6 +118,8 @@ export default function Swiper({ index, setIndex, getContent }: SwiperProps) {
     </Box>
   );
 }
+
+export default Swiper;
 
 /**
  *
