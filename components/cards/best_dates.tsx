@@ -72,6 +72,8 @@ export default function BestDates() {
     </tr>
   ));
 
+  const showShowMoreButton = user_count > 1 && dates.length > rows.length;
+
   const note = !user_count
     ? "No one has marked their availability yet."
     : user_count < 2
@@ -87,7 +89,7 @@ export default function BestDates() {
           <tbody>{rows}</tbody>
         </Table>
       ) : null}
-      {dates.length > rows.length ? (
+      {showShowMoreButton ? (
         <ShowMoreButton onClick={() => setNumberToShow((n) => n + 5)} />
       ) : null}
     </Card>

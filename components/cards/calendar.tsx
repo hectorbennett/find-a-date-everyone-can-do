@@ -21,7 +21,10 @@ function SelectionCalendar() {
   };
 
   const thisMonth = dayjs().startOf("month");
-  const firstSelectedMonth = event.calendarDates[0].date.startOf("month");
+  const firstSelectedMonth =
+    event.calendarDates.length > 0
+      ? event.calendarDates[0].date.startOf("month")
+      : thisMonth;
   const initialFocusedDate =
     dayjs.max(thisMonth, firstSelectedMonth) || thisMonth;
 
