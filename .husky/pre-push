@@ -14,7 +14,7 @@ npm run build-storybook
 npm run test run
 
 # Test Storybook
-npm npm run test-storybook:headless
+npm run test-storybook:headless
 
 # check js linting errors
 npm run lint:check || (echo "run 'npm run lint' to fix any auto-fixable linting errors"; false);
