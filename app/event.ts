@@ -52,12 +52,12 @@ export const DEFAULT_EVENT: EventInterface = {
  * @param initialState.event
  */
 function useEvent(
-  initialState: { event: EventInterface } = { event: DEFAULT_EVENT }
+  initialState: { event: EventInterface } = { event: DEFAULT_EVENT },
 ) {
   const app = AppContext.useContainer();
 
   const [eventData, setEventData] = useState<EventInterface>(
-    initialState.event
+    initialState.event,
   );
 
   const currentUserId: string | null =
@@ -169,8 +169,8 @@ function useEvent(
   const users =
     Object.fromEntries(
       Object.entries(eventData?.users || {}).filter(
-        ([_id, user]) => user.dates.length > 0
-      )
+        ([_id, user]) => user.dates.length > 0,
+      ),
     ) || {};
 
   const getCalendarDate = (date: Dayjs): CalendarDate =>
@@ -207,7 +207,7 @@ function useEvent(
 
 const getCalendarDates = (
   eventData: EventInterface,
-  currentUserId: UserId | null
+  currentUserId: UserId | null,
 ): CalendarDates => {
   const dates: { [date: string]: CalendarDate } = {};
   Object.values(eventData.users).map((user: User) => {
@@ -238,7 +238,7 @@ const getCalendarDates = (
   });
 
   const max = Object.values(eventData?.users || {}).filter(
-    (user) => user.dates.length
+    (user) => user.dates.length,
   ).length;
 
   return Object.values(dates)
