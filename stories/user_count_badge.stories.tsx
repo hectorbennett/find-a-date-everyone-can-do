@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import UserCountBadge from "../components/user_count_badge";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
-const meta  = {
+const meta = {
   component: UserCountBadge,
   tags: ["autodocs"],
   argTypes: {},

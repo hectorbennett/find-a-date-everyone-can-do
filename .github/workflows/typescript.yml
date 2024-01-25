@@ -37,7 +37,7 @@ jobs:
       - name: Build
         working-directory: ${{ github.workspace }}
         run: npm run build
-      
+
       - name: Build Storybook
         working-directory: ${{ github.workspace }}
         run: npm run build-storybook
@@ -45,7 +45,7 @@ jobs:
       - name: Test
         working-directory: ${{ github.workspace }}
         run: npm run test
-      
+
       - name: Test Storybook
         working-directory: ${{ github.workspace }}
         run: npm run test-storybook:headless

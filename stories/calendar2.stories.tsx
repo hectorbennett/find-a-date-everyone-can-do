@@ -1,8 +1,8 @@
 // Button.stories.tsx
 
-import Calendar from '@/components/calendar2';
-import type { Meta, StoryObj } from '@storybook/react';
-import dayjs from 'dayjs';
+import Calendar from "@/components/calendar2";
+import type { Meta, StoryObj } from "@storybook/react";
+import dayjs from "dayjs";
 
 const meta = {
   component: Calendar,
@@ -25,9 +25,6 @@ export const Primary: Story = {
     }),
   },
 };
-
-
-
 
 // import type { Meta, StoryObj } from "@storybook/react";
 // import Calendar from "../components/calendar2";
