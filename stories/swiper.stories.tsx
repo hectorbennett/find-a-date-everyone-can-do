@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Swiper from "../components/swiper";
 import { ReactNode } from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Box } from "@mantine/core";
+import Swiper from "../components/swiper";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction
 const meta: Meta<typeof Swiper> = {

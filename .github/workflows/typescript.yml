@@ -26,6 +26,10 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: npm ci
 
+      - name: Install Playwright
+        working-directory: ${{ github.workspace }}
+        run: npx playwright install
+
       - name: Type Check
         working-directory: ${{ github.workspace }}
         run: npm run type:check
@@ -33,10 +37,18 @@ jobs:
       - name: Build
         working-directory: ${{ github.workspace }}
         run: npm run build
+      
+      - name: Build Storybook
+        working-directory: ${{ github.workspace }}
+        run: npm run build-storybook
 
       - name: Test
         working-directory: ${{ github.workspace }}
         run: npm run test
+      
+      - name: Test Storybook
+        working-directory: ${{ github.workspace }}
+        run: npm run test-storybook:headless
 
       - name: Lint
         working-directory: ${{ github.workspace }}
