@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { createContainer } from "unstated-next";
-import { useLocalStorage } from "@mantine/hooks";
 import * as api from "./api";
 import { getDateString } from "./utils";
 import dayjs from "dayjs";
@@ -39,7 +38,7 @@ export interface CalendarDate {
 
 export type CalendarDates = Array<CalendarDate>;
 
-const DEFAULT_EVENT: EventInterface = {
+export const DEFAULT_EVENT: EventInterface = {
   name: "",
   id: "",
   users: {},
