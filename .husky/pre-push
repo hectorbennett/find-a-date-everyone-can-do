@@ -4,11 +4,21 @@
 # check typescript errors
 npm run type:check
 
+# Build
+npm run build
+
+# Build Storybook
+npm run build-storybook
+
 # Run tests
 npm run test run
+
+# Test Storybook
+npm run test-storybook:headless
 
 # check js linting errors
 npm run lint:check || (echo "run 'npm run lint' to fix any auto-fixable linting errors"; false);
 
 # check formatting
 npm run format:check || (echo "run 'npm run format' to fix any auto-fixable linting errors"; false);
+
