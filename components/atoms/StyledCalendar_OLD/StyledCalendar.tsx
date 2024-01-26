@@ -1,10 +1,20 @@
-import { useRef } from "react";
-import { getHeatColour, useSwipe } from "../app/utils";
-import { Badge, Box, Checkbox, rem } from "@mantine/core";
-import { CalendarProps, Calendar as MantineCalendar } from "@mantine/dates";
-import { IconStarFilled, IconUser, IconUsers } from "@tabler/icons-react";
+/**
+ * StyledCalendar.tsx
+ */
 
-interface StyledCalendarProps extends CalendarProps {
+import { useRef } from "react";
+import { Badge, Box } from "@mantine/core";
+import {
+  CalendarProps as MantineCalendarProps,
+  Calendar as MantineCalendar,
+} from "@mantine/dates";
+import { IconUser, IconUsers } from "@tabler/icons-react";
+import { getHeatColour, useSwipe } from "@/app/utils";
+
+/**
+ * StyledCalendar props
+ */
+interface StyledCalendarProps extends MantineCalendarProps {
   getDayProps?: (date: Date) => {
     selected?: boolean;
     onClick?: () => void;
@@ -17,7 +27,7 @@ interface StyledCalendarProps extends CalendarProps {
  *
  * @param props
  */
-export default function StyledCalendar(props: StyledCalendarProps) {
+export function StyledCalendar(props: StyledCalendarProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const swipeHandlers = useSwipe({
@@ -148,14 +158,7 @@ export default function StyledCalendar(props: StyledCalendarProps) {
 
         const selectionCount =
           (props.getDayProps && props.getDayProps(date).selectionCount) || 0;
-        return (
-          <Day
-            day={day}
-            selected={selected}
-            heat={heat}
-            selectionCount={selectionCount}
-          />
-        );
+        return <Day day={day} selected={selected} heat={heat} />;
       }}
       {...props}
       getDayProps={
@@ -185,12 +188,10 @@ function Day({
   day,
   selected,
   heat,
-  selectionCount,
 }: {
   day: number;
   selected: boolean;
   heat: number;
-  selectionCount: number;
 }) {
   return (
     <Box
@@ -214,7 +215,7 @@ function Day({
       })}
     >
       <Box sx={{ position: "absolute" }}>
-        <DayLabel day={day} selected={selected} />
+        <DayLabel day={day} />
         <Box
           sx={{
             flex: 1,
@@ -222,19 +223,7 @@ function Day({
             display: "flex",
             justifyContent: "center",
           }}
-        >
-          {/* <SelectedCheckbox selected={selected} /> */}
-        </Box>
-        {/* <Box
-        sx={{
-          flex: 1,
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <UsersCountBadge heat={heat} selectionCount={selectionCount} />
-      </Box> */}
+        ></Box>
       </Box>
     </Box>
   );
@@ -246,17 +235,13 @@ function Day({
  * @param root0.selected
  * @param root0.day
  */
-function DayLabel({ selected, day }: { selected: boolean; day: number }) {
+function DayLabel({ day }: { day: number }) {
   return (
     <Box
       sx={(theme) => ({
         width: "100%",
         padding: 8,
-        // paddingBottom: 4,
-        // margin: rem(0.1),
-        // textAlign: "center",
         fontSize: theme.fontSizes.xs,
-        // fontWeight: selected ? "bold" : undefined,
         fontWeight: "bold",
       })}
     >
@@ -306,16 +291,4 @@ function UsersCountBadge({
       </Box>
     </Badge>
   );
-}
-
-/**
- *
- * @param root0
- * @param root0.selected
- */
-function SelectedCheckbox({ selected }: { selected: boolean }) {
-  if (!selected) {
-    return null;
-  }
-  return <Checkbox color="green" size="xs" checked readOnly />;
 }

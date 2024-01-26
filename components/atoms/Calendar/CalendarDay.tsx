@@ -1,4 +1,8 @@
-import { getHeatColour } from "../../app/utils";
+/**
+ * CalendarDay.tsx
+ */
+
+import { getHeatColour } from "../../../app/utils";
 import { Box, Text, UnstyledButton } from "@mantine/core";
 import type { Dayjs } from "dayjs";
 
@@ -33,7 +37,7 @@ interface DayProps {
  * @param root0.heat
  * @param root0.onClick
  */
-export default function Day({
+export function CalendarDay({
   date,
   isOutside,
   isSelected,

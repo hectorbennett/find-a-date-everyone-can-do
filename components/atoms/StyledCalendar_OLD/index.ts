@@ -1,0 +1,1 @@
+export { StyledCalendar } from "./StyledCalendar";

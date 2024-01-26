@@ -7,7 +7,7 @@ dayjs.extend(isSameOrAfter);
 import EventContext from "@/app/event";
 import Card from "../card";
 import { useState } from "react";
-import UserCountBadge from "../user_count_badge";
+import { UserCountBadge } from "../atoms";
 
 /**
  *

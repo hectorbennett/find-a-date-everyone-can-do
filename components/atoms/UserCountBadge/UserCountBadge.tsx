@@ -1,3 +1,7 @@
+/**
+ * UserCountBadge.tsx
+ */
+
 import { Badge, Box, DefaultMantineColor } from "@mantine/core";
 import { IconUser, IconUserX, IconUsers } from "@tabler/icons-react";
 
@@ -8,7 +12,7 @@ import { IconUser, IconUserX, IconUsers } from "@tabler/icons-react";
  * @param root0.color
  * @param root0.inverse
  */
-export default function UserCountBadge({
+export function UserCountBadge({
   count,
   color,
   inverse = false,
