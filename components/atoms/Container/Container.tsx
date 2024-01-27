@@ -1,5 +1,9 @@
+/**
+ * Container.tsx
+ */
+
 import {
-  ContainerProps,
+  ContainerProps as MantineContainerProps,
   Container as MantineContainer,
   createStyles,
 } from "@mantine/core";
@@ -18,10 +22,9 @@ const useStyles = createStyles((theme) => ({
 }));
 
 /**
- *
- * @param props
+ * Container component.
  */
-export default function Container(props: ContainerProps) {
+export function Container(props: MantineContainerProps) {
   const { classes } = useStyles();
   return (
     <MantineContainer

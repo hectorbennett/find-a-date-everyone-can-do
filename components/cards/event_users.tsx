@@ -1,7 +1,6 @@
 import EventContext from "@/app/event";
 import { Table, createStyles } from "@mantine/core";
-import UserItem from "../user_item";
-import { Card } from "../atoms";
+import { Card, UserItem } from "../atoms";
 
 const useStyles = createStyles((_theme) => ({
   td: {
@@ -26,7 +25,10 @@ export default function EventUsers() {
     .map((user) => (
       <tr key={user.id}>
         <td className={classes.td}>
-          <UserItem name={user.name} you={user.id === event.currentUser?.id} />
+          <UserItem
+            name={user.name}
+            isLoggedInUser={user.id === event.currentUser?.id}
+          />
         </td>
       </tr>
     ));

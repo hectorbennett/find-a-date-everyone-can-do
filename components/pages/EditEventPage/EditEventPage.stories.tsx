@@ -4,11 +4,11 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import EventContext, { DEFAULT_EVENT } from "@/app/event";
-import { EditEvent } from "./EditEvent";
 import AppContext from "@/app/app";
+import { EditEventPage } from "./EditEventPage";
 
 const meta = {
-  component: EditEvent,
+  component: EditEventPage,
   tags: ["autodocs"],
   decorators: [
     (Story) => (
@@ -19,7 +19,7 @@ const meta = {
       </AppContext.Provider>
     ),
   ],
-} satisfies Meta<typeof EditEvent>;
+} satisfies Meta<typeof EditEventPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

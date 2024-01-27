@@ -1,21 +1,19 @@
 /**
- * Card.stories.ts
+ * Container.stories.ts
  */
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card } from "./Card";
+import { Container } from "./Container";
 
 const meta = {
-  component: Card,
+  component: Container,
   tags: ["autodocs"],
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof Container>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    title: "Title",
-    note: "note",
-    children: "Children",
+    children: "This is a container",
   },
 };

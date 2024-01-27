@@ -1,9 +1,13 @@
+/**
+ * SavingStatus.tsx
+ */
+
 import { useEffect, useRef, useState } from "react";
 import { Text } from "@mantine/core";
 import AppContext from "@/app/app";
 
 /**
- *
+ * Saving status
  */
 export default function SavingStatus() {
   const { isSaving, isSaved, isError } = AppContext.useContainer();

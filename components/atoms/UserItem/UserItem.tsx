@@ -1,18 +1,27 @@
+/**
+ * UserItem.tsx
+ */
+
 import { Avatar, Badge, Box, Group } from "@mantine/core";
 
 /**
- *
- * @param root0
- * @param root0.name
- * @param root0.you
+ * UserItem props
  */
-export default function UserItem({
-  name,
-  you,
-}: {
+interface UserItemProps {
+  /** User name */
   name: string;
-  you: boolean;
-}) {
+
+  /** User is the currently logged in user */
+  isLoggedInUser: boolean;
+}
+
+/**
+ * UserItem component.
+ */
+export function UserItem({
+  name,
+  isLoggedInUser: loggedInUser,
+}: UserItemProps) {
   return (
     <Group noWrap title={name}>
       <Avatar radius="xl" size="sm" />{" "}
@@ -25,7 +34,7 @@ export default function UserItem({
       >
         {name}
       </Box>
-      {you ? (
+      {loggedInUser ? (
         <Badge color="violet" variant="light">
           You
         </Badge>

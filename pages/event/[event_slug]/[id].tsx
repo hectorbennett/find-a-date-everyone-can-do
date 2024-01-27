@@ -6,17 +6,15 @@ import EventContext, { EventInterface } from "@/app/event";
 import { fetchEvent } from "@/app/api";
 import { from_base_64, is_uuid_v4, to_base_64 } from "@/utils/parse_uuids";
 import { slugify } from "@/utils/slugify";
-import { EditEvent } from "@/components/pages/EditEvent";
+import { EditEventPage } from "@/components/pages";
 
 /**
- *
- * @param root0
- * @param root0.event
+ * Event page
  */
 export default function Event({ event }: { event: EventInterface }) {
   return (
     <EventContext.Provider initialState={{ event: event }}>
-      <EditEvent />
+      <EditEventPage />
     </EventContext.Provider>
   );
 }
