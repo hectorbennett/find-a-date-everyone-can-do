@@ -1,10 +1,10 @@
 import EventContext from "@/app/event";
-import Card from "../card";
 import { Title, Text, Group, Stack } from "@mantine/core";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 import ShareButton from "../share_button";
+import { Card } from "../atoms";
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 

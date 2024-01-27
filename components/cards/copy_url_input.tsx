@@ -6,9 +6,8 @@ import {
   Box,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
-
-import Card from "../card";
 import { useNavigatorShare } from "@/app/utils";
+import { Card } from "@/components/atoms";
 
 /**
  *

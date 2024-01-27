@@ -1,6 +1,6 @@
-import Card from "../card";
 import EventContext from "@/app/event";
 import { Box, Button } from "@mantine/core";
+import { Card } from "../atoms";
 
 /**
  *

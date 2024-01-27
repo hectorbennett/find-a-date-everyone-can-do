@@ -4,8 +4,7 @@ dayjs.extend(minMax);
 
 import EventContext, { CalendarDate } from "@/app/event";
 import SavingStatus from "../saving_status";
-import Card from "../card";
-import { Calendar } from "../atoms";
+import { Card, Calendar } from "@/components/atoms";
 
 /**
  *

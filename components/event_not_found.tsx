@@ -1,5 +1,5 @@
 import { Button, Stack } from "@mantine/core";
-import Card from "./card";
+import Card from "./atoms/Card/Card";
 import Link from "next/link";
 
 /**

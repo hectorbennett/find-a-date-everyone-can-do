@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { Box, Button, Group, Table, ThemeIcon } from "@mantine/core";
 import { IconCalendar, IconStarFilled } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 dayjs.extend(isSameOrAfter);
-
 import EventContext from "@/app/event";
-import Card from "../card";
-import { useState } from "react";
-import { UserCountBadge } from "../atoms";
+import { Card, UserCountBadge } from "@/components/atoms";
 
 /**
  *
