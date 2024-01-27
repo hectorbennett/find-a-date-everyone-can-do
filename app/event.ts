@@ -25,6 +25,7 @@ export interface User {
   name: string;
   dates: UserDates;
 }
+
 export type UserDates = Array<string>;
 
 export interface CalendarDate {
@@ -61,14 +62,13 @@ function useEvent(
   );
 
   const currentUserId: string | null =
-    app.recentEvents[eventData.id]?.userId || null;
+    app.recentEvents.find((recentEvent) => recentEvent.eventId === eventData.id)
+      ?.userId || null;
 
   const currentUser =
     currentUserId && eventData ? eventData.users[currentUserId] : null;
 
   const calendarDates = getCalendarDates(eventData, currentUserId);
-
-  const [focusedMonth, setFocusedMonth] = useState(calendarDates);
 
   const createEvent = async (eventName: string) => {
     return await api.create_event(eventName);
@@ -162,10 +162,6 @@ function useEvent(
     });
   };
 
-  const logout = () => {
-    // setCurrentUserId(null);
-  };
-
   const users =
     Object.fromEntries(
       Object.entries(eventData?.users || {}).filter(
@@ -201,7 +197,6 @@ function useEvent(
     getUserByName,
     createNewUser,
     login,
-    logout,
   };
 }
 

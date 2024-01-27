@@ -74,6 +74,9 @@ export const useSwipe = (input: SwipeInput): SwipeOutput => {
   };
 };
 
+/**
+ * Check if the browser exposes the navigator share feature (e.g. on mobiles).
+ */
 export const useNavigatorShare = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [canShare, setCanShare] = useState(false);
