@@ -1,7 +1,7 @@
 import { Stack, Title } from "@mantine/core";
-import Card from "@/components/card";
 import CreateEvent from "@/components/create_event";
 import RecentEvents from "@/components/cards/recent_events";
+import { Card } from "@/components/atoms";
 
 /**
  * This component renders the 'New event' title component that exists on the home screen for creating a new event.

@@ -1,10 +1,14 @@
+/**
+ * _app.tsx
+ */
+
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
-import Layout from "@/components/layout";
 import AppContext from "@/app/app";
-import { belanosima, open_sans } from "../app/fonts";
+import { belanosima, open_sans } from "@/app/fonts";
+import { Layout } from "@/components/atoms";
 
 /**
  *

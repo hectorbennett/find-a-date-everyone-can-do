@@ -1,10 +1,14 @@
+/**
+ * Calendar.tsx
+ */
+
 import { useState } from "react";
-import { ActionIcon, Box, Text, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
-import Swiper from "../swiper";
-import Day from "./day";
+import { ActionIcon, Box, Text, Title } from "@mantine/core";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { Swiper } from "@/components/atoms";
+import { CalendarDay } from "./CalendarDay";
 
 type GetDayProps = (date: Dayjs) => {
   isSelected: boolean;
@@ -27,10 +31,7 @@ interface CalendarProps {
  * @param root0.getDayProps
  * @param root0.initialFocusedDate
  */
-export default function Calendar({
-  getDayProps,
-  initialFocusedDate,
-}: CalendarProps) {
+export function Calendar({ getDayProps, initialFocusedDate }: CalendarProps) {
   const [monthIndex, setMonthIndex] = useState(
     Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
   );
@@ -124,7 +125,7 @@ export function CalendarTable({
           {week.map((d) => {
             const props = getDayProps(d);
             return (
-              <Day
+              <CalendarDay
                 key={d}
                 date={d}
                 isOutside={!d.isSame(date, "month")}

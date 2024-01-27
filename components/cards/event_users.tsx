@@ -1,7 +1,7 @@
 import EventContext from "@/app/event";
-import Card from "../card";
 import { Table, createStyles } from "@mantine/core";
 import UserItem from "../user_item";
+import { Card } from "../atoms";
 
 const useStyles = createStyles((_theme) => ({
   td: {

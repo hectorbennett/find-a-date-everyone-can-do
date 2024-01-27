@@ -1,11 +1,13 @@
-import { NavLink } from "@mantine/core";
-import AppContext from "@/app/app";
-import Card from "../card";
-
 import dayjs from "dayjs";
+dayjs.extend(relativeTime);
+
+import { NavLink } from "@mantine/core";
+
+import AppContext from "@/app/app";
+import { Card } from "@/components/atoms";
+
 import relativeTime from "dayjs/plugin/relativeTime";
 import { get_event_url } from "@/utils/get_event_url";
-dayjs.extend(relativeTime);
 
 /**
  *

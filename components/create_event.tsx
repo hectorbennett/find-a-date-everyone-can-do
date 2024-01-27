@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import Card from "@/components/card";
+import { Card } from "@/components/atoms";
 import * as api from "@/app/api";
 import { to_base_64 } from "@/utils/parse_uuids";
 import { slugify } from "@/utils/slugify";

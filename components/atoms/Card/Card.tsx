@@ -1,3 +1,7 @@
+/**
+ * Card.tsx
+ */
+
 import { Text, Card as MantineCard, Stack, Title } from "@mantine/core";
 import type { ReactNode } from "react";
 
@@ -14,7 +18,7 @@ interface CardProps {
  * @param root0.note
  * @param root0.children
  */
-export default function Card({ title, note, children }: CardProps) {
+export function Card({ title, note, children }: CardProps) {
   return (
     <MantineCard
       shadow="none"

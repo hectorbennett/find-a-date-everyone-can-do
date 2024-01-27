@@ -1,7 +1,7 @@
 import { Button, TextInput, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import EventContext from "@/app/event";
-import Card from "../card";
+import { Card } from "../atoms";
 
 /**
  *
