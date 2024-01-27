@@ -11,7 +11,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 import { Card } from "../Card";
-import { ShareButton } from "../ShareButton";
+import { MobileShareButton } from "../MobileShareButton";
 
 /**
  * Event title props
@@ -53,7 +53,7 @@ export function EventTitle({
           </Text>
         </Stack>
         {showMobileShareButton && (
-          <ShareButton onClickShare={onClickMobileShare} />
+          <MobileShareButton onClickShare={onClickMobileShare} />
         )}
       </Group>
     </Card>

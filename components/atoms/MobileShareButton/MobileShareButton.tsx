@@ -14,9 +14,9 @@ interface ShareButtonProps {
 }
 
 /**
- * Share Button component
+ * Share Button component for mobile.
  */
-export function ShareButton({ onClickShare }: ShareButtonProps) {
+export function MobileShareButton({ onClickShare }: ShareButtonProps) {
   return (
     <Button leftIcon={<IconShare />} onClick={onClickShare}>
       Invite

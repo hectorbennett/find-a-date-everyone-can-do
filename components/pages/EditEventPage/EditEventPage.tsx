@@ -3,20 +3,28 @@
  */
 
 import dayjs from "dayjs";
+import minMax from "dayjs/plugin/minMax";
+dayjs.extend(minMax);
+
 import Head from "next/head";
 import { Grid, Stack } from "@mantine/core";
 import { useShallowEffect } from "@mantine/hooks";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
-import EventContext from "@/app/event";
+import EventContext, { CalendarDate } from "@/app/event";
 
-import { Calendar, EventUsers, InviteUsers } from "@/components/cards";
 import {
   BestDates,
+  Calendar,
+  Card,
   CreateNewUserOrLoginModal,
+  DesktopShareButton,
   EventTitle,
+  EventUsers,
 } from "@/components/atoms";
 import { useEffect, useRef, useState } from "react";
+import { useNavigatorShare } from "@/app/utils";
+import SavingStatus from "@/components/SavingStatus";
 
 dayjs.extend(localizedFormat);
 
@@ -69,7 +77,7 @@ function MainContent() {
           },
         })}
       >
-        <Calendar />
+        <CalendarCardWrapped />
       </Grid.Col>
       <Grid.Col
         md={5}
@@ -80,8 +88,8 @@ function MainContent() {
         })}
       >
         <Stack spacing={5}>
-          <InviteUsers />
-          <EventUsers />
+          <DesktopShareButtonWrapped />
+          <EventUsersWrapped />
           <BestDatesWrapped />
         </Stack>
       </Grid.Col>
@@ -102,18 +110,27 @@ const BestDatesWrapped = () => {
 
 /** Event title component, provided with state. */
 const EventTitleWrapped = () => {
-  // TODO
   const event = EventContext.useContainer();
+  const { canShare, shareData } = useNavigatorShare();
   if (event.name === null) {
     return;
   }
+  /** Open the phone share feature.  */
+  const share = async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (e: any) {
+      if (e.toString().includes("AbortError")) {
+        return;
+      }
+    }
+  };
   return (
     <EventTitle
       name={event.name}
       creationDate={event.creationDate}
-      // TODO
-      showMobileShareButton={true}
-      onClickMobileShare={() => {}}
+      showMobileShareButton={canShare}
+      onClickMobileShare={share}
     />
   );
 };
@@ -140,3 +157,83 @@ const CreateNewUserOrLoginModalWrapped = () => {
     />
   );
 };
+
+/** Desktop share button - only show if we can't show the mobile share button. */
+const DesktopShareButtonWrapped = () => {
+  const { isLoading, canShare } = useNavigatorShare();
+  if (isLoading || canShare) {
+    return null;
+  }
+  return <DesktopShareButton url={window.location.href} />;
+};
+
+/** Event users component, wrapped with state. */
+const EventUsersWrapped = () => {
+  const event = EventContext.useContainer();
+  return (
+    <EventUsers
+      users={Object.values(event.users)}
+      currentUserId={event.currentUser?.id || null}
+    />
+  );
+};
+
+/**
+ *
+ */
+function CalendarWrapped() {
+  const event = EventContext.useContainer();
+
+  const handleSelect = (date: CalendarDate) => {
+    if (date.isSelected) {
+      event.deselectDate(date.date);
+    } else {
+      event.selectDate(date.date);
+    }
+  };
+
+  const thisMonth = dayjs().startOf("month");
+
+  const firstSelectedMonth = (() => {
+    const firstCalendarDate = event.calendarDates[0];
+    if (firstCalendarDate === undefined) {
+      return null;
+    }
+    return firstCalendarDate.date.startOf("month");
+  })();
+
+  const initialFocusedDate =
+    dayjs.max(thisMonth, firstSelectedMonth || thisMonth) || thisMonth;
+
+  return (
+    <Calendar
+      initialFocusedDate={initialFocusedDate}
+      getDayProps={(d) => {
+        const calendarDate = event.getCalendarDate(d);
+        return {
+          isSelected: calendarDate.isSelected,
+          isToday: calendarDate.isToday,
+          isInPast: calendarDate.isInPast,
+          onClick: () => handleSelect(calendarDate),
+          selectionCount: calendarDate.users.length,
+          heat: calendarDate.heat,
+        };
+      }}
+    />
+  );
+}
+
+/**
+ *
+ */
+function CalendarCardWrapped() {
+  return (
+    <Card
+      title="Calendar"
+      note={`Select the dates you are available. A black outline indicates you have selected that date. The shade of green indicates how many people have selected that date. Darker is better.`}
+    >
+      <CalendarWrapped />
+      <SavingStatus />
+    </Card>
+  );
+}

@@ -81,29 +81,27 @@ export function CreateNewUserOrLoginModal({
       onClose={() => {}}
       title="Enter your name to continue"
     >
-      <Card title="Enter your name" note="Enter the name you want to use.">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Stack spacing="sm" p="xs">
-            <TextInput
-              list="users"
-              size="md"
-              autoFocus
-              placeholder="E.g. Bob Smith"
-              {...form.getInputProps("userName")}
-            />
-            <datalist id="users">
-              {users.map((user) => (
-                <option key={user.id}>{user.name}</option>
-              ))}
-            </datalist>
-            <Button type="submit">
-              {existingUser
-                ? `Log back in as ${form.values.userName}`
-                : "Continue"}
-            </Button>
-          </Stack>
-        </form>
-      </Card>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack spacing="sm" p="xs">
+          <TextInput
+            list="users"
+            size="md"
+            autoFocus
+            placeholder="E.g. Bob Smith"
+            {...form.getInputProps("userName")}
+          />
+          <datalist id="users">
+            {users.map((user) => (
+              <option key={user.id}>{user.name}</option>
+            ))}
+          </datalist>
+          <Button type="submit">
+            {existingUser
+              ? `Log back in as ${form.values.userName}`
+              : "Continue"}
+          </Button>
+        </Stack>
+      </form>
     </Modal>
   );
 }

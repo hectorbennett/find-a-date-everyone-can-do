@@ -1,6 +1,10 @@
-import EventContext from "@/app/event";
+/**
+ * EventUsers.tsx
+ */
+
 import { Table, createStyles } from "@mantine/core";
-import { Card, UserItem } from "../atoms";
+import { UserItem } from "../UserItem";
+import { Card } from "../Card";
 
 const useStyles = createStyles((_theme) => ({
   td: {
@@ -8,14 +12,21 @@ const useStyles = createStyles((_theme) => ({
   },
 }));
 
+/** Props for the event users component */
+interface EventUsersProps {
+  /** A list of users. */
+  users: Array<{ id: string; name: string }>;
+  /** The current logged in user. */
+  currentUserId: string | null;
+}
+
 /**
- *
+ * Event users.
  */
-export default function EventUsers() {
-  const event = EventContext.useContainer();
+export function EventUsers({ users, currentUserId }: EventUsersProps) {
   const { classes } = useStyles();
 
-  const rows = Object.values(event.users)
+  const rows = users
     .sort((a, b) => {
       if (a.name > b.name) {
         return 1;
@@ -27,7 +38,7 @@ export default function EventUsers() {
         <td className={classes.td}>
           <UserItem
             name={user.name}
-            isLoggedInUser={user.id === event.currentUser?.id}
+            isLoggedInUser={user.id === currentUserId}
           />
         </td>
       </tr>

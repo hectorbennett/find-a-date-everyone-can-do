@@ -3,12 +3,12 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { ShareButton } from "./ShareButton";
+import { MobileShareButton } from "./MobileShareButton";
 
 const meta = {
-  component: ShareButton,
+  component: MobileShareButton,
   tags: ["autodocs"],
-} satisfies Meta<typeof ShareButton>;
+} satisfies Meta<typeof MobileShareButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

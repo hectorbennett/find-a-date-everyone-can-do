@@ -1,3 +1,7 @@
+/**
+ * DesktopShareButton
+ */
+
 import {
   CopyButton as MantineCopyButton,
   ActionIcon,
@@ -6,15 +10,20 @@ import {
   Box,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
-import { useNavigatorShare } from "@/app/utils";
 import { Card } from "@/components/atoms";
 
+/** props for the copy url button */
+interface CopyUrlButtonProps {
+  /** The url */
+  url: string;
+}
+
 /**
- *
+ * The copy url button
  */
-function CopyButton() {
+function CopyUrlButton({ url }: CopyUrlButtonProps) {
   return (
-    <MantineCopyButton value={window.location.href} timeout={2000}>
+    <MantineCopyButton value={url} timeout={2000}>
       {({ copied, copy }) => (
         <Input
           component="div"
@@ -39,7 +48,7 @@ function CopyButton() {
             </Tooltip>
           }
         >
-          {window.location.href}
+          {url}
         </Input>
       )}
     </MantineCopyButton>
@@ -47,21 +56,16 @@ function CopyButton() {
 }
 
 /**
- *
+ * Share button for desktop.
  */
-export default function CopyUrlInputCard() {
-  const { isLoading, canShare } = useNavigatorShare();
-  if (isLoading || canShare) {
-    return null;
-  }
-
+export function DesktopShareButton({ url }: CopyUrlButtonProps) {
   return (
     <Card
       title="Invite others"
       note="Invite other guests to select their dates by sharing the current url."
     >
       <Box p="xs">
-        <CopyButton />
+        <CopyUrlButton url={url} />
       </Box>
     </Card>
   );
