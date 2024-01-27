@@ -6,7 +6,7 @@ import { SimpleGrid, Title } from "@mantine/core";
 import { Container } from "@/components/atoms";
 
 /**
- * Not found page. TODO: add to storybook
+ * Not found page.
  */
 export default function NotFoundPage() {
   return (

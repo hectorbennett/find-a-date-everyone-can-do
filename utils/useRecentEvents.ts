@@ -37,8 +37,8 @@ interface UseRecentEventsReturn {
 }
 
 /**
- *
- * @returns Recent events and
+ * React Hook for viewing and logging recent events.
+ * @returns a list of recent events and a function to log a new recent event.
  */
 export const useRecentEvents = (): UseRecentEventsReturn => {
   // a mapping of event ids to events

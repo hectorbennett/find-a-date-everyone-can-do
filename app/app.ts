@@ -1,5 +1,8 @@
+/**
+ * app.ts
+ */
+
 import { createContainer } from "unstated-next";
-import { useLocalStorage } from "@mantine/hooks";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useState } from "react";

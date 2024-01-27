@@ -142,6 +142,9 @@ const CreateNewUserOrLoginModalWrapped = () => {
   // open after a little pause.
   const [isOpen, setIsOpened] = useState(false);
   let timeout = useRef(setTimeout(() => {}));
+
+  const loggedIn = Boolean(event.currentUser?.id);
+
   useEffect(() => {
     timeout.current = setTimeout(() => {
       setIsOpened(true);
@@ -153,7 +156,7 @@ const CreateNewUserOrLoginModalWrapped = () => {
       users={Object.values(event.users)}
       onLogin={event.login}
       onCreateNewUser={event.createNewUser}
-      isOpen={isOpen}
+      isOpen={isOpen && !loggedIn}
     />
   );
 };
