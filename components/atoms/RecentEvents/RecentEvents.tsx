@@ -25,7 +25,7 @@ interface RecentEventsProps {
  */
 export function RecentEvents({ events }: RecentEventsProps) {
   const sortedDates = events.sort((a, b) =>
-    a.lastLoginDate.isAfter(b.lastLoginDate) ? -1 : 1
+    a.lastLoginDate.isAfter(b.lastLoginDate) ? -1 : 1,
   );
 
   return (

@@ -55,7 +55,7 @@ export const useRecentEvents = (): UseRecentEventsReturn => {
         eventName,
         userId,
         lastLoginDate: dayjs(lastLoginDate),
-      })
+      }),
     ),
     logRecentEvent: ({ eventId, eventName, userId }) => {
       setRecentRawEvents((r) => ({

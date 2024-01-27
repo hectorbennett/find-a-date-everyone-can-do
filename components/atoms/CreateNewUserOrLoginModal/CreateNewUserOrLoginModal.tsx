@@ -41,7 +41,6 @@ export function CreateNewUserOrLoginModal({
   onCreateNewUser,
   isOpen,
 }: CreateNewUserOrLoginModalProps) {
-
   const form = useForm<FormValues>({
     initialValues: {
       userName: "",
