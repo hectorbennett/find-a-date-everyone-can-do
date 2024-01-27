@@ -1,1 +1,1 @@
-export { DesktopShareButton } from "./DesktopShareButton"
+export { DesktopShareButton } from "./DesktopShareButton";
