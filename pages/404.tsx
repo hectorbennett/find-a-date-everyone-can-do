@@ -2,18 +2,11 @@
  * 404.tsx
  */
 
-import { SimpleGrid, Title } from "@mantine/core";
-import { Container } from "@/components/atoms";
+import { EventNotFound } from "@/components/atoms";
 
 /**
- * Not found page.
+ * Custom 404
  */
-export default function NotFoundPage() {
-  return (
-    <Container>
-      <SimpleGrid spacing="md" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        <Title>Page not found :(</Title>
-      </SimpleGrid>
-    </Container>
-  );
+export default function Custom404() {
+  return <EventNotFound createNewEventUrl={"/"} />;
 }
