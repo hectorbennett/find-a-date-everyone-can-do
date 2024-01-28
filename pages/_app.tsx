@@ -4,11 +4,11 @@
 
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
 import AppContext from "@/app/app";
 import { belanosima, open_sans } from "@/app/fonts";
 import { Layout } from "@/components/atoms";
+import { MantineProvider } from "@/components/MantineProvider";
 
 /**
  *
@@ -38,27 +38,7 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          globalStyles: (theme) => ({
-            "input::-webkit-calendar-picker-indicator": {
-              display: "none !important",
-            },
-            "html, body": {
-              overflowX: "hidden",
-              width: "auto!important",
-            },
-          }),
-          fontFamily: open_sans.style.fontFamily,
-          colorScheme: "light",
-          headings: {
-            fontFamily: belanosima.style.fontFamily,
-            fontWeight: 400,
-          },
-        }}
-      >
+      <MantineProvider>
         <AppContext.Provider>
           <Layout>
             <main

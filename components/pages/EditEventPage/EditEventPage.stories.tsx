@@ -10,6 +10,13 @@ import { EditEventPage } from "./EditEventPage";
 const meta = {
   component: EditEventPage,
   tags: ["autodocs"],
+} satisfies Meta<typeof EditEventPage>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const LoggedOut: Story = {
+  args: {},
   decorators: [
     (Story) => (
       <AppContext.Provider>
@@ -19,11 +26,4 @@ const meta = {
       </AppContext.Provider>
     ),
   ],
-} satisfies Meta<typeof EditEventPage>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const LoggedOut: Story = {
-  args: {},
 };

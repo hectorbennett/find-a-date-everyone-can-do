@@ -32,11 +32,7 @@ export function Card({ title, note, children }: CardProps) {
         <MantineCard.Section withBorder p="xs">
           <Stack spacing="xs">
             {title && <Title order={3}>{title}</Title>}
-            {note && (
-              <Text c="dimmed" fz="sm">
-                {note}
-              </Text>
-            )}
+            {note && <Text fz="sm">{note}</Text>}
           </Stack>
         </MantineCard.Section>
       )}

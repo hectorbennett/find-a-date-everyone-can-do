@@ -176,7 +176,9 @@ const EventUsersWrapped = () => {
   return (
     <EventUsers
       users={Object.values(event.users)}
-      currentUserId={event.currentUser?.id || null}
+      loggedInUserId={event.currentUser?.id || null}
+      focusedUserId={event.focusedUserId}
+      onFocusUser={event.focusUser}
     />
   );
 };

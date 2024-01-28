@@ -61,6 +61,8 @@ function useEvent(
     initialState.event,
   );
 
+  const [focusedUserId, focusUser] = useState<string | null>(null);
+
   const currentUserId: string | null =
     app.recentEvents.find((recentEvent) => recentEvent.eventId === eventData.id)
       ?.userId || null;
@@ -197,6 +199,8 @@ function useEvent(
     getUserByName,
     createNewUser,
     login,
+    focusedUserId,
+    focusUser,
   };
 }
 

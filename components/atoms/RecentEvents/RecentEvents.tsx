@@ -33,6 +33,14 @@ export function RecentEvents({ events }: RecentEventsProps) {
       {sortedDates.map((event) => (
         <NavLink
           component="a"
+          styles={(theme) => ({
+            label: {
+              fontWeight: "bold",
+            },
+            description: {
+              color: "black",
+            },
+          })}
           href={get_event_url({ id: event.eventId, name: event.eventName })}
           key={event.eventId}
           label={event.eventName}

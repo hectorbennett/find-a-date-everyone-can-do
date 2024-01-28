@@ -41,7 +41,7 @@ export default function SavingStatus() {
 
   if (!showSavingSpinner && showIsSavedNote) {
     return (
-      <Text c="dimmed" fz="sm" p="xs" align="right">
+      <Text fz="sm" p="xs" align="right">
         All changes saved
       </Text>
     );

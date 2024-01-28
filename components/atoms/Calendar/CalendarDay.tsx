@@ -2,55 +2,76 @@
  * CalendarDay.tsx
  */
 
-import { getHeatColour } from "../../../app/utils";
 import { Box, Text, UnstyledButton } from "@mantine/core";
 import type { Dayjs } from "dayjs";
+import { getHeatColour } from "@/app/utils";
+import chroma from "chroma-js";
 
-const getBackgroundColour = (heat: number, outside: boolean) => {
-  if (heat) {
-    return getHeatColour(heat);
-  } else if (outside) {
-    return "lightgrey";
-  }
-  return "#dbdef7";
+interface GetBackgroundColourArgs {
+  heat: number;
+  isOutsideActiveMonth: boolean;
+  isInPast: boolean;
+}
+
+/**
+ * Get the calendar day background colour. TODO: do with pure css.
+ */
+const getBackgroundColour = ({
+  heat,
+  isOutsideActiveMonth,
+  isInPast,
+}: GetBackgroundColourArgs) => {
+  let initialColour = (() => {
+    if (heat) {
+      return getHeatColour(heat);
+    } else if (isOutsideActiveMonth) {
+      return "lightgrey";
+    }
+    return "#dbdef7";
+  })();
+
+  // if (isInPast) {
+  //   return chroma(initialColour).darken(0).desaturate(1).toString();
+  // }
+  return initialColour;
 };
 
+/** Props for a calendar day. */
 interface DayProps {
   date: Dayjs;
-  isOutside: boolean;
+  isOutsideActiveMonth: boolean;
   isSelected: boolean;
   isInPast: boolean;
   isToday: boolean;
   heat: number;
   selectionCount: number;
   onClick: () => void;
+  /** Whether the focus user has selected this day or not. */
+  isSelectedByFocusedUser: boolean;
 }
 
 /**
- *
- * @param root0
- * @param root0.date
- * @param root0.isOutside
- * @param root0.isSelected
- * @param root0.isInPast
- * @param root0.isToday
- * @param root0.heat
- * @param root0.onClick
+ * Calendar day component
  */
 export function CalendarDay({
   date,
-  isOutside,
+  isOutsideActiveMonth,
   isSelected,
   isInPast,
   isToday,
   heat,
   onClick,
+  isSelectedByFocusedUser,
 }: DayProps) {
   return (
     <UnstyledButton
+      aria-label={date.format("LL")}
       style={{
-        background: getBackgroundColour(heat, isOutside),
-        opacity: isInPast ? 0.2 : 1,
+        background: getBackgroundColour({
+          heat,
+          isOutsideActiveMonth,
+          isInPast,
+        }),
       }}
       onClick={onClick}
       sx={(theme) => ({
@@ -66,16 +87,20 @@ export function CalendarDay({
         },
         display: "flex",
         flexDirection: "column",
-        border: isSelected ? "1px solid black" : "1px solid transparent",
-        // opacity: date 0.5,
+        border: isSelectedByFocusedUser
+          ? "5px solid #4c6ef5"
+          : isSelected
+            ? "1px solid black"
+            : "1px solid transparent",
       })}
     >
       <Box sx={{ position: "absolute" }}>
         <DayLabel
           date={date}
-          isOutside={isOutside}
+          isOutside={isOutsideActiveMonth}
           isSelected={isSelected}
           isToday={isToday}
+          isInPast={isInPast}
         />
         <Box
           sx={{
@@ -103,11 +128,13 @@ function DayLabel({
   isOutside,
   isSelected,
   isToday,
+  isInPast,
 }: {
   date: Dayjs;
   isOutside: boolean;
   isSelected: boolean;
   isToday: boolean;
+  isInPast: boolean;
 }) {
   return (
     <Box
@@ -115,7 +142,7 @@ function DayLabel({
         width: "100%",
         padding: 8,
         fontSize: theme.fontSizes.xs,
-        fontWeight: "bold",
+        fontWeight: isInPast ? "normal" : "bold",
         color: isOutside ? "grey" : "black",
       })}
     >
