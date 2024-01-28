@@ -1,5 +1,5 @@
 /**
- * _app.tsx
+ * MantineProvider.tsx
  */
 
 import { MantineProvider as MantineProviderOrig } from "@mantine/core";
@@ -10,6 +10,9 @@ interface MantineProvider {
   children: ReactNode;
 }
 
+/**
+ * MantineProvider with applied theme changes.
+ */
 export const MantineProvider = ({ children }: MantineProvider) => {
   return (
     <MantineProviderOrig
