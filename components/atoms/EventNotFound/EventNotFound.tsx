@@ -17,7 +17,7 @@ interface EventNotFoundProps {
  */
 export function EventNotFound({ createNewEventUrl }: EventNotFoundProps) {
   return (
-    <Card title="Event not found" note="It may have expired.">
+    <Card title="Event not found :(" note="Perhaps it expired?">
       <Stack spacing="sm">
         <Link href={createNewEventUrl} passHref>
           <Button component="a" fullWidth>

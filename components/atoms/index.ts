@@ -14,3 +14,4 @@ export { RecentEvents } from "./RecentEvents";
 export { Swiper } from "./Swiper";
 export { UserCountBadge } from "./UserCountBadge";
 export { UserItem } from "./UserItem";
+export { EventNotFound } from "./EventNotFound";
