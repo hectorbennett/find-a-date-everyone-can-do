@@ -25,7 +25,7 @@ interface RecentEventsProps {
  */
 export function RecentEvents({ events }: RecentEventsProps) {
   const sortedDates = events.sort((a, b) =>
-    a.lastLoginDate.isAfter(b.lastLoginDate) ? -1 : 1,
+    a.lastLoginDate.isAfter(b.lastLoginDate) ? -1 : 1
   );
 
   return (
@@ -33,6 +33,14 @@ export function RecentEvents({ events }: RecentEventsProps) {
       {sortedDates.map((event) => (
         <NavLink
           component="a"
+          styles={(theme) => ({
+            label: {
+              fontWeight: "bold",
+            },
+            description: {
+              color: "black",
+            },
+          })}
           href={get_event_url({ id: event.eventId, name: event.eventName })}
           key={event.eventId}
           label={event.eventName}

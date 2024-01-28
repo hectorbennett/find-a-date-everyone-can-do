@@ -33,7 +33,7 @@ interface CalendarProps {
  */
 export function Calendar({ getDayProps, initialFocusedDate }: CalendarProps) {
   const [monthIndex, setMonthIndex] = useState(
-    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month")),
+    Math.floor(initialFocusedDate.diff(dayjs().startOf("month"), "month"))
   );
 
   return (
@@ -78,10 +78,14 @@ function MonthHeader({
       <Title order={3} weight={300} sx={{ flex: 1 }}>
         {date.format("MMMM YYYY")}
       </Title>
-      <ActionIcon size="xl" onClick={onClickPrevious}>
+      <ActionIcon
+        size="xl"
+        onClick={onClickPrevious}
+        aria-label="Previous month"
+      >
         <IconChevronLeft size="1rem" />
       </ActionIcon>
-      <ActionIcon size="xl" onClick={onClickNext}>
+      <ActionIcon size="xl" onClick={onClickNext} aria-label="Next month">
         <IconChevronRight size="1rem" />
       </ActionIcon>
     </Box>
@@ -105,7 +109,7 @@ export function CalendarTable({
   const dayOfWeekofFirstDayofMonth = firstDayOfMonth.day();
   const firstDateOnCalendar = firstDayOfMonth.subtract(
     dayOfWeekofFirstDayofMonth - 1,
-    "day",
+    "day"
   );
   const daysBeforeMonth = dayOfWeekofFirstDayofMonth - 1;
   const daysInMonth = date.daysInMonth();
@@ -128,13 +132,14 @@ export function CalendarTable({
               <CalendarDay
                 key={d}
                 date={d}
-                isOutside={!d.isSame(date, "month")}
+                isOutsideActiveMonth={!d.isSame(date, "month")}
                 isSelected={props.isSelected}
                 isInPast={props.isInPast}
                 isToday={props.isToday}
                 heat={props.heat}
                 selectionCount={props.selectionCount}
                 onClick={props.onClick}
+                isSelectedByFocusedUser={false}
               />
             );
           })}

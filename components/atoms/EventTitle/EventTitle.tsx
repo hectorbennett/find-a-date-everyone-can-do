@@ -48,9 +48,7 @@ export function EventTitle({
           <Title order={2} weight={400}>
             {name}
           </Title>
-          <Text c="dimmed" fz="sm">
-            {note}
-          </Text>
+          <Text fz="sm">{note}</Text>
         </Stack>
         {showMobileShareButton && (
           <MobileShareButton onClickShare={onClickMobileShare} />

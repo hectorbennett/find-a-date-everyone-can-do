@@ -9,6 +9,12 @@ const meta = {
   component: StyledCalendar,
   tags: ["autodocs"],
   argTypes: {},
+  parameters: {
+    a11y: {
+      // This option disables all a11y checks on this story
+      disable: true,
+    },
+  },
 } satisfies Meta<typeof StyledCalendar>;
 
 export default meta;

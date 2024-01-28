@@ -17,13 +17,22 @@ interface EventUsersProps {
   /** A list of users. */
   users: Array<{ id: string; name: string }>;
   /** The current logged in user. */
-  currentUserId: string | null;
+  loggedInUserId: string | null;
+  /** The currently focused user. */
+  focusedUserId: string | null;
+  /** Callback to focus a specific user. */
+  onFocusUser: (userId: string | null) => void;
 }
 
 /**
  * Event users.
  */
-export function EventUsers({ users, currentUserId }: EventUsersProps) {
+export function EventUsers({
+  users,
+  loggedInUserId,
+  focusedUserId,
+  onFocusUser,
+}: EventUsersProps) {
   const { classes } = useStyles();
 
   const rows = users
@@ -38,7 +47,15 @@ export function EventUsers({ users, currentUserId }: EventUsersProps) {
         <td className={classes.td}>
           <UserItem
             name={user.name}
-            isLoggedInUser={user.id === currentUserId}
+            isLoggedInUser={user.id === loggedInUserId}
+            isFocused={user.id === focusedUserId}
+            onClick={() => {
+              if (user.id === focusedUserId) {
+                onFocusUser(null);
+              } else {
+                onFocusUser(user.id);
+              }
+            }}
           />
         </td>
       </tr>

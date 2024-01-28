@@ -42,7 +42,11 @@ function CopyUrlButton({ url }: CopyUrlButtonProps) {
               position="right"
               opened={copied}
             >
-              <ActionIcon color={copied ? "teal" : "gray"} onClick={copy}>
+              <ActionIcon
+                color={copied ? "teal" : "gray"}
+                onClick={copy}
+                aria-label="Copy url to clipboard"
+              >
                 {copied ? <IconCheck size="1rem" /> : <IconCopy size="1rem" />}
               </ActionIcon>
             </Tooltip>
