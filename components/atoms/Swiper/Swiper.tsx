@@ -1,5 +1,8 @@
 /**
  * Swiper.tsx
+ *
+ * TODO
+ * https://codesandbox.io/p/devbox/swiper-react-virtual-slides-86n5ny?file=%2Findex.html
  */
 
 import { ReactNode, useEffect, useRef } from "react";
@@ -55,7 +58,7 @@ export function Swiper({ index, setIndex, getContent }: SwiperProps) {
         api.start({ x: -index * roundedWidth });
       }
     },
-    { filterTaps: true, axis: "x" },
+    { filterTaps: true, axis: "x" }
   );
 
   const dragLeft = () => {
