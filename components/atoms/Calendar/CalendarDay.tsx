@@ -143,7 +143,8 @@ function DayLabel({
         padding: 8,
         fontSize: theme.fontSizes.xs,
         fontWeight: isInPast ? "normal" : "bold",
-        color: isOutside ? "grey" : "black",
+        // color: isOutside ? "grey" : "black",
+        color: "black",
       })}
     >
       <Box

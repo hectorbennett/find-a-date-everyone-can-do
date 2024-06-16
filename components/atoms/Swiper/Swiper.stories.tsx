@@ -3,14 +3,19 @@
  */
 
 import { ReactNode } from "react";
+import { fn } from "@storybook/test";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Box } from "@mantine/core";
+
 import { Swiper } from "./Swiper";
 
 const meta = {
   component: Swiper,
   tags: ["autodocs"],
   argTypes: {},
+  args: {
+    onSetIndex: fn(),
+  },
 } satisfies Meta<typeof Swiper>;
 
 export default meta;

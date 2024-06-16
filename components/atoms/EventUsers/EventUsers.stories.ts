@@ -4,10 +4,14 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { EventUsers } from "./EventUsers";
+import { fn } from "@storybook/test";
 
 const meta = {
   component: EventUsers,
   tags: ["autodocs"],
+  args: {
+    onFocusUser: fn(),
+  },
 } satisfies Meta<typeof EventUsers>;
 
 export default meta;
