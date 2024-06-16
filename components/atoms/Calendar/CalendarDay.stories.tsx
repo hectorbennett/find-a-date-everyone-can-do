@@ -115,3 +115,16 @@ export const IsInPast: Story = {
     isSelectedByFocusedUser: false,
   },
 };
+
+export const IsOutsideActiveMonth: Story = {
+  args: {
+    date: dayjs(),
+    isOutsideActiveMonth: true,
+    isSelected: false,
+    isInPast: true,
+    isToday: false,
+    heat: 0.5,
+    selectionCount: 0,
+    isSelectedByFocusedUser: false,
+  },
+};
