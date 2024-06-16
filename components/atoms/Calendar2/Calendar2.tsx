@@ -70,7 +70,7 @@ export function Calendar2({
       />
       <Swiper
         index={index}
-        setIndex={(i) => onNavigateToMonth(indexToMonth(i))}
+        onSetIndex={(i) => onNavigateToMonth(indexToMonth(i))}
         getContent={(i) => (
           <CalendarBody
             month={indexToMonth(i)}

@@ -2,6 +2,7 @@
  * CalendarGrid.stories.tsx
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { CalendarGrid } from "./CalendarGrid";
 
 const meta = {
@@ -14,6 +15,9 @@ const meta = {
       </div>
     ),
   ],
+  args: {
+    onClickDay: fn(),
+  },
 } satisfies Meta<typeof CalendarGrid>;
 
 export default meta;

@@ -3,6 +3,7 @@
  */
 import type { Meta, StoryObj } from "@storybook/react";
 import { CalendarDay } from "./CalendarDay";
+import { fn } from "@storybook/test";
 
 const meta = {
   component: CalendarDay,
@@ -14,6 +15,9 @@ const meta = {
       </div>
     ),
   ],
+  args: {
+    onClick: fn(),
+  },
 } satisfies Meta<typeof CalendarDay>;
 
 export default meta;

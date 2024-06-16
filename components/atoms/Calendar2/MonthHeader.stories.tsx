@@ -2,6 +2,7 @@
  * MonthHeader.stories.tsx
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { MonthHeader } from "./MonthHeader";
 
 const meta = {
@@ -21,6 +22,10 @@ const meta = {
       </div>
     ),
   ],
+  args: {
+    onClickNext: fn(),
+    onClickPrevious: fn(),
+  },
 } satisfies Meta<typeof MonthHeader>;
 
 export default meta;

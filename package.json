@@ -13,6 +13,8 @@
     "dev:ssl": "local-ssl-proxy --source 3001 --target 3000",
     "build": "next build",
     "start": "next start",
+    "check": "npm run type:check && npm run lint:check && npm run format:check",
+    "fix": "npm run lint && npm run format",
     "lint:check": "next lint",
     "lint": "next lint --fix",
     "type:check": "tsc",

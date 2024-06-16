@@ -2,11 +2,16 @@
  * CalendarGrid.stories.tsx
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { Calendar2 } from "./Calendar2";
 
 const meta = {
   component: Calendar2,
   tags: ["autodocs"],
+  args: {
+    onClickDay: fn(),
+    onNavigateToMonth: fn(),
+  },
 } satisfies Meta<typeof Calendar2>;
 
 export default meta;
