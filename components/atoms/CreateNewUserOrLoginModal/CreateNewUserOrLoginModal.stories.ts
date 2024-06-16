@@ -4,10 +4,15 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { CreateNewUserOrLoginModal } from "./CreateNewUserOrLoginModal";
+import { fn } from "@storybook/test";
 
 const meta = {
   component: CreateNewUserOrLoginModal,
   tags: ["autodocs"],
+  args: {
+    onCreateNewUser: fn(),
+    onLogin: fn(),
+  },
 } satisfies Meta<typeof CreateNewUserOrLoginModal>;
 
 export default meta;

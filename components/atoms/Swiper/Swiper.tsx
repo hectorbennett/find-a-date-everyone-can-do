@@ -10,7 +10,7 @@ import { useDrag } from "@use-gesture/react";
 
 interface SwiperProps {
   index: number;
-  setIndex: (index: number) => void;
+  onSetIndex: (index: number) => void;
   getContent: (index: number) => ReactNode;
 }
 
@@ -21,7 +21,7 @@ interface SwiperProps {
  * @param root0.setIndex
  * @param root0.getContent
  */
-export function Swiper({ index, setIndex, getContent }: SwiperProps) {
+export function Swiper({ index, onSetIndex, getContent }: SwiperProps) {
   const { ref, width } = useElementSize();
   const prevWidth = useRef(0);
   const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }));
@@ -55,15 +55,15 @@ export function Swiper({ index, setIndex, getContent }: SwiperProps) {
         api.start({ x: -index * roundedWidth });
       }
     },
-    { filterTaps: true, axis: "x" },
+    { filterTaps: true, axis: "x" }
   );
 
   const dragLeft = () => {
-    setIndex(index + 1);
+    onSetIndex(index + 1);
   };
 
   const dragRight = () => {
-    setIndex(index - 1);
+    onSetIndex(index - 1);
   };
 
   useEffect(() => {

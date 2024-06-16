@@ -3,11 +3,15 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import { UserItem } from "./UserItem";
 
 const meta = {
   component: UserItem,
   tags: ["autodocs"],
+  args: {
+    onClick: fn(),
+  },
 } satisfies Meta<typeof UserItem>;
 
 export default meta;

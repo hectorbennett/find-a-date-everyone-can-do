@@ -2,12 +2,17 @@
  * CalendarDay.stories.tsx
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import dayjs from "dayjs";
+
 import { CalendarDay } from "./CalendarDay";
 
 const meta = {
   component: CalendarDay,
   tags: ["autodocs"],
+  args: {
+    onClick: fn(),
+  },
   decorators: [
     (Story) => (
       <div style={{ width: 100 }}>
