@@ -45,7 +45,7 @@ export function Calendar({ getDayProps, initialFocusedDate }: CalendarProps) {
       />
       <Swiper
         index={monthIndex}
-        setIndex={setMonthIndex}
+        onSetIndex={setMonthIndex}
         getContent={(i) => (
           <CalendarTable
             date={dayjs().add(i, "month")}

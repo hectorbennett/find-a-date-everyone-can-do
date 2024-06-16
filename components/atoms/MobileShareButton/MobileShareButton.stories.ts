@@ -4,10 +4,14 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { MobileShareButton } from "./MobileShareButton";
+import { fn } from "@storybook/test";
 
 const meta = {
   component: MobileShareButton,
   tags: ["autodocs"],
+  args: {
+    onClickShare: fn(),
+  },
 } satisfies Meta<typeof MobileShareButton>;
 
 export default meta;

@@ -2,12 +2,17 @@
  * CalendarDay.stories.tsx
  */
 import type { Meta, StoryObj } from "@storybook/react";
+import { fn } from "@storybook/test";
 import dayjs from "dayjs";
+
 import { CalendarDay } from "./CalendarDay";
 
 const meta = {
   component: CalendarDay,
   tags: ["autodocs"],
+  args: {
+    onClick: fn(),
+  },
   decorators: [
     (Story) => (
       <div style={{ width: 100 }}>
@@ -102,6 +107,19 @@ export const IsInPast: Story = {
   args: {
     date: dayjs(),
     isOutsideActiveMonth: false,
+    isSelected: false,
+    isInPast: true,
+    isToday: false,
+    heat: 0.5,
+    selectionCount: 0,
+    isSelectedByFocusedUser: false,
+  },
+};
+
+export const IsOutsideActiveMonth: Story = {
+  args: {
+    date: dayjs(),
+    isOutsideActiveMonth: true,
     isSelected: false,
     isInPast: true,
     isToday: false,
