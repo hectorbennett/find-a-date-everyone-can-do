@@ -1,0 +1,63 @@
+/** Calendar Day styles */
+
+.calendarDay {
+  flex: 1;
+  background: white;
+  padding: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  font-weight: bold;
+  border-radius: 3px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  .selectedCheckbox {
+    width: 16px;
+    height: 16px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1px;
+  }
+
+  &:not(.isSelected) .selectedCheckbox {
+    display: none;
+  }
+
+  &.isOutsideOfCurrentMonth {
+    background-color: #f9f7ff;
+    color: #7d68b8;
+  }
+
+  &.heat1 {
+    background: #85c19c;
+    color: white;
+
+    .selectedCheckbox {
+      color: #85c19c;
+    }
+  }
+
+  &.heat2 {
+    background: #40a769;
+    color: white;
+
+    .selectedCheckbox {
+      color: #40a769;
+    }
+  }
+
+  &.heat3 {
+    background: #08602a;
+    color: white;
+
+    .selectedCheckbox {
+      color: #08602a;
+    }
+  }
+}
